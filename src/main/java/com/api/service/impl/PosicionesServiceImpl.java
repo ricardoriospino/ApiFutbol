@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.jpa.entity.PosicionesJPA;
@@ -77,6 +78,12 @@ public class PosicionesServiceImpl implements PosicionesService {
 	public List<PosicionesModel> obtenerPosiciones() {
 		
 		return convertidor.convertirListaPosiciones(repositorio.findAll());
+	}
+
+	@Override
+	public List<PosicionesModel> obtenerPosicionesPaginacion(Pageable paginacion) {
+	
+		return convertidor.convertirListaPosiciones(repositorio.findAll(paginacion).getContent());
 	}
 
 }

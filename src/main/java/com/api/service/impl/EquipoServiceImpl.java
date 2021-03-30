@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.jpa.entity.EquipoJPA;
@@ -87,6 +88,12 @@ public class EquipoServiceImpl implements EquipoService {
 	public EquipoModel obtenerEquipoPorNombre(String nombre) {
 		
 		return convertidor.convertirEquipoModel(repositorio.findByNombreEquipo(nombre));
+	}
+
+	@Override
+	public List<EquipoModel> obtenerEquiposPaginacion(Pageable paginacion) {
+		
+		return convertidor.convertirListaEquipo(repositorio.findAll(paginacion).getContent());
 	}
 
 }

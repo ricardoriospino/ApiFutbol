@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -86,6 +87,12 @@ public class JugadorServiceImpl implements JugadorService {
 	public JugadorModel obtenerJugadorPorDorsalyNacionalidad(int dorsal, String nacionalidad) {
 		
 		return convertidor.convertirJugadorModel(repositorio.findByDorsalAndNacionalidad(dorsal, nacionalidad));
+	}
+
+	@Override
+	public List<JugadorModel> obtenerJugadoresPaginacion(Pageable paginacion) {
+		
+		return  convertidor.convertirListaJugador(repositorio.findAll(paginacion).getContent()) ;
 	}
 
 }

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.jpa.entity.EntrenadorJPA;
@@ -98,6 +99,12 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	public EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad(String nombre, String nacionalidad) {
 		
 		return convertidor.convertirEntrenadorModel(repositorio.findByNombreEntrenadorAndNacionalidad(nombre, nacionalidad));
+	}
+
+	@Override
+	public List<EntrenadorModel> obtenerEntrenadoresPaginacion(Pageable paginacion) {
+		
+		return convertidor.convertirListaEntrenador(repositorio.findAll(paginacion).getContent());
 	}
 
 }
