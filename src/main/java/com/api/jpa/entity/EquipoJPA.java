@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 
 import com.api.model.entity.EquipoModel;
 
+
 @Entity
 @Table (name= "tb_equipo")
 public class EquipoJPA implements Serializable {
@@ -23,6 +24,9 @@ public class EquipoJPA implements Serializable {
 	@Column(name="id_equipo")
 	private int idEquipo;
 	
+	@Column(name="codigo_equipo" , nullable=false ,unique= true , length= 10 )
+	private String codigoEquipo;
+	
 	@Column (name="nombre_equipo" , nullable=false , length= 200 ,unique= true )
 	private String nombreEquipo;
 	
@@ -30,45 +34,53 @@ public class EquipoJPA implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date anioFundacion;
 	
-	@Column (name="anios_existencia" , nullable=false , length= 10 )
-	private int aniosExistencia;
-	
 	@Column (name="imagen_escudo" , nullable=false , length= 200 )
 	private String imagenEscudo;
 	
 	@Column (name="duenio_actual" , nullable=false , length= 100 )
 	private String duenioActual;
 	
-	@Column (name="patrocinador_oficial" , nullable=false , length= 100 )
-	private String patrocinadorOficial;
+	@Column (name="cantidad_titulo_nacional" , nullable=false ,length= 10 )
+	private int cantidadTituloNacional;
+	
+	@Column (name="cantidad_titulo_internacional" , nullable=false ,length= 10 )
+	private int cantidadTituloInternacional;
+	
+	@Column (name="patrocinador_principal" , nullable=false , length= 100 )
+	private String patrocinadorPrincipal;
 	
 	public EquipoJPA() {
 		
 	}
 
-
-	public EquipoJPA(int idEquipo, String nombreEquipo, Date anioFundacion, int aniosExistencia, String imagenEscudo,
-			String duenioActual, String patrocinadorOficial) {
+	
+	public EquipoJPA(int idEquipo, String codigoEquipo, String nombreEquipo, Date anioFundacion, String imagenEscudo,
+			String duenioActual, int cantidadTituloNacional, int cantidadTituloInternacional,
+			String patrocinadorPrincipal) {
 		super();
 		this.idEquipo = idEquipo;
+		this.codigoEquipo = codigoEquipo;
 		this.nombreEquipo = nombreEquipo;
 		this.anioFundacion = anioFundacion;
-		this.aniosExistencia = aniosExistencia;
 		this.imagenEscudo = imagenEscudo;
 		this.duenioActual = duenioActual;
-		this.patrocinadorOficial = patrocinadorOficial;
-	}
-	
-	public EquipoJPA(EquipoModel equipo) {
-		this.idEquipo = equipo.getIdEquipo();
-		this.nombreEquipo = equipo.getNombreEquipo();
-		this.anioFundacion = equipo.getAnioFundacion();
-		this.aniosExistencia = equipo.getAniosExistencia();
-		this.imagenEscudo = equipo.getImagenEscudo();
-		this.duenioActual = equipo.getDuenioActual();
-		this.patrocinadorOficial = equipo.getPatrocinadorOficial();
+		this.cantidadTituloNacional = cantidadTituloNacional;
+		this.cantidadTituloInternacional = cantidadTituloInternacional;
+		this.patrocinadorPrincipal = patrocinadorPrincipal;
 	}
 
+
+	public EquipoJPA(EquipoModel equipo) {
+		this.idEquipo = equipo.getIdEquipo();
+		this.codigoEquipo = equipo.getCodigoEquipo();
+		this.nombreEquipo = equipo.getNombreEquipo();
+		this.anioFundacion = equipo.getAnioFundacion();	
+		this.imagenEscudo = equipo.getImagenEscudo();
+		this.duenioActual = equipo.getDuenioActual();
+		this.cantidadTituloNacional = equipo.getCantidadTituloNacional();
+		this.cantidadTituloInternacional = equipo.getCantidadTituloInternacional();
+		this.patrocinadorPrincipal = equipo.getPatrocinadorPrincipal();
+	}
 
 
 	public int getIdEquipo() {
@@ -76,11 +88,19 @@ public class EquipoJPA implements Serializable {
 	}
 
 
-
 	public void setIdEquipo(int idEquipo) {
 		this.idEquipo = idEquipo;
 	}
 
+
+	public String getCodigoEquipo() {
+		return codigoEquipo;
+	}
+
+
+	public void setCodigoEquipo(String codigoEquipo) {
+		this.codigoEquipo = codigoEquipo;
+	}
 
 
 	public String getNombreEquipo() {
@@ -88,11 +108,9 @@ public class EquipoJPA implements Serializable {
 	}
 
 
-
 	public void setNombreEquipo(String nombreEquipo) {
 		this.nombreEquipo = nombreEquipo;
 	}
-
 
 
 	public Date getAnioFundacion() {
@@ -100,23 +118,9 @@ public class EquipoJPA implements Serializable {
 	}
 
 
-
 	public void setAnioFundacion(Date anioFundacion) {
 		this.anioFundacion = anioFundacion;
 	}
-
-
-
-	public int getAniosExistencia() {
-		return aniosExistencia;
-	}
-
-
-
-	public void setAniosExistencia(int aniosExistencia) {
-		this.aniosExistencia = aniosExistencia;
-	}
-
 
 
 	public String getImagenEscudo() {
@@ -124,11 +128,9 @@ public class EquipoJPA implements Serializable {
 	}
 
 
-
 	public void setImagenEscudo(String imagenEscudo) {
 		this.imagenEscudo = imagenEscudo;
 	}
-
 
 
 	public String getDuenioActual() {
@@ -136,32 +138,47 @@ public class EquipoJPA implements Serializable {
 	}
 
 
-
 	public void setDuenioActual(String duenioActual) {
 		this.duenioActual = duenioActual;
 	}
 
 
-
-	public String getPatrocinadorOficial() {
-		return patrocinadorOficial;
+	public int getCantidadTituloNacional() {
+		return cantidadTituloNacional;
 	}
 
 
-
-	public void setPatrocinadorOficial(String patrocinadorOficial) {
-		this.patrocinadorOficial = patrocinadorOficial;
+	public void setCantidadTituloNacional(int cantidadTituloNacional) {
+		this.cantidadTituloNacional = cantidadTituloNacional;
 	}
 
+
+	public int getCantidadTituloInternacional() {
+		return cantidadTituloInternacional;
+	}
+
+
+	public void setCantidadTituloInternacional(int cantidadTituloInternacional) {
+		this.cantidadTituloInternacional = cantidadTituloInternacional;
+	}
+
+
+	public String getPatrocinadorPrincipal() {
+		return patrocinadorPrincipal;
+	}
+
+
+	public void setPatrocinadorPrincipal(String patrocinadorPrincipal) {
+		this.patrocinadorPrincipal = patrocinadorPrincipal;
+	}
 
 
 	@Override
 	public String toString() {
-		return "EquipoJPA [idEquipo=" + idEquipo + ", nombreEquipo=" + nombreEquipo + ", anioFundacion=" + anioFundacion
-				+ ", aniosExistencia=" + aniosExistencia + ", imagenEscudo=" + imagenEscudo + ", duenioActual="
-				+ duenioActual + ", patrocinadorOficial=" + patrocinadorOficial + "]";
+		return "EquipoJPA [idEquipo=" + idEquipo + ", codigoEquipo=" + codigoEquipo + ", nombreEquipo=" + nombreEquipo
+				+ ", anioFundacion=" + anioFundacion + ", imagenEscudo=" + imagenEscudo + ", duenioActual="
+				+ duenioActual + ", cantidadTituloNacional=" + cantidadTituloNacional + ", cantidadTituloInternacional="
+				+ cantidadTituloInternacional + ", patrocinadorPrincipal=" + patrocinadorPrincipal + "]";
 	}
-
-
 
 }

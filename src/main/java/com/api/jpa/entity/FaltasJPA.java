@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.api.model.entity.FaltasModel;
 
+
 @Entity
 @Table(name = "tb_faltas")
 public class FaltasJPA implements Serializable {
@@ -22,34 +23,45 @@ public class FaltasJPA implements Serializable {
 	@Column(name="id_faltas")
 	private int idFaltas;
 	
-	@Column (name="faltas_amarilla", length= 10 )
-	private int faltasAmarilla;
+	@Column (name="tipo_falta",nullable=false , length= 50 )
+	private String tipoFalta;
 	
-	@Column (name="faltas_roja", length= 10 )
-	private int faltasRojas;
+	@Column (name="minuto_falta", nullable=false ,  length= 10 )
+	private int minutoFalta;
 	
 	@JoinColumn(name="id_jugador", referencedColumnName = "id_jugador")
 	@ManyToOne
 	private JugadorJPA jugador;
 	
+	@JoinColumn(name="id_partido", referencedColumnName = "id_partido")
+	@ManyToOne
+	private PartidoJPA partido;
+	
+	
 	public FaltasJPA() {
 		
 	}
 
-	public FaltasJPA(int idFaltas, int faltasAmarilla, int faltasRojas, JugadorJPA jugador) {
+	public FaltasJPA(int idFaltas, String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
 		super();
 		this.idFaltas = idFaltas;
-		this.faltasAmarilla = faltasAmarilla;
-		this.faltasRojas = faltasRojas;
+		this.tipoFalta = tipoFalta;
+		this.minutoFalta = minutoFalta;
 		this.jugador = jugador;
+		this.partido = partido;
 	}
 	
+
+
 	public FaltasJPA(FaltasModel faltas) {
 		this.idFaltas = faltas.getIdFaltas();
-		this.faltasAmarilla = faltas.getFaltasAmarilla();
-		this.faltasRojas = faltas.getFaltasRojas();
+		this.tipoFalta = faltas.getTipoFalta();
+		this.minutoFalta = faltas.getMinutoFalta();
 		this.jugador = faltas.getJugador();
+		this.partido = faltas.getPartido();
 	}
+
+	
 
 	public int getIdFaltas() {
 		return idFaltas;
@@ -59,20 +71,20 @@ public class FaltasJPA implements Serializable {
 		this.idFaltas = idFaltas;
 	}
 
-	public int getFaltasAmarilla() {
-		return faltasAmarilla;
+	public String getTipoFalta() {
+		return tipoFalta;
 	}
 
-	public void setFaltasAmarilla(int faltasAmarilla) {
-		this.faltasAmarilla = faltasAmarilla;
+	public void setTipoFalta(String tipoFalta) {
+		this.tipoFalta = tipoFalta;
 	}
 
-	public int getFaltasRojas() {
-		return faltasRojas;
+	public int getMinutoFalta() {
+		return minutoFalta;
 	}
 
-	public void setFaltasRojas(int faltasRojas) {
-		this.faltasRojas = faltasRojas;
+	public void setMinutoFalta(int minutoFalta) {
+		this.minutoFalta = minutoFalta;
 	}
 
 	public JugadorJPA getJugador() {
@@ -83,12 +95,19 @@ public class FaltasJPA implements Serializable {
 		this.jugador = jugador;
 	}
 
+	public PartidoJPA getPartido() {
+		return partido;
+	}
+
+	public void setPartido(PartidoJPA partido) {
+		this.partido = partido;
+	}
+
 	@Override
 	public String toString() {
-		return "FaltasJPA [idFaltas=" + idFaltas + ", faltasAmarilla=" + faltasAmarilla + ", faltasRojas=" + faltasRojas
-				+ ", jugador=" + jugador + "]";
+		return "FaltasJPA [idFaltas=" + idFaltas + ", tipoFalta=" + tipoFalta + ", minutoFalta=" + minutoFalta
+				+ ", jugador=" + jugador + ", partido=" + partido + "]";
 	}
-	
-	
+
 
 }

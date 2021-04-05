@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table (name="tb_equipo_jugador")
 public class EquipoJugadorJPA implements Serializable {
@@ -28,17 +29,25 @@ public class EquipoJugadorJPA implements Serializable {
 	@ManyToOne
 	private JugadorJPA jugador;
 	
+	@Column(name="anio" , nullable=false , length= 10  )
+	private int anio;
+	
 	public EquipoJugadorJPA() {
 		
 	}
+	
+	
 
-	public EquipoJugadorJPA(int idEquipoJugador, EquipoJPA equipo, JugadorJPA jugador) {
+	public EquipoJugadorJPA(int idEquipoJugador, EquipoJPA equipo, JugadorJPA jugador, int anio) {
 		super();
 		this.idEquipoJugador = idEquipoJugador;
 		this.equipo = equipo;
 		this.jugador = jugador;
+		this.anio = anio;
 	}
-	
+
+
+
 	// aqui va EquipoJugadorJpa a EquipoJugadorModel
 
 	public int getIdEquipoJugador() {
@@ -64,11 +73,24 @@ public class EquipoJugadorJPA implements Serializable {
 	public void setJugador(JugadorJPA jugador) {
 		this.jugador = jugador;
 	}
+	
+
+	public int getAnio() {
+		return anio;
+	}
+
+	public void setAnio(int anio) {
+		this.anio = anio;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "EquipoJugadorJPA [idEquipoJugador=" + idEquipoJugador + ", equipo=" + equipo + ", jugador=" + jugador
-				+ "]";
+				+ ", anio=" + anio + "]";
 	}
+
+	
 	
 }

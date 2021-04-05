@@ -4,63 +4,97 @@ import java.io.Serializable;
 
 import com.api.jpa.entity.FaltasJPA;
 import com.api.jpa.entity.JugadorJPA;
+import com.api.jpa.entity.PartidoJPA;
 
 public class FaltasModel implements Serializable {
 	
 	
 	private int idFaltas;
-	private int faltasAmarilla;
-	private int faltasRojas;
+	private String tipoFalta;
+	private int minutoFalta;
 	private JugadorJPA jugador;
+	private PartidoJPA partido;
+	
 	
 	public int getIdFaltas() {
 		return idFaltas;
 	}
+
+
 	public void setIdFaltas(int idFaltas) {
 		this.idFaltas = idFaltas;
 	}
-	public int getFaltasAmarilla() {
-		return faltasAmarilla;
+
+
+	public String getTipoFalta() {
+		return tipoFalta;
 	}
-	public void setFaltasAmarilla(int faltasAmarilla) {
-		this.faltasAmarilla = faltasAmarilla;
+
+
+	public void setTipoFalta(String tipoFalta) {
+		this.tipoFalta = tipoFalta;
 	}
-	public int getFaltasRojas() {
-		return faltasRojas;
+
+
+	public int getMinutoFalta() {
+		return minutoFalta;
 	}
-	public void setFaltasRojas(int faltasRojas) {
-		this.faltasRojas = faltasRojas;
+
+
+	public void setMinutoFalta(int minutoFalta) {
+		this.minutoFalta = minutoFalta;
 	}
+
+
 	public JugadorJPA getJugador() {
 		return jugador;
 	}
+
+
 	public void setJugador(JugadorJPA jugador) {
 		this.jugador = jugador;
 	}
-	
+
+
+	public PartidoJPA getPartido() {
+		return partido;
+	}
+
+
+	public void setPartido(PartidoJPA partido) {
+		this.partido = partido;
+	}
+
+
 	public FaltasModel() {
 		
 	}
 	
 	
-	public FaltasModel(int idFaltas, int faltasAmarilla, int faltasRojas, JugadorJPA jugador) {
+	
+	public FaltasModel(int idFaltas, String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
 		super();
 		this.idFaltas = idFaltas;
-		this.faltasAmarilla = faltasAmarilla;
-		this.faltasRojas = faltasRojas;
+		this.tipoFalta = tipoFalta;
+		this.minutoFalta = minutoFalta;
 		this.jugador = jugador;
+		this.partido = partido;
 	}
-	
+
+
 	public FaltasModel(FaltasJPA faltas) {
 		this.idFaltas = faltas.getIdFaltas();
-		this.faltasAmarilla = faltas.getFaltasAmarilla();
-		this.faltasRojas = faltas.getFaltasRojas();
+		this.tipoFalta = faltas.getTipoFalta();
+		this.minutoFalta = faltas.getMinutoFalta();
 		this.jugador = faltas.getJugador();
+		this.partido = faltas.getPartido();
 	}
+
+
 	@Override
 	public String toString() {
-		return "FaltasModel [idFaltas=" + idFaltas + ", faltasAmarilla=" + faltasAmarilla + ", faltasRojas="
-				+ faltasRojas + ", jugador=" + jugador + "]";
+		return "FaltasModel [idFaltas=" + idFaltas + ", tipoFalta=" + tipoFalta + ", minutoFalta=" + minutoFalta
+				+ ", jugador=" + jugador + ", partido=" + partido + "]";
 	}
 	
 	

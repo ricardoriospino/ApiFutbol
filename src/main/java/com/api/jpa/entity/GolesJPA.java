@@ -22,58 +22,110 @@ public class GolesJPA implements Serializable{
 	@Column(name="id_goles")
 	private int idGoles;
 	
-	@Column (name="total_goles" , nullable=false , length= 10 )
-	private int totalGoles;
+	@Column (name="minuto_gol" , nullable=false , length= 10 )
+	private int minutoGol;
+	
+	@Column (name="descripcion_gol" , nullable=false , length= 250 )
+	private String descripcionGol;
 	
 	@JoinColumn(name="id_jugador", referencedColumnName = "id_jugador")
 	@ManyToOne
 	private JugadorJPA jugador;
+	
+	@JoinColumn(name="id_partido", referencedColumnName = "id_partido")
+	@ManyToOne
+	private PartidoJPA partido;
 
 	public GolesJPA() {
 		
 	}
 
-	public GolesJPA(int idGoles, int totalGoles, JugadorJPA jugador) {
+	
+	public GolesJPA(int idGoles, int minutoGol, String descripcionGol, JugadorJPA jugador, PartidoJPA partido) {
 		super();
 		this.idGoles = idGoles;
-		this.totalGoles = totalGoles;
+		this.minutoGol = minutoGol;
+		this.descripcionGol = descripcionGol;
 		this.jugador = jugador;
+		this.partido = partido;
 	}
-	
+
+
+
 	public GolesJPA(GolesModel goles) {
 		this.idGoles = goles.getIdGoles();
-		this.totalGoles = goles.getTotalGoles();
+		this.minutoGol = goles.getMinutoGol();
+		this.descripcionGol = goles.getDescripcionGol();
 		this.jugador = goles.getJugador();
+		this.partido = goles.getPartido();
 	}
+
 
 	public int getIdGoles() {
 		return idGoles;
 	}
 
+
+
 	public void setIdGoles(int idGoles) {
 		this.idGoles = idGoles;
 	}
 
-	public int getTotalGoles() {
-		return totalGoles;
+
+
+	public int getMinutoGol() {
+		return minutoGol;
 	}
 
-	public void setTotalGoles(int totalGoles) {
-		this.totalGoles = totalGoles;
+
+
+	public void setMinutoGol(int minutoGol) {
+		this.minutoGol = minutoGol;
 	}
+
+
+
+	public String getDescripcionGol() {
+		return descripcionGol;
+	}
+
+
+
+	public void setDescripcionGol(String descripcionGol) {
+		this.descripcionGol = descripcionGol;
+	}
+
+
 
 	public JugadorJPA getJugador() {
 		return jugador;
 	}
 
+
+
 	public void setJugador(JugadorJPA jugador) {
 		this.jugador = jugador;
 	}
 
+
+
+	public PartidoJPA getPartido() {
+		return partido;
+	}
+
+
+
+	public void setPartido(PartidoJPA partido) {
+		this.partido = partido;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "GolesJPA [idGoles=" + idGoles + ", totalGoles=" + totalGoles + ", jugador=" + jugador + "]";
+		return "GolesJPA [idGoles=" + idGoles + ", minutoGol=" + minutoGol + ", descripcionGol=" + descripcionGol
+				+ ", jugador=" + jugador + ", partido=" + partido + "]";
 	}
-	
+
 	
 }

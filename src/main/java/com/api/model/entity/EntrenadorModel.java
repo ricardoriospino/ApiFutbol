@@ -1,79 +1,114 @@
 package com.api.model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.api.jpa.entity.EntrenadorJPA;
 
 public class EntrenadorModel implements Serializable {
 	
 	private int idEntrenador;
+	private String codigoEntrenador;
 	private String nombreEntrenador;
-	private int edad;
+	private Date fechaNacimiento;
 	private String nacionalidad;
-	private int aniosExperiencia;
+	private Date aniosInicioLaboral;
 	private int titulosGanados;
+	
+	
+	
+	
 	public int getIdEntrenador() {
 		return idEntrenador;
 	}
+
 	public void setIdEntrenador(int idEntrenador) {
 		this.idEntrenador = idEntrenador;
 	}
+
+	public String getCodigoEntrenador() {
+		return codigoEntrenador;
+	}
+
+	public void setCodigoEntrenador(String codigoEntrenador) {
+		this.codigoEntrenador = codigoEntrenador;
+	}
+
 	public String getNombreEntrenador() {
 		return nombreEntrenador;
 	}
+
 	public void setNombreEntrenador(String nombreEntrenador) {
 		this.nombreEntrenador = nombreEntrenador;
 	}
-	public int getEdad() {
-		return edad;
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
 	}
-	public void setEdad(int edad) {
-		this.edad = edad;
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
+
 	public String getNacionalidad() {
 		return nacionalidad;
 	}
+
 	public void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
-	public int getAniosExperiencia() {
-		return aniosExperiencia;
+
+	
+	public Date getAniosInicioLaboral() {
+		return aniosInicioLaboral;
 	}
-	public void setAniosExperiencia(int aniosExperiencia) {
-		this.aniosExperiencia = aniosExperiencia;
+
+	public void setAniosInicioLaboral(Date aniosInicioLaboral) {
+		this.aniosInicioLaboral = aniosInicioLaboral;
 	}
+
 	public int getTitulosGanados() {
 		return titulosGanados;
 	}
+
 	public void setTitulosGanados(int titulosGanados) {
 		this.titulosGanados = titulosGanados;
 	}
-	public EntrenadorModel(int idEntrenador, String nombreEntrenador, int edad, String nacionalidad,
-			int aniosExperiencia, int titulosGanados) {
+	
+
+	
+
+	public EntrenadorModel(int idEntrenador, String codigoEntrenador, String nombreEntrenador, Date fechaNacimiento,
+			String nacionalidad, Date aniosInicioLaboral, int titulosGanados) {
 		super();
 		this.idEntrenador = idEntrenador;
+		this.codigoEntrenador = codigoEntrenador;
 		this.nombreEntrenador = nombreEntrenador;
-		this.edad = edad;
+		this.fechaNacimiento = fechaNacimiento;
 		this.nacionalidad = nacionalidad;
-		this.aniosExperiencia = aniosExperiencia;
+		this.aniosInicioLaboral = aniosInicioLaboral;
 		this.titulosGanados = titulosGanados;
 	}
-	
+
 	// para convertir de un objeto a otro
 	public EntrenadorModel(EntrenadorJPA entrenador) {
 		this.idEntrenador = entrenador.getIdEntrenador();
+		this.codigoEntrenador = entrenador.getCodigoEntrenador();
 		this.nombreEntrenador = entrenador.getNombreEntrenador();
-		this.edad = entrenador.getEdad();
+		this.fechaNacimiento = entrenador.getFechaNacimiento();
 		this.nacionalidad = entrenador.getNacionalidad();
-		this.aniosExperiencia = entrenador.getAniosExperiencia();
+		this.aniosInicioLaboral = entrenador.getAniosInicioLaboral();
 		this.titulosGanados = entrenador.getTitulosGanados();
 	}
+
 	@Override
 	public String toString() {
-		return "EntrenadorModel [idEntrenador=" + idEntrenador + ", nombreEntrenador=" + nombreEntrenador + ", edad="
-				+ edad + ", nacionalidad=" + nacionalidad + ", aniosExperiencia=" + aniosExperiencia
-				+ ", titulosGanados=" + titulosGanados + "]";
+		return "EntrenadorModel [idEntrenador=" + idEntrenador + ", codigoEntrenador=" + codigoEntrenador
+				+ ", nombreEntrenador=" + nombreEntrenador + ", fechaNacimiento=" + fechaNacimiento + ", nacionalidad="
+				+ nacionalidad + ", aniosInicioLaboral=" + aniosInicioLaboral + ", titulosGanados=" + titulosGanados
+				+ "]";
 	}
+	
 	
 	
 }

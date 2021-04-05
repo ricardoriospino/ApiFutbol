@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.api.model.entity.PosicionesModel;
 
+
 @Entity
 @Table(name = "tb_posiciones")
 public class PosicionesJPA implements Serializable {

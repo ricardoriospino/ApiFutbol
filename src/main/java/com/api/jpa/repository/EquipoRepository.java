@@ -14,10 +14,10 @@ public interface EquipoRepository extends JpaRepository<EquipoJPA, Serializable>
 	
 	public EquipoJPA findByNombreEquipo (String vnombre);
 	
-	public List<EquipoJPA> findByAniosExistencia (int aniosExistencia);
+	public EquipoJPA findByAnioFundacion (Date anioFundacion);
 	
 	public EquipoJPA findByNombreEquipoAndIdEquipo (String vnombre , int id);
 	
-	public EquipoJPA findByNombreEquipoAndAnioFundacionAndAniosExistencia (String nombre , Date anioFundacion , int aniosExistencia);
+	public EquipoJPA findByNombreEquipoAndAnioFundacion (String nombre , Date anioFundacion);
 
 }

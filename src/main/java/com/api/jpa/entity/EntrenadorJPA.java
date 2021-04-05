@@ -1,6 +1,7 @@
 package com.api.jpa.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.api.model.entity.EntrenadorModel;
 @Entity
@@ -19,17 +22,23 @@ public class EntrenadorJPA implements Serializable {
 	@Column (name = "id_entrenador")
 	private int idEntrenador;
 	
+	@Column(name="codigo_entrenador" , nullable=false ,unique= true , length= 10 )
+	private String codigoEntrenador;
+	
 	@Column (name="nombre_entrenador" , nullable=false , length= 50 )
 	private String nombreEntrenador;
 	
-	@Column (name="edad" , nullable=false , length= 10 )
-	private int edad;
+	@Column (name="fecha_nacimiento" , nullable=false)
+	@Temporal(TemporalType.DATE)
+	private Date fechaNacimiento;
+	
 	
 	@Column (name="nacionalidad" , nullable=false , length= 50 )
 	private String nacionalidad;
 	
-	@Column (name="anios_experiencia" , nullable=false , length= 10 )
-	private int aniosExperiencia;
+	@Column (name="anios_inicio_laboral" , nullable=false )
+	@Temporal(TemporalType.DATE)
+	private Date aniosInicioLaboral;
 	
 	@Column (name="titulos_ganados" , nullable=false , length= 10 )
 	private int titulosGanados;
@@ -38,23 +47,27 @@ public class EntrenadorJPA implements Serializable {
 		
 	}
 
-	public EntrenadorJPA(int idEntrenador, String nombreEntrenador, int edad, String nacionalidad, int aniosExperiencia,
-			int titulosGanados) {
+
+	public EntrenadorJPA(int idEntrenador, String codigoEntrenador, String nombreEntrenador, Date fechaNacimiento,
+			String nacionalidad, Date aniosInicioLaboral, int titulosGanados) {
 		super();
 		this.idEntrenador = idEntrenador;
+		this.codigoEntrenador = codigoEntrenador;
 		this.nombreEntrenador = nombreEntrenador;
-		this.edad = edad;
+		this.fechaNacimiento = fechaNacimiento;
 		this.nacionalidad = nacionalidad;
-		this.aniosExperiencia = aniosExperiencia;
+		this.aniosInicioLaboral = aniosInicioLaboral;
 		this.titulosGanados = titulosGanados;
 	}
 
+
 	public EntrenadorJPA( EntrenadorModel entrenador) {
 		this.idEntrenador = entrenador.getIdEntrenador();
+		this.codigoEntrenador = entrenador.getCodigoEntrenador();
 		this.nombreEntrenador = entrenador.getNombreEntrenador();
-		this.edad = entrenador.getEdad();
+		this.fechaNacimiento = entrenador.getFechaNacimiento();
 		this.nacionalidad = entrenador.getNacionalidad();
-		this.aniosExperiencia = entrenador.getAniosExperiencia();
+		this.aniosInicioLaboral = entrenador.getAniosInicioLaboral();
 		this.titulosGanados = entrenador.getTitulosGanados();
 	}
 
@@ -66,6 +79,18 @@ public class EntrenadorJPA implements Serializable {
 
 	public void setIdEntrenador(int idEntrenador) {
 		this.idEntrenador = idEntrenador;
+	}
+
+
+
+	public String getCodigoEntrenador() {
+		return codigoEntrenador;
+	}
+
+
+
+	public void setCodigoEntrenador(String codigoEntrenador) {
+		this.codigoEntrenador = codigoEntrenador;
 	}
 
 
@@ -82,14 +107,14 @@ public class EntrenadorJPA implements Serializable {
 
 
 
-	public int getEdad() {
-		return edad;
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
 
 
-	public void setEdad(int edad) {
-		this.edad = edad;
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 
@@ -105,17 +130,14 @@ public class EntrenadorJPA implements Serializable {
 	}
 
 
-
-	public int getAniosExperiencia() {
-		return aniosExperiencia;
+	public Date getAniosInicioLaboral() {
+		return aniosInicioLaboral;
 	}
 
 
-
-	public void setAniosExperiencia(int aniosExperiencia) {
-		this.aniosExperiencia = aniosExperiencia;
+	public void setAniosInicioLaboral(Date aniosInicioLaboral) {
+		this.aniosInicioLaboral = aniosInicioLaboral;
 	}
-
 
 
 	public int getTitulosGanados() {
@@ -132,11 +154,15 @@ public class EntrenadorJPA implements Serializable {
 
 	@Override
 	public String toString() {
-		return "EntrenadorJPA [idEntrenador=" + idEntrenador + ", nombreEntrenador=" + nombreEntrenador + ", edad="
-				+ edad + ", nacionalidad=" + nacionalidad + ", aniosExperiencia=" + aniosExperiencia
-				+ ", titulosGanados=" + titulosGanados + "]";
+		return "EntrenadorJPA [idEntrenador=" + idEntrenador + ", codigoEntrenador=" + codigoEntrenador
+				+ ", nombreEntrenador=" + nombreEntrenador + ", fechaNacimiento=" + fechaNacimiento + ", nacionalidad="
+				+ nacionalidad + ", aniosInicioLaboral=" + aniosInicioLaboral + ", titulosGanados=" + titulosGanados
+				+ "]";
 	}
 
+
+
+	
 
 
 
