@@ -2,7 +2,7 @@ package com.api.jpa.repository;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -19,5 +19,8 @@ public interface EquipoRepository extends JpaRepository<EquipoJPA, Serializable>
 	public EquipoJPA findByNombreEquipoAndIdEquipo (String vnombre , int id);
 	
 	public EquipoJPA findByNombreEquipoAndAnioFundacion (String nombre , Date anioFundacion);
+	
+	public EquipoJPA findByCodigoEquipo (String codigo);
+	
 
 }

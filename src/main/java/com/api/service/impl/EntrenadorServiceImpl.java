@@ -33,11 +33,19 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	public boolean insertar(EntrenadorModel entrenador) {
 		
 		try {
+			EntrenadorJPA entrenadorJPA = repositorio.findBycodigoEntrenador(entrenador.getCodigoEntrenador());
+			
+			if(entrenadorJPA != null) {
+				log.error("Codigo Ya existe");
+				return false;
+			}
+			
 			repositorio.save(new EntrenadorJPA (entrenador));
 			return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al insertar " + e);
 			return false;
 		}
 	}
@@ -46,11 +54,13 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	public boolean actualizar(EntrenadorModel entrenador) {
 		
 		try {
+
 			repositorio.save(new EntrenadorJPA (entrenador));
 			return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al actualizar " + e);
 			return false;
 		}
 	}
@@ -66,6 +76,7 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al borrar " + e);
 			return false;
 		}
 	}
@@ -85,6 +96,7 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al borrar " + e);
 			return false;
 		}
 	}

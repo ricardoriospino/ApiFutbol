@@ -17,6 +17,6 @@ public interface EstadioRepository extends JpaRepository<EstadioJPA, Serializabl
 	
 	public EstadioJPA findByNombreEstadioAndIdEstadio (String nombre , int id);
 	
-	
+	public EstadioJPA findByCodigoEstadio (String codigo);
 
 }

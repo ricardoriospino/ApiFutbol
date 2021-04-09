@@ -3,21 +3,34 @@ package com.api.model.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.api.jpa.entity.EntrenadorJPA;
 
 public class EntrenadorModel implements Serializable {
 	
 	private int idEntrenador;
+	
+	@NotBlank (message="codigo de entrenador no puede ser vacio")
 	private String codigoEntrenador;
+	
+	@NotBlank (message="nombre de entrenador no puede ser vacio")
 	private String nombreEntrenador;
+	
+	@NotNull  (message="fecha de nacimiento de entrenador no puede ser vacio")
 	private Date fechaNacimiento;
+	
+	@NotBlank (message="nacionalidad de entrenador no puede ser vacio")
 	private String nacionalidad;
+	
+	@NotNull  (message=" Año de inicio laboral de entrenador no puede ser vacio")
 	private Date aniosInicioLaboral;
+	
+	@NotNull (message=" Titulos ganados de entrenador no puede ser vacio")
 	private int titulosGanados;
-	
-	
-	
-	
+
+
 	public int getIdEntrenador() {
 		return idEntrenador;
 	}
@@ -58,7 +71,6 @@ public class EntrenadorModel implements Serializable {
 		this.nacionalidad = nacionalidad;
 	}
 
-	
 	public Date getAniosInicioLaboral() {
 		return aniosInicioLaboral;
 	}
@@ -75,11 +87,13 @@ public class EntrenadorModel implements Serializable {
 		this.titulosGanados = titulosGanados;
 	}
 	
-
-	
-
-	public EntrenadorModel(int idEntrenador, String codigoEntrenador, String nombreEntrenador, Date fechaNacimiento,
-			String nacionalidad, Date aniosInicioLaboral, int titulosGanados) {
+	public EntrenadorModel(int idEntrenador,
+			@NotBlank(message = "codigo de entrenador no puede ser vacio") String codigoEntrenador,
+			@NotBlank(message = "nombre de entrenador no puede ser vacio") String nombreEntrenador,
+			@NotNull(message = "fecha de nacimiento de entrenador no puede ser vacio") Date fechaNacimiento,
+			@NotBlank(message = "nacionalidad de entrenador no puede ser vacio") String nacionalidad,
+			@NotNull(message = " Año de inicio laboral de entrenador no puede ser vacio") Date aniosInicioLaboral,
+			@NotNull(message = " Titulos ganados de entrenador no puede ser vacio") int titulosGanados) {
 		super();
 		this.idEntrenador = idEntrenador;
 		this.codigoEntrenador = codigoEntrenador;

@@ -33,11 +33,20 @@ public class JugadorServiceImpl implements JugadorService {
 	public boolean insertar(JugadorModel jugador) {
 		
 		try {
+			
+			JugadorJPA jugadorJPA = repositorio.findByCodigoJugador(jugador.getCodigoJugador());
+
+			if(jugadorJPA != null) {
+				log.error("Codigo Ya existe");
+				return false;
+			}
+					
 			repositorio.save(new JugadorJPA (jugador));
 			return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al insertar " + e);
 			return false;
 		}
 	}
@@ -51,6 +60,7 @@ public class JugadorServiceImpl implements JugadorService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al actualizar " + e);
 			return false;
 		}
 	}
@@ -73,6 +83,7 @@ public class JugadorServiceImpl implements JugadorService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al borrar " + e);
 			return false;
 		}
 	}

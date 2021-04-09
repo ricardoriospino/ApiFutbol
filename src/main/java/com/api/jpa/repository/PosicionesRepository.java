@@ -18,5 +18,7 @@ public interface PosicionesRepository extends JpaRepository<PosicionesJPA, Seria
 	public PosicionesJPA findByTemporada (int temporada);
 	
 	public List<PosicionesJPA> findByPuntosAndNombreEquipo (int puntos , String nombre);
+	
+	
 
 }

@@ -18,5 +18,9 @@ public interface JugadorRepository extends JpaRepository<JugadorJPA, Serializabl
 	public JugadorJPA findByDorsalAndNacionalidad (int dorsal , String nacionalidad);
 	
 	public JugadorJPA findByNombreJugadorAndNacionalidad (String nombre , String nacionalidad);
+	
+	public JugadorJPA findByCodigoJugador (String codigo);
+	
+
 
 }

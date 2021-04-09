@@ -2,6 +2,8 @@ package com.api.rest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class EntrenadorRestController {
 	// http://localhost:8090/apiEntrenador/entrenador
 	// PUT
 	@PutMapping("/entrenador")
-	public boolean agregarEntrenador(@RequestBody EntrenadorModel entrenador) {
+	public boolean agregarEntrenador(@Valid @RequestBody EntrenadorModel entrenador) {
 		log.info("ini: agregarEntrenador()");
 		
 		log.debug("datos entrenador:" + entrenador.toString());
@@ -95,15 +97,5 @@ public class EntrenadorRestController {
 		log.debug("nombre:" +  nombre + ", nacionalidad : " + nacionalidad  );
 		return  entrenadorServiceImpl.obtenerEntrenadorPorNombreyNacionalidad(nombre, nacionalidad);
 	}
-	
-	/*
-	 {
-    "nombreEntrenador": "Roberto Mosquera",
-    "edad": 50,
-    "nacionalidad": "Peruana",
-    "aniosExperiencia": 10,
-    "titulosGanados": 4
-	}
-	 */
 	
 }

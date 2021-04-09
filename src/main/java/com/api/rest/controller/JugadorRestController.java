@@ -2,6 +2,8 @@ package com.api.rest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class JugadorRestController {
 	
 	//PUT
 	@PutMapping("/jugador")
-	public boolean agregarJugador(@RequestBody JugadorModel jugador) {
+	public boolean agregarJugador(@Valid @RequestBody JugadorModel jugador) {
 		log.info("ini: agregarJugador()");
 		
 		log.debug("datos jugador:" + jugador.toString());
@@ -100,16 +102,5 @@ public class JugadorRestController {
 		return  jugadorServiceImpl.obtenerJugadorPorDorsalyNacionalidad(dorsal, nacionalidad);
 	}
 	
-		
-	/*
-	 {
-    "nombreJugador": "Horacio Calcaterra",
-    "edad": 35,
-    "aniosDeCarrera": 15,
-    "nacionalidad": "Argentina",
-    "dorsal": 7 ,
-    "posicion": "Central"
-	}
-	 */
 	
 }

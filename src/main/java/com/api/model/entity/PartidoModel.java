@@ -3,27 +3,51 @@ package com.api.model.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.api.jpa.entity.EquipoJPA;
 import com.api.jpa.entity.PartidoJPA;
 
 public class PartidoModel implements Serializable {
 	
 	private int idPartido;
+	
+	@NotBlank (message="Codigo de Partido no puede ser vacio")
 	private String codigoPartido;
+	
+	@NotNull (message="fecha de Hora de Partido no puede ser vacio")
 	private Date fechaHora;
+	
+	@NotNull (message="numero Goles de Partido no puede ser vacio")
 	private int numeroGoles;
+	
+	@NotNull (message="numero Faltas de Partido no puede ser vacio")
 	private int numeroFaltas;
+	
 	private int golesEquipo1;
 	private int golesEquipo2;
 	private int faltasEquipo1;
 	private int faltasEquipo2;
+	
+	@NotBlank (message="Ganador de Partido no puede ser vacio")
 	private String ganador;
+	
+	@NotBlank (message="Perdedor de Partido no puede ser vacio")
 	private String perdedor;
+	
+	@NotBlank (message="Arbitro de Partido no puede ser vacio")
 	private String arbitro;
+	
 	private EquipoJPA equipo1;
+	
+	@NotBlank (message="Codigo del queipo 1 no puede ser vacio")
+	private String codigoEquipo1;
+	
 	private EquipoJPA equipo2;
 	
-	
+	@NotBlank (message="Codigo del queipo 2 no puede ser vacio")
+	private String codigoEquipo2;
 	
 	
 	public int getIdPartido() {
@@ -110,14 +134,35 @@ public class PartidoModel implements Serializable {
 	public void setEquipo2(EquipoJPA equipo2) {
 		this.equipo2 = equipo2;
 	}
+	
+	public String getCodigoEquipo1() {
+		return codigoEquipo1;
+	}
+	public void setCodigoEquipo1(String codigoEquipo1) {
+		this.codigoEquipo1 = codigoEquipo1;
+	}
+	public String getCodigoEquipo2() {
+		return codigoEquipo2;
+	}
+	public void setCodigoEquipo2(String codigoEquipo2) {
+		this.codigoEquipo2 = codigoEquipo2;
+	}
 	public PartidoModel() {
 		
 	}
 	
 
-	public PartidoModel(int idPartido, String codigoPartido, Date fechaHora, int numeroGoles, int numeroFaltas,
-			int golesEquipo1, int golesEquipo2, int faltasEquipo1, int faltasEquipo2, String ganador, String perdedor,
-			String arbitro, EquipoJPA equipo1, EquipoJPA equipo2) {
+	
+	public PartidoModel(int idPartido, @NotBlank(message = "Codigo de Partido no puede ser vacio") String codigoPartido,
+			@NotNull(message = "fecha de Hora de Partido no puede ser vacio") Date fechaHora,
+			@NotNull(message = "numero Goles de Partido no puede ser vacio") int numeroGoles,
+			@NotNull(message = "numero Faltas de Partido no puede ser vacio") int numeroFaltas, int golesEquipo1,
+			int golesEquipo2, int faltasEquipo1, int faltasEquipo2,
+			@NotBlank(message = "Ganador de Partido no puede ser vacio") String ganador,
+			@NotBlank(message = "Perdedor de Partido no puede ser vacio") String perdedor,
+			@NotBlank(message = "Arbitro de Partido no puede ser vacio") String arbitro, EquipoJPA equipo1,
+			@NotBlank(message = "Codigo del queipo 1 no puede ser vacio") String codigoEquipo1, EquipoJPA equipo2,
+			@NotBlank(message = "Codigo del queipo 2 no puede ser vacio") String codigoEquipo2) {
 		super();
 		this.idPartido = idPartido;
 		this.codigoPartido = codigoPartido;
@@ -132,9 +177,10 @@ public class PartidoModel implements Serializable {
 		this.perdedor = perdedor;
 		this.arbitro = arbitro;
 		this.equipo1 = equipo1;
+		this.codigoEquipo1 = codigoEquipo1;
 		this.equipo2 = equipo2;
+		this.codigoEquipo2 = codigoEquipo2;
 	}
-	
 	public PartidoModel (PartidoJPA partido) {
 		this.idPartido = partido.getIdPartido();
 		this.codigoPartido = partido.getCodigoPartido();
@@ -152,14 +198,18 @@ public class PartidoModel implements Serializable {
 		this.equipo2 = partido.getEquipo2();
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "PartidoModel [idPartido=" + idPartido + ", codigoPartido=" + codigoPartido + ", fechaHora=" + fechaHora
 				+ ", numeroGoles=" + numeroGoles + ", numeroFaltas=" + numeroFaltas + ", golesEquipo1=" + golesEquipo1
 				+ ", golesEquipo2=" + golesEquipo2 + ", faltasEquipo1=" + faltasEquipo1 + ", faltasEquipo2="
 				+ faltasEquipo2 + ", ganador=" + ganador + ", perdedor=" + perdedor + ", arbitro=" + arbitro
-				+ ", equipo1=" + equipo1 + ", equipo2=" + equipo2 + "]";
+				+ ", equipo1=" + equipo1 + ", codigoEquipo1=" + codigoEquipo1 + ", equipo2=" + equipo2
+				+ ", codigoEquipo2=" + codigoEquipo2 + "]";
 	}
+	
+	
 	
 	
 

@@ -3,19 +3,40 @@ package com.api.model.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.api.jpa.entity.JugadorJPA;
 
 public class JugadorModel implements Serializable {
 	
 	private int idJugador;
+	
+	@NotBlank (message="Codigo de Jugador no puede ser vacio")
 	private String codigoJugador;
+	
+	@NotBlank (message="Nombre de Jugador no puede ser vacio")
 	private String nombreJugador;
+	
+	@NotNull (message="fecha de Nacimiento de Jugador no puede ser vacio")
 	private Date fechaNacimiento;
+	
+	@NotNull (message="Año de debut de Jugador no puede ser vacio")
 	private int aniosDeDebut;
+	
+	@NotBlank (message="Nacionalidad de Jugador no puede ser vacio")
 	private String nacionalidad;
+	
+	@NotNull (message="Dorsal de Jugador no puede ser vacio")
 	private int dorsal;
+	
+	@NotBlank(message="Posicion de Jugador no puede ser vacio")
 	private String posicion;
+	
+	@NotNull (message="Numero de Goles de Jugador no puede ser vacio")
 	private int numeroGoles;
+	
+	@NotNull (message="Numero de Faltas de Jugador no puede ser vacio")
 	private int numeroFaltas;
 	
 	
@@ -85,9 +106,16 @@ public class JugadorModel implements Serializable {
 		
 	}
 	
-	
-	public JugadorModel(int idJugador, String codigoJugador, String nombreJugador, Date fechaNacimiento,
-			int aniosDeDebut, String nacionalidad, int dorsal, String posicion, int numeroGoles, int numeroFaltas) {
+
+	public JugadorModel(int idJugador, @NotBlank(message = "Codigo de Jugador no puede ser vacio") String codigoJugador,
+			@NotBlank(message = "Nombre de Jugador no puede ser vacio") String nombreJugador,
+			@NotNull(message = "fecha de Nacimiento de Jugador no puede ser vacio") Date fechaNacimiento,
+			@NotNull(message = "Año de debut de Jugador no puede ser vacio") int aniosDeDebut,
+			@NotBlank(message = "Nacionalidad de Jugador no puede ser vacio") String nacionalidad,
+			@NotNull(message = "Dorsal de Jugador no puede ser vacio") int dorsal,
+			@NotBlank(message = "Posicion de Jugador no puede ser vacio") String posicion,
+			@NotNull(message = "Numero de Goles de Jugador no puede ser vacio") int numeroGoles,
+			@NotNull(message = "Numero de Faltas de Jugador no puede ser vacio") int numeroFaltas) {
 		super();
 		this.idJugador = idJugador;
 		this.codigoJugador = codigoJugador;
@@ -100,8 +128,6 @@ public class JugadorModel implements Serializable {
 		this.numeroGoles = numeroGoles;
 		this.numeroFaltas = numeroFaltas;
 	}
-	
-	
 	public JugadorModel(JugadorJPA jugador) {
 		this.idJugador = jugador.getIdJugador();
 		this.codigoJugador = jugador.getCodigoJugador();

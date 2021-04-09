@@ -2,6 +2,8 @@ package com.api.rest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class EstadioRestController {
 	
 	//PUT
 	@PutMapping("/estadio")
-	public boolean agregarEstadio(@RequestBody EstadioModel estadio) {
+	public boolean agregarEstadio(@Valid @RequestBody EstadioModel estadio) {
 		log.info("ini: agregarEstadio()");
 		
 		log.debug("datos estadio:" + estadio.toString());
@@ -101,13 +103,5 @@ public class EstadioRestController {
 		return  estadioServiceImpl.obtenerEstadioPorNombre(nombre);
 	}
 	
-	/*
-		 {
-	    "nombreEstadio": "Alberto Gallardo",
-	    "capacidad": 10000,
-	    "ubicacion": "San Martin de Porras , Puente caqueta"   
-		}
-	 */
-	 
-	
+
 }

@@ -2,6 +2,8 @@ package com.api.rest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class PosicionesRestController {
 
 	// PUT
 	@PutMapping("/posiciones")
-	public boolean agregarPosiciones(@RequestBody PosicionesModel posiciones) {
+	public boolean agregarPosiciones(@Valid @RequestBody PosicionesModel posiciones) {
 		log.info("ini: agregarPosiciones()");
 			
 		log.debug("datos Posiciones:" + posiciones.toString());
@@ -87,16 +89,5 @@ public class PosicionesRestController {
 	
 	// ---------------------------------------------------------------------------
 	
-	/*
-	 {
-    "temporada": 2021,
-    "nombreEquipo": "Sporting Cristal",
-    "partidosJugados": 5,
-    "partidosGanados": 3,
-    "partidosEmpatados": 1 ,
-    "partidosPerdidos": 1,
-    "puntos": 10
-	}
-	 */
-	 
+	
 }

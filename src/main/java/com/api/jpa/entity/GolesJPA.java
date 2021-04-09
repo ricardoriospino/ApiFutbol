@@ -20,7 +20,7 @@ public class GolesJPA implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_goles")
-	private int idGoles;
+	private int idGol;
 	
 	@Column (name="minuto_gol" , nullable=false , length= 10 )
 	private int minutoGol;
@@ -41,9 +41,11 @@ public class GolesJPA implements Serializable{
 	}
 
 	
-	public GolesJPA(int idGoles, int minutoGol, String descripcionGol, JugadorJPA jugador, PartidoJPA partido) {
+
+
+	public GolesJPA(int idGol, int minutoGol, String descripcionGol, JugadorJPA jugador, PartidoJPA partido) {
 		super();
-		this.idGoles = idGoles;
+		this.idGol = idGol;
 		this.minutoGol = minutoGol;
 		this.descripcionGol = descripcionGol;
 		this.jugador = jugador;
@@ -52,25 +54,23 @@ public class GolesJPA implements Serializable{
 
 
 
-	public GolesJPA(GolesModel goles) {
-		this.idGoles = goles.getIdGoles();
-		this.minutoGol = goles.getMinutoGol();
-		this.descripcionGol = goles.getDescripcionGol();
-		this.jugador = goles.getJugador();
-		this.partido = goles.getPartido();
+
+	public GolesJPA(GolesModel gol) {
+		this.idGol = gol.getIdGol();
+		this.minutoGol = gol.getMinutoGol();
+		this.descripcionGol = gol.getDescripcionGol();
+		this.jugador = gol.getJugador();
+		this.partido = gol.getPartido();
 	}
 
 
-	public int getIdGoles() {
-		return idGoles;
+	public int getIdGol() {
+		return idGol;
 	}
 
-
-
-	public void setIdGoles(int idGoles) {
-		this.idGoles = idGoles;
+	public void setIdGol(int idGol) {
+		this.idGol = idGol;
 	}
-
 
 
 	public int getMinutoGol() {
@@ -123,7 +123,7 @@ public class GolesJPA implements Serializable{
 
 	@Override
 	public String toString() {
-		return "GolesJPA [idGoles=" + idGoles + ", minutoGol=" + minutoGol + ", descripcionGol=" + descripcionGol
+		return "GolesJPA [idGol=" + idGol + ", minutoGol=" + minutoGol + ", descripcionGol=" + descripcionGol
 				+ ", jugador=" + jugador + ", partido=" + partido + "]";
 	}
 

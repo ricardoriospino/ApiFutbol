@@ -32,11 +32,20 @@ public class EstadioServiceImpl implements EstadioService {
 	public boolean insertar(EstadioModel estadio) {
 		
 		try {
+			
+			EstadioJPA estadioJPA = repositorio.findByCodigoEstadio(estadio.getCodigoEstadio());
+			
+			if(estadioJPA != null) {
+				log.error("Codigo Ya existe");
+				return false;
+			}
+			
 			repositorio.save(new EstadioJPA (estadio));
 			return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al insertar " + e);
 			return false;
 		}
 	}
@@ -50,6 +59,7 @@ public class EstadioServiceImpl implements EstadioService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al actualizar " + e);
 			return false;
 		}
 	}
@@ -70,6 +80,7 @@ public class EstadioServiceImpl implements EstadioService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al borrar " + e);
 			return false;
 		}
 	}

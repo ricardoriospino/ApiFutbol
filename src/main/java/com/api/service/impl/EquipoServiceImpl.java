@@ -33,11 +33,22 @@ public class EquipoServiceImpl implements EquipoService {
 		
 		try {
 			
+			EquipoJPA equipoJPA = repositorio.findByCodigoEquipo(equipo.getCodigoEquipo());
+			
+			EquipoJPA equipoNombre = repositorio.findByNombreEquipo(equipo.getNombreEquipo());
+			
+			if (equipoJPA != null || equipoNombre != null  ) {
+				
+				log.error(" Ya existe");
+				return false;
+			}
+			
 			repositorio.save(new EquipoJPA (equipo));
 			return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al insertar " + e);
 			return false;
 		}
 	}
@@ -52,6 +63,7 @@ public class EquipoServiceImpl implements EquipoService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al actualizar " + e);
 			return false;
 		}
 	}
@@ -74,6 +86,7 @@ public class EquipoServiceImpl implements EquipoService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("Error al borrar " + e);
 			return false;
 		}
 	}

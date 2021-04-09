@@ -21,7 +21,7 @@ public class FaltasJPA implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id_faltas")
-	private int idFaltas;
+	private int idFalta;
 	
 	@Column (name="tipo_falta",nullable=false , length= 50 )
 	private String tipoFalta;
@@ -42,34 +42,37 @@ public class FaltasJPA implements Serializable {
 		
 	}
 
-	public FaltasJPA(int idFaltas, String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
+
+	public FaltasJPA(int idFalta, String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
 		super();
-		this.idFaltas = idFaltas;
+		this.idFalta = idFalta;
 		this.tipoFalta = tipoFalta;
 		this.minutoFalta = minutoFalta;
 		this.jugador = jugador;
 		this.partido = partido;
 	}
-	
 
 
-	public FaltasJPA(FaltasModel faltas) {
-		this.idFaltas = faltas.getIdFaltas();
-		this.tipoFalta = faltas.getTipoFalta();
-		this.minutoFalta = faltas.getMinutoFalta();
-		this.jugador = faltas.getJugador();
-		this.partido = faltas.getPartido();
+	public FaltasJPA(FaltasModel falta) {
+		this.idFalta = falta.getIdFalta();
+		this.tipoFalta = falta.getTipoFalta();
+		this.minutoFalta = falta.getMinutoFalta();
+		this.jugador = falta.getJugador();
+		this.partido = falta.getPartido();
 	}
 
 	
 
-	public int getIdFaltas() {
-		return idFaltas;
+
+	public int getIdFalta() {
+		return idFalta;
 	}
 
-	public void setIdFaltas(int idFaltas) {
-		this.idFaltas = idFaltas;
+
+	public void setIdFalta(int idFalta) {
+		this.idFalta = idFalta;
 	}
+
 
 	public String getTipoFalta() {
 		return tipoFalta;
@@ -105,7 +108,7 @@ public class FaltasJPA implements Serializable {
 
 	@Override
 	public String toString() {
-		return "FaltasJPA [idFaltas=" + idFaltas + ", tipoFalta=" + tipoFalta + ", minutoFalta=" + minutoFalta
+		return "FaltasJPA [idFalta=" + idFalta + ", tipoFalta=" + tipoFalta + ", minutoFalta=" + minutoFalta
 				+ ", jugador=" + jugador + ", partido=" + partido + "]";
 	}
 

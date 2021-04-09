@@ -2,14 +2,26 @@ package com.api.model.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.api.jpa.entity.EstadioJPA;
 
 public class EstadioModel implements Serializable {
 	
+	
 	private int idEstadio;
+	
+	@NotBlank (message="codigo de estadio no puede ser vacio")
 	private String codigoEstadio;
+	
+	@NotBlank (message="Nombre de estadio no puede ser vacio")
 	private String nombreEstadio;
+	
+	@NotNull  (message="capacidad de estadio no puede ser vacio")
 	private int capacidad;
+	
+	@NotBlank (message="ubicacion de estadio no puede ser vacio")
 	private String ubicacion;
 	
 	
@@ -50,7 +62,11 @@ public class EstadioModel implements Serializable {
 	}
 	
 	
-	public EstadioModel(int idEstadio, String codigoEstadio, String nombreEstadio, int capacidad, String ubicacion) {
+	
+	public EstadioModel(int idEstadio, @NotBlank(message = "codigo de estadio no puede ser vacio") String codigoEstadio,
+			@NotBlank(message = "Nombre de estadio no puede ser vacio") String nombreEstadio,
+			@NotNull(message = "capacidad de estadio no puede ser vacio") int capacidad,
+			@NotBlank(message = "ubicacion de estadio no puede ser vacio") String ubicacion) {
 		super();
 		this.idEstadio = idEstadio;
 		this.codigoEstadio = codigoEstadio;
@@ -58,6 +74,7 @@ public class EstadioModel implements Serializable {
 		this.capacidad = capacidad;
 		this.ubicacion = ubicacion;
 	}
+	
 	
 	public EstadioModel(EstadioJPA estadio) {
 		this.idEstadio = estadio.getIdEstadio();

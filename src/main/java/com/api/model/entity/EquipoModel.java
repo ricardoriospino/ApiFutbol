@@ -3,18 +3,37 @@ package com.api.model.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.api.jpa.entity.EquipoJPA;
 
 public class EquipoModel implements Serializable {
 	
 	private int idEquipo;
+	
+	@NotBlank (message="codigo de equipo no puede ser vacio")
 	private String codigoEquipo;
+	
+	@NotBlank(message="Nombre de equipo no puede ser vacio")
 	private String nombreEquipo;
+	
+	@NotNull  (message="fecha de fundación de equipo no puede ser vacio")
 	private Date anioFundacion;
+	
+	@NotBlank(message="Imagen escudo de equipo no puede ser vacio")
 	private String imagenEscudo;
+	
+	@NotBlank(message="Dueño de equipo no puede ser vacio")
 	private String duenioActual;
+	
+	@NotNull  (message="cantidad de titulos nacionales de equipo no puede ser vacio")
 	private int cantidadTituloNacional;
+	
+	@NotNull  (message="cantidad de titulos internacionales de equipo no puede ser vacio")
 	private int cantidadTituloInternacional;
+	
+	@NotBlank(message="Patocinador Principal de equipo no puede ser vacio")
 	private String patrocinadorPrincipal;
 	
 	
@@ -79,9 +98,14 @@ public class EquipoModel implements Serializable {
 		
 	}
 
-	public EquipoModel(int idEquipo, String codigoEquipo, String nombreEquipo, Date anioFundacion, String imagenEscudo,
-			String duenioActual, int cantidadTituloNacional, int cantidadTituloInternacional,
-			String patrocinadorPrincipal) {
+	public EquipoModel(int idEquipo, @NotBlank(message = "codigo de equipo no puede ser vacio") String codigoEquipo,
+			@NotBlank(message = "Nombre de equipo no puede ser vacio") String nombreEquipo,
+			@NotNull(message = "fecha de fundación de equipo no puede ser vacio") Date anioFundacion,
+			@NotBlank(message = "Imagen escudo de equipo no puede ser vacio") String imagenEscudo,
+			@NotBlank(message = "Dueño de equipo no puede ser vacio") String duenioActual,
+			@NotNull(message = "cantidad de titulos nacionales de equipo no puede ser vacio") int cantidadTituloNacional,
+			@NotNull(message = "cantidad de titulos internacionales de equipo no puede ser vacio") int cantidadTituloInternacional,
+			@NotBlank(message = "Patocinador Principal de equipo no puede ser vacio") String patrocinadorPrincipal) {
 		super();
 		this.idEquipo = idEquipo;
 		this.codigoEquipo = codigoEquipo;

@@ -2,6 +2,8 @@ package com.api.rest.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class EquipoRestController {
 	
 	//PUT 
 	@PutMapping("/equipo")
-	public boolean agregarEquipo (@RequestBody EquipoModel equipo) {
+	public boolean agregarEquipo (@Valid @RequestBody EquipoModel equipo) {
 		log.info("ini: agregarEquipo()");
 		
 		log.debug("datos equipo:" + equipo.toString());
@@ -98,14 +100,3 @@ public class EquipoRestController {
 	
 }
 
-/*
- * EJEMPLO
- {
-    "nombreEquipo": "Sporting Cristal",
-    "anioFundacion": "1960-02-15",
-    "aniosExistencia": 60,
-    "imagenEscudo": "imagen1",
-    "duenioActual": "Carlos",
-    "patrocinadorOficial": "Adidas"
-}
- */

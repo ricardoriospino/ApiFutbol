@@ -11,7 +11,7 @@
     <Loggers>
 		<!-- Niveles DEBUG,INFO,WARN,ERROR,FATAL -->
 
-        <Logger name="com.rios" level="DEBUG" additivity="false">
+        <Logger name="com.api" level="DEBUG" additivity="false">
         	 <AppenderRef ref="log-consola"/>
         </Logger>
         
@@ -28,7 +28,7 @@
      
         <!--  - Produccion -->
         
-<!--         <Logger name="com.rios" level="WARN" additivity="false">-->
+<!--         <Logger name="com.api" level="WARN" additivity="false">-->
     	
 <!--         <Root level="WARN"> -->
 <!-- 			<AppenderRef ref="log-consola" /> -->

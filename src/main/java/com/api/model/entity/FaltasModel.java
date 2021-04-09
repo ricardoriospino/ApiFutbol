@@ -2,6 +2,9 @@ package com.api.model.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.api.jpa.entity.FaltasJPA;
 import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.PartidoJPA;
@@ -9,21 +12,39 @@ import com.api.jpa.entity.PartidoJPA;
 public class FaltasModel implements Serializable {
 	
 	
-	private int idFaltas;
+	private int idFalta;
+	
+	@NotBlank (message="Tipo de Falta no puede ser vacio")
 	private String tipoFalta;
+	
+	@NotNull  (message="Minuto de falta no puede ser vacio")
 	private int minutoFalta;
+	
+	
 	private JugadorJPA jugador;
+	
+	@NotBlank(message="codigo de jugador no puede ser vacio")
+	private String codigoJugador;
+	
+	
 	private PartidoJPA partido;
 	
+	@NotBlank(message="codigo de Partido no puede ser vacio")
+	private String codigoPartido;
 	
-	public int getIdFaltas() {
-		return idFaltas;
+	
+
+
+	public int getIdFalta() {
+		return idFalta;
 	}
 
 
-	public void setIdFaltas(int idFaltas) {
-		this.idFaltas = idFaltas;
+
+	public void setIdFalta(int idFalta) {
+		this.idFalta = idFalta;
 	}
+
 
 
 	public String getTipoFalta() {
@@ -31,9 +52,11 @@ public class FaltasModel implements Serializable {
 	}
 
 
+
 	public void setTipoFalta(String tipoFalta) {
 		this.tipoFalta = tipoFalta;
 	}
+
 
 
 	public int getMinutoFalta() {
@@ -41,9 +64,11 @@ public class FaltasModel implements Serializable {
 	}
 
 
+
 	public void setMinutoFalta(int minutoFalta) {
 		this.minutoFalta = minutoFalta;
 	}
+
 
 
 	public JugadorJPA getJugador() {
@@ -51,9 +76,23 @@ public class FaltasModel implements Serializable {
 	}
 
 
+
 	public void setJugador(JugadorJPA jugador) {
 		this.jugador = jugador;
 	}
+
+
+
+	public String getCodigoJugador() {
+		return codigoJugador;
+	}
+
+
+
+	public void setCodigoJugador(String codigoJugador) {
+		this.codigoJugador = codigoJugador;
+	}
+
 
 
 	public PartidoJPA getPartido() {
@@ -61,39 +100,58 @@ public class FaltasModel implements Serializable {
 	}
 
 
+
 	public void setPartido(PartidoJPA partido) {
 		this.partido = partido;
 	}
+
+
+
+	public String getCodigoPartido() {
+		return codigoPartido;
+	}
+
+
+
+	public void setCodigoPartido(String codigoPartido) {
+		this.codigoPartido = codigoPartido;
+	}
+
 
 
 	public FaltasModel() {
 		
 	}
 	
-	
-	
-	public FaltasModel(int idFaltas, String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
+
+	public FaltasModel(int idFalta, @NotBlank(message = "Tipo de Falta no puede ser vacio") String tipoFalta,
+			@NotNull(message = "Minuto de falta no puede ser vacio") int minutoFalta, JugadorJPA jugador,
+			@NotBlank(message = "codigo de jugador no puede ser vacio") String codigoJugador, PartidoJPA partido,
+			@NotBlank(message = "codigo de Partido no puede ser vacio") String codigoPartido) {
 		super();
-		this.idFaltas = idFaltas;
+		this.idFalta = idFalta;
 		this.tipoFalta = tipoFalta;
 		this.minutoFalta = minutoFalta;
 		this.jugador = jugador;
+		this.codigoJugador = codigoJugador;
 		this.partido = partido;
+		this.codigoPartido = codigoPartido;
 	}
 
 
-	public FaltasModel(FaltasJPA faltas) {
-		this.idFaltas = faltas.getIdFaltas();
-		this.tipoFalta = faltas.getTipoFalta();
-		this.minutoFalta = faltas.getMinutoFalta();
-		this.jugador = faltas.getJugador();
-		this.partido = faltas.getPartido();
+
+	public FaltasModel(FaltasJPA falta) {
+		this.idFalta = falta.getIdFalta();
+		this.tipoFalta = falta.getTipoFalta();
+		this.minutoFalta = falta.getMinutoFalta();
+		this.jugador = falta.getJugador();
+		this.partido = falta.getPartido();
 	}
 
 
 	@Override
 	public String toString() {
-		return "FaltasModel [idFaltas=" + idFaltas + ", tipoFalta=" + tipoFalta + ", minutoFalta=" + minutoFalta
+		return "FaltasModel [idFalta=" + idFalta + ", tipoFalta=" + tipoFalta + ", minutoFalta=" + minutoFalta
 				+ ", jugador=" + jugador + ", partido=" + partido + "]";
 	}
 	

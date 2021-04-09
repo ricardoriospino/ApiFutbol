@@ -13,7 +13,7 @@ import com.api.jpa.entity.GolesJPA;
 import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.PartidoJPA;
 import com.api.jpa.entity.PosicionesJPA;
-import com.api.jpa.entity.TitulosJPA;
+import com.api.jpa.entity.TituloJPA;
 import com.api.model.entity.EntrenadorModel;
 import com.api.model.entity.EquipoModel;
 import com.api.model.entity.EstadioModel;
@@ -22,7 +22,7 @@ import com.api.model.entity.GolesModel;
 import com.api.model.entity.JugadorModel;
 import com.api.model.entity.PartidoModel;
 import com.api.model.entity.PosicionesModel;
-import com.api.model.entity.TitulosModel;
+import com.api.model.entity.TituloModel;
 
 @Component("convertidor")
 public class Convertidor {
@@ -179,21 +179,21 @@ public class Convertidor {
 	
 	//----------------------------------------------------------------------
 	
-	public List<TitulosModel> convertirListaTitulos (List<TitulosJPA> lista){
-		List<TitulosModel> lstResultTitulos = new ArrayList<>();
+	public List<TituloModel> convertirListaTitulos (List<TituloJPA> lista){
+		List<TituloModel> lstResultTitulo = new ArrayList<>();
 		
-		for ( TitulosJPA titulos : lista) {
-			lstResultTitulos.add(new TitulosModel(titulos));
+		for ( TituloJPA titulos: lista) {
+			lstResultTitulo.add(new TituloModel(titulos));
 		}
-		return lstResultTitulos;
+		return lstResultTitulo;
 	}
 	
-	public TitulosModel convertirTitulosModel (TitulosJPA titulos) {
-		return new TitulosModel(titulos);
+	public TituloModel convertirTitulosModel (TituloJPA titulos) {
+		return new TituloModel(titulos);
 	}
 	
-	public TitulosJPA convertirTitulosJPA (TitulosModel titulos) {
-		return new TitulosJPA(titulos);
+	public TituloJPA convertirTitulosJPA (TituloModel titulos) {
+		return new TituloJPA(titulos);
 	}
 	
 }

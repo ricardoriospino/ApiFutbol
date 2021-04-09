@@ -2,18 +2,36 @@ package com.api.model.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.api.jpa.entity.PosicionesJPA;
 
 public class PosicionesModel implements Serializable {
 	
 	private int idPosiciones;
+	
+	@NotNull (message="Temporada no puede ser vacio")
 	private int temporada;
+	
+	@NotBlank (message="Nombre de Equipo no puede ser vacio")
 	private String nombreEquipo;
+	
+	@NotNull (message="Partidos Jugados no puede ser vacio")
 	private int partidosJugados;
+	
+	@NotNull (message="Partidos Ganados no puede ser vacio")
 	private int partidosGanados;
+	
+	@NotNull (message="Partidos Empatados no puede ser vacio")
 	private int partidosEmpatados;
+	
+	@NotNull (message="Partidos Perdidos no puede ser vacio")
 	private int partidosPerdidos;
+	
+	@NotNull (message="Puntos no puede ser vacio")
 	private int puntos;
+	
 	public int getIdPosiciones() {
 		return idPosiciones;
 	}
@@ -62,8 +80,15 @@ public class PosicionesModel implements Serializable {
 	public void setPuntos(int puntos) {
 		this.puntos = puntos;
 	}
-	public PosicionesModel(int idPosiciones, int temporada, String nombreEquipo, int partidosJugados,
-			int partidosGanados, int partidosEmpatados, int partidosPerdidos, int puntos) {
+	
+
+	public PosicionesModel(int idPosiciones, @NotNull(message = "Temporada no puede ser vacio") int temporada,
+			@NotBlank(message = "Nombre de Equipo no puede ser vacio") String nombreEquipo,
+			@NotNull(message = "Partidos Jugados no puede ser vacio") int partidosJugados,
+			@NotNull(message = "Partidos Ganados no puede ser vacio") int partidosGanados,
+			@NotNull(message = "Partidos Empatados no puede ser vacio") int partidosEmpatados,
+			@NotNull(message = "Partidos Perdidos no puede ser vacio") int partidosPerdidos,
+			@NotNull(message = "Puntos no puede ser vacio") int puntos) {
 		super();
 		this.idPosiciones = idPosiciones;
 		this.temporada = temporada;
@@ -74,6 +99,7 @@ public class PosicionesModel implements Serializable {
 		this.partidosPerdidos = partidosPerdidos;
 		this.puntos = puntos;
 	}
+	
 	
 	public PosicionesModel (PosicionesJPA posiciones) {
 		this.idPosiciones = posiciones.getIdPosiciones();
