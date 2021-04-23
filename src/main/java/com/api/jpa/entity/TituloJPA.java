@@ -41,13 +41,13 @@ public class TituloJPA implements Serializable {
 	}
 
 	
-	public TituloJPA(int idTitulo, String anioTitulo, String nombreTitulo, boolean tipoTitulo, EquipoJPA equipo) {
+	public TituloJPA(int idTitulo, String anioTitulo, String nombreTitulo, boolean tipoTitulo) {
 		super();
 		this.idTitulo = idTitulo;
 		this.anioTitulo = anioTitulo;
 		this.nombreTitulo = nombreTitulo;
 		this.tipoTitulo = tipoTitulo;
-		this.equipo = equipo;
+		
 	}
 
 

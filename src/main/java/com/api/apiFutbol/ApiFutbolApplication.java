@@ -15,3 +15,12 @@ public class ApiFutbolApplication {
 	}
 
 }
+
+// postman
+//http://localhost:8090/login
+/*
+{
+    "usuario":"prios",
+    "clave":"123"
+}
+*/

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.api.model.entity.EquipoEntrenadorModel;
+
 @Entity
 @Table (name="tb_equipo_entrenador")
 public class EquipoEntrenadorJPA implements Serializable {
@@ -31,9 +33,6 @@ public class EquipoEntrenadorJPA implements Serializable {
 	@Column(name="anio" , nullable=false , length= 10  )
 	private int anio;
 	
-	@Column (name="titulos_ganados" , nullable=false , length=10 )
-	private int titulosGanados;
-	
 	@Column(name="partidos_jugados" , nullable=false , length=10)
 	private int partidosJugados;
 	
@@ -41,29 +40,37 @@ public class EquipoEntrenadorJPA implements Serializable {
 		
 	}
 
+	public EquipoEntrenadorJPA(EquipoEntrenadorModel equipoEntrenador) {
+		this.idEquipoEntrenador = equipoEntrenador.getIdEquipoEntrenador();
+		this.equipo = equipoEntrenador.getEquipo();
+		this.entrenador = equipoEntrenador.getEntrenador();
+		this.anio = equipoEntrenador.getAnio();
+		this.partidosJugados = equipoEntrenador.getPartidosJugados();
 	
+	}
 	
 	public EquipoEntrenadorJPA(int idEquipoEntrenador, EquipoJPA equipo, EntrenadorJPA entrenador, int anio,
-			int titulosGanados, int partidosJugados) {
+			 int partidosJugados) {
 		super();
 		this.idEquipoEntrenador = idEquipoEntrenador;
 		this.equipo = equipo;
 		this.entrenador = entrenador;
 		this.anio = anio;
-		this.titulosGanados = titulosGanados;
 		this.partidosJugados = partidosJugados;
 	}
-
-
-
-	// aqui va EquipoEntrenadorJPA a EquipoEntrenadorModel
+	
+	public EquipoEntrenadorJPA(EquipoJPA equipo, EntrenadorJPA entrenador, int anio, int partidosJugados) {
+		super();
+		this.equipo = equipo;
+		this.entrenador = entrenador;
+		this.anio = anio;
+		this.partidosJugados = partidosJugados;
+	}
 
 
 	public int getIdEquipoEntrenador() {
 		return idEquipoEntrenador;
 	}
-
-
 
 	public void setIdEquipoEntrenador(int idEquipoEntrenador) {
 		this.idEquipoEntrenador = idEquipoEntrenador;
@@ -106,19 +113,6 @@ public class EquipoEntrenadorJPA implements Serializable {
 	}
 
 
-
-	public int getTitulosGanados() {
-		return titulosGanados;
-	}
-
-
-
-	public void setTitulosGanados(int titulosGanados) {
-		this.titulosGanados = titulosGanados;
-	}
-
-
-
 	public int getPartidosJugados() {
 		return partidosJugados;
 	}
@@ -134,7 +128,7 @@ public class EquipoEntrenadorJPA implements Serializable {
 	@Override
 	public String toString() {
 		return "EquipoEntrenadorJPA [idEquipoEntrenador=" + idEquipoEntrenador + ", equipo=" + equipo + ", entrenador="
-				+ entrenador + ", anio=" + anio + ", titulosGanados=" + titulosGanados + ", partidosJugados="
+				+ entrenador + ", anio=" + anio + ", partidosJugados="
 				+ partidosJugados + "]";
 	}
 

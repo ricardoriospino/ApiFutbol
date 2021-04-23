@@ -136,7 +136,16 @@ puntos INTEGER (10)NOT NULL
 
 );
 
+CREATE TABLE IF NOT EXISTS tb_security(
+id INTEGER UNSIGNED PRIMARY KEY auto_increment,
+usuario VARCHAR (50) UNIQUE NOT NULL,
+clave VARCHAR(50) NOT NULL,
+rol  CHAR NOT NULL,
+activo BOOLEAN NOT NULL
+);
+
 /*
+DROP TABLE tb_security;
 DROP TABLE tb_posiciones;
 DROP TABLE tb_faltas;
 DROP TABLE tb_goles;
@@ -163,6 +172,7 @@ SELECT * FROM tb_equipo_estadio;
 SELECT * FROM tb_goles;
 SELECT * FROM tb_faltas;
 SELECT * FROM tb_posiciones;
+SELECT * FROM tb_security;
 
 -- DATA EQUIPOS
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
@@ -278,3 +288,9 @@ INSERT INTO tb_goles (minuto_gol,descripcion_gol,id_partido,id_jugador) VALUES (
 INSERT INTO tb_faltas(tipo_falta,minuto_falta,id_partido,id_jugador)VALUES("Amarilla", 25,1,1);
 INSERT INTO tb_faltas(tipo_falta,minuto_falta,id_partido,id_jugador)VALUES("Amarilla", 49,1,3);
 INSERT INTO tb_faltas(tipo_falta,minuto_falta,id_partido,id_jugador)VALUES("Amarilla", 69,1,4);
+
+-- DATA JWTS SECURITY
+insert into tb_security(activo,clave,rol,usuario) values(true,'123',3,'prios');
+insert into tb_security(activo,clave,rol,usuario) values(false,'123',2,'rrios');
+insert into tb_security(activo,clave,rol,usuario) values(true,'123',1,'zrios');
+insert into tb_security(activo,clave,rol,usuario) values(true,'123',0,'xrios');

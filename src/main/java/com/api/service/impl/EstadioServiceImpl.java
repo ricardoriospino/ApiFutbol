@@ -10,9 +10,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
 import com.api.jpa.entity.EstadioJPA;
+import com.api.jpa.repository.EquipoEstadioRepository;
 import com.api.jpa.repository.EstadioRepository;
+import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EstadioModel;
+import com.api.rest.dto.EstadioFullDTO;
 import com.api.service.EstadioService;
 import com.api.util.Convertidor;
 
@@ -23,6 +27,10 @@ public class EstadioServiceImpl implements EstadioService {
 	@Autowired
 	@Qualifier("repositorioestadio")
 	private EstadioRepository repositorio;
+	
+	@Autowired
+	@Qualifier("repositorioEquipoEstadio")
+	private EquipoEstadioRepository repositorioEquipoEstadio;
 	
 	@Autowired
 	@Qualifier("convertidor")
@@ -65,19 +73,23 @@ public class EstadioServiceImpl implements EstadioService {
 	}
 
 	@Override
-	public boolean borrar(int id) {
+	public boolean borrar(int id ) {
 		
 		try {
-			log.info("Borrar");
-			Optional<EstadioJPA> estadio = repositorio.findById(id);
-			if(estadio.isPresent()) {
-				repositorio.delete(estadio.get());
-			}else {
-				log.error("No existe data para ese Id");
-				return false;
-			}
-			return true;
 			
+
+				log.info("Borrar");
+				Optional<EstadioJPA> estadio = repositorio.findById(id);
+				if(estadio.isPresent()) {
+					repositorio.delete(estadio.get());
+				}else {
+					log.error("No existe data para ese Id");
+					return false;
+				}
+				return true;
+			
+			
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Error al borrar " + e);
@@ -101,6 +113,23 @@ public class EstadioServiceImpl implements EstadioService {
 	public List<EstadioModel> obtenerEstadiosPaginacion(Pageable paginacion) {
 		
 		return convertidor.convertirListaEstadio(repositorio.findAll(paginacion).getContent());
+	}
+
+	@Override
+	public EstadioModel obtenerEstadioPorCodigo(String codigo) {
+		
+		return convertidor.convertirEstadioModel(repositorio.findByCodigoEstadio(codigo));
+	}
+
+	@Override
+	public EstadioFullDTO obtenerEstadioPorFcodigo(String codigo) {
+		
+		EstadioModel estadio = obtenerEstadioPorCodigo(codigo);
+		
+		List<EquipoEstadioModel> equipoEstadio = convertidor.convertirListaEquipoEstadios
+				(repositorioEquipoEstadio.findByEstadio(new EstadioJPA(estadio)));
+		
+		return new EstadioFullDTO(estadio, equipoEstadio);
 	}
 
 }

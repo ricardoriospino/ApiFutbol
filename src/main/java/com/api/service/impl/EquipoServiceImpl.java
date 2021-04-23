@@ -1,5 +1,6 @@
 package com.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,9 +11,18 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.api.jpa.entity.EquipoEstadioJPA;
 import com.api.jpa.entity.EquipoJPA;
+import com.api.jpa.entity.EstadioJPA;
+import com.api.jpa.entity.TituloJPA;
+import com.api.jpa.repository.EquipoEstadioRepository;
 import com.api.jpa.repository.EquipoRepository;
+import com.api.jpa.repository.EstadioRepository;
+import com.api.jpa.repository.TituloRepository;
+import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EquipoModel;
+import com.api.model.entity.TituloModel;
+import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.EquipoService;
 import com.api.util.Convertidor;
 
@@ -21,8 +31,22 @@ public class EquipoServiceImpl implements EquipoService {
 	private static final Logger log = LogManager.getLogger(EquipoServiceImpl.class);
 	
 	@Autowired
+	@Qualifier("repositorioTitulo")
+	private TituloRepository repositorioTitulo;
+
+	
+	
+	@Autowired
 	@Qualifier("repositorioequipo")
 	private EquipoRepository repositorio;
+	
+	@Autowired
+	@Qualifier("repositorioestadio")
+	private EstadioRepository repositorioEstadio;
+	
+	@Autowired
+	@Qualifier("repositorioEquipoEstadio")
+	private EquipoEstadioRepository repositorioEquipoEstadio;
 	
 	@Autowired
 	@Qualifier("convertidor")
@@ -52,6 +76,35 @@ public class EquipoServiceImpl implements EquipoService {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean insertarEquipoEstadio(EquipoEstadioModel equipoEstadio) {
+		
+		try {
+			
+			EquipoJPA equipoJPA = repositorio.findByCodigoEquipo(equipoEstadio.getCodigoEquipo());
+			
+			EstadioJPA estadioJPA = repositorioEstadio.findByCodigoEstadio(equipoEstadio.getCodigoEstadio());
+			
+			
+			if (equipoJPA == null   ) {	
+				log.error(" equipo no existe");
+				return false;
+			}
+			
+			
+			EquipoEstadioJPA ee = new EquipoEstadioJPA( equipoJPA, estadioJPA);
+			
+			repositorioEquipoEstadio.save(ee);
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("Error al insertar EquipoService " + e);
+			return false;
+		}
+	}
+
 
 	@Override
 	public boolean actualizar(EquipoModel equipo) {
@@ -69,7 +122,7 @@ public class EquipoServiceImpl implements EquipoService {
 	}
 
 	@Override
-	public boolean borrar(int id) {
+	public boolean borrar(int id  ) {
 		
 		try {
 			log.info("Borrar");
@@ -107,6 +160,35 @@ public class EquipoServiceImpl implements EquipoService {
 	public List<EquipoModel> obtenerEquiposPaginacion(Pageable paginacion) {
 		
 		return convertidor.convertirListaEquipo(repositorio.findAll(paginacion).getContent());
+	}
+
+	@Override
+	public EquipoFullDTO obtenerEquipoFPorNombre(String nombre) {
+		
+		EquipoModel equipo = obtenerEquipoPorNombre(nombre);
+		
+		List<TituloModel> titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(new EquipoJPA(equipo)));
+		
+		return new EquipoFullDTO(equipo, titulos);
+	}
+
+	@Override
+	public EquipoFullDTO obtenerListaTitulos() {
+		
+		List<EquipoModel> equipo =  convertidor.convertirListaEquipo(repositorio.findAll());
+	
+		ArrayList<EquipoJPA> equipoTitulos = new ArrayList<EquipoJPA>();
+		
+		equipoTitulos = (ArrayList<EquipoJPA>) convertidor.convertirEquipoJPA(equipo);
+		
+		List<TituloModel> titulo = null;
+		
+		for (EquipoJPA equipoJPA : equipoTitulos) {
+			
+			 titulo = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(equipoJPA));
+			
+		}	
+		return new EquipoFullDTO(equipo,  equipoTitulos);
 	}
 
 }

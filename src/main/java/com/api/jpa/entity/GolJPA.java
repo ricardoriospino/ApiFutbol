@@ -11,11 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.api.model.entity.GolesModel;
+import com.api.model.entity.GolModel;
 
 @Entity
 @Table(name = "tb_goles")
-public class GolesJPA implements Serializable{
+public class GolJPA implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,14 +36,14 @@ public class GolesJPA implements Serializable{
 	@ManyToOne
 	private PartidoJPA partido;
 
-	public GolesJPA() {
+	public GolJPA() {
 		
 	}
 
 	
 
 
-	public GolesJPA(int idGol, int minutoGol, String descripcionGol, JugadorJPA jugador, PartidoJPA partido) {
+	public GolJPA(int idGol, int minutoGol, String descripcionGol, JugadorJPA jugador, PartidoJPA partido) {
 		super();
 		this.idGol = idGol;
 		this.minutoGol = minutoGol;
@@ -55,7 +55,18 @@ public class GolesJPA implements Serializable{
 
 
 
-	public GolesJPA(GolesModel gol) {
+	public GolJPA(int minutoGol, String descripcionGol, JugadorJPA jugador, PartidoJPA partido) {
+		super();
+		this.minutoGol = minutoGol;
+		this.descripcionGol = descripcionGol;
+		this.jugador = jugador;
+		this.partido = partido;
+	}
+
+
+
+
+	public GolJPA(GolModel gol) {
 		this.idGol = gol.getIdGol();
 		this.minutoGol = gol.getMinutoGol();
 		this.descripcionGol = gol.getDescripcionGol();

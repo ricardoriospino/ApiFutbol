@@ -11,12 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.api.model.entity.FaltasModel;
+import com.api.model.entity.FaltaModel;
 
 
 @Entity
 @Table(name = "tb_faltas")
-public class FaltasJPA implements Serializable {
+public class FaltaJPA implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,12 +38,12 @@ public class FaltasJPA implements Serializable {
 	private PartidoJPA partido;
 	
 	
-	public FaltasJPA() {
+	public FaltaJPA() {
 		
 	}
 
 
-	public FaltasJPA(int idFalta, String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
+	public FaltaJPA(int idFalta, String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
 		super();
 		this.idFalta = idFalta;
 		this.tipoFalta = tipoFalta;
@@ -51,9 +51,18 @@ public class FaltasJPA implements Serializable {
 		this.jugador = jugador;
 		this.partido = partido;
 	}
+	
+
+	public FaltaJPA(String tipoFalta, int minutoFalta, JugadorJPA jugador, PartidoJPA partido) {
+		super();
+		this.tipoFalta = tipoFalta;
+		this.minutoFalta = minutoFalta;
+		this.jugador = jugador;
+		this.partido = partido;
+	}
 
 
-	public FaltasJPA(FaltasModel falta) {
+	public FaltaJPA(FaltaModel falta) {
 		this.idFalta = falta.getIdFalta();
 		this.tipoFalta = falta.getTipoFalta();
 		this.minutoFalta = falta.getMinutoFalta();

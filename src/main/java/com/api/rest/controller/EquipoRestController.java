@@ -18,19 +18,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EquipoModel;
+import com.api.model.entity.TituloModel;
+import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.impl.EquipoServiceImpl;
 
 @RestController
-@RequestMapping("/apiEquipo")
+@RequestMapping("/apiFutbol")
 public class EquipoRestController {
 	private static final Logger log = LogManager.getLogger(EquipoRestController.class);
+	
+	
 	
 	@Autowired
 	@Qualifier("equipoServiceImpl")
 	private EquipoServiceImpl equipoServiceImpl;
 	
-	// http://localhost:8090/apiEquipo/equipo
+	// http://localhost:8090/apiFutbol/equipo
 	
 	//PUT 
 	@PutMapping("/equipo")
@@ -40,8 +45,21 @@ public class EquipoRestController {
 		log.debug("datos equipo:" + equipo.toString());
 		return equipoServiceImpl.insertar(equipo);
 	}
+	
+	//---------------------------------------------------------------------
+	// http://localhost:8090/apiFutbol/equipo-estadio
+	
+	//PUT 
+	@PutMapping("/equipo-estadio")
+	public boolean agregarEquipoEstadio(@Valid @RequestBody EquipoEstadioModel equipoEstadio) {
+		log.info("ini: agregarEquipoEstadio()");
+			
+		log.debug("datos equipo estadio:" + equipoEstadio.toString());
+		return equipoServiceImpl.insertarEquipoEstadio(equipoEstadio);
+	}
+	
 	//-------------------------------------------------------------------
-	// http://localhost:8090/apiEquipo/equipo
+	// http://localhost:8090/apiFutbol/equipo
 	//POST
 	@PostMapping("/equipo")
 	public boolean actualizarEquipo (@RequestBody EquipoModel equipo) {
@@ -54,7 +72,7 @@ public class EquipoRestController {
 	// ------------------------------------------------------------------
 	
 	//DELETE 
-	//http://localhost:8090/apiEquipo/borrarEquipo/11
+	//http://localhost:8090/apiFutbol/borrarEquipo/11
 	@DeleteMapping ("/borrarEquipo/{idBorrar}")
 	public boolean borrarEquipo(@PathVariable("idBorrar") int id) {
 		log.info("ini: borrarEquipo()");
@@ -66,7 +84,7 @@ public class EquipoRestController {
 	// -----------------------------------------------------------------
 	
 	//GET SIN PARAMETROS SIN PAGINACION
-	//http://localhost:8090/apiEquipo/equipos
+	//http://localhost:8090/apiFutbol/equipos
 	@GetMapping("/equipos")
 	public List<EquipoModel> obtenerEquipo(){
 		log.info("ini: obtenerEquipo() ");
@@ -77,7 +95,7 @@ public class EquipoRestController {
 	// -------------------------------------------------------------------
 	
 	// GET CON PAGINACION Y TAMAÑO
-	// http://localhost:8090/apiEquipo/equiposP?page=0&size=3
+	// http://localhost:8090/apiFutbol/equiposP?page=0&size=3
 	@GetMapping ("/equiposP")
 	public List<EquipoModel> obtenerEquiposPaginacion(Pageable paginacion){
 		log.info("ini: obtenerEquiposPaginacion()");
@@ -88,7 +106,7 @@ public class EquipoRestController {
 	// -----------------------------------------------------------------------
 	
 	//GET CON PARAMETROS 
-	// http://localhost:8090/apiEquipo/equipo/Sporting Cristal
+	// http://localhost:8090/apiFutbol/equipo/Sporting Cristal
 	@GetMapping ("/equipo/{pnombre}")
 	public  EquipoModel obtenerEquipoPorNombre (@PathVariable("pnombre")String nombre ) {
 				
@@ -97,6 +115,34 @@ public class EquipoRestController {
 		log.debug("nombre:" +  nombre );
 		return  equipoServiceImpl.obtenerEquipoPorNombre(nombre);
 	}
+	
+	
+	// -----------------------------------------------------------------------
+	
+	//GET CON PARAMETROS 
+	// http://localhost:8090/apiFutbol/equipof/Sporting Cristal
+	@GetMapping ("/equipof/{pnombre}")
+	public  EquipoFullDTO obtenerEquipoPorNombreFull (@PathVariable("pnombre")String nombre ) {
+					
+		log.info("ini: obtenerEquipoPorNombreFull()");
+					
+		log.debug("nombre:" +  nombre );
+		return  equipoServiceImpl.obtenerEquipoFPorNombre(nombre);
+		
+		
+	}
+	
+	// TODOS LOS titulos de cada equipo
+	// http://localhost:8090/apiFutbol/listaTitulosxEquipos
+	@GetMapping("/listaTitulosxEquipos")
+	public EquipoFullDTO obtenerTitulosxEquipo(){
+		
+		log.info("obtenerTitulosxEquipo()");
+		
+		return equipoServiceImpl.obtenerListaTitulos();
+	}
+	
+	
 	
 }
 

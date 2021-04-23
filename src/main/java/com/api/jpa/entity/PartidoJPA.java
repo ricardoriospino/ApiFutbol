@@ -30,7 +30,7 @@ public class PartidoJPA implements Serializable {
 	private String codigoPartido;
 	
 	@Column (name="fecha_hora" , nullable=false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaHora;
 	
 	@Column (name="numero_goles" , nullable=false , length= 10 )
@@ -81,6 +81,29 @@ public class PartidoJPA implements Serializable {
 			String arbitro, EquipoJPA equipo1, EquipoJPA equipo2) {
 		super();
 		this.idPartido = idPartido;
+		this.codigoPartido = codigoPartido;
+		this.fechaHora = fechaHora;
+		this.numeroGoles = numeroGoles;
+		this.numeroFaltas = numeroFaltas;
+		this.golesEquipo1 = golesEquipo1;
+		this.golesEquipo2 = golesEquipo2;
+		this.faltasEquipo1 = faltasEquipo1;
+		this.faltasEquipo2 = faltasEquipo2;
+		this.ganador = ganador;
+		this.perdedor = perdedor;
+		this.arbitro = arbitro;
+		this.equipo1 = equipo1;
+		this.equipo2 = equipo2;
+	}
+	
+	
+
+
+
+	public PartidoJPA(String codigoPartido, Date fechaHora, int numeroGoles, int numeroFaltas, int golesEquipo1,
+			int golesEquipo2, int faltasEquipo1, int faltasEquipo2, String ganador, String perdedor, String arbitro,
+			EquipoJPA equipo1, EquipoJPA equipo2) {
+		super();
 		this.codigoPartido = codigoPartido;
 		this.fechaHora = fechaHora;
 		this.numeroGoles = numeroGoles;

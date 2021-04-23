@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.api.model.entity.EstadioModel;
+import com.api.rest.dto.EstadioFullDTO;
 import com.api.service.impl.EstadioServiceImpl;
 
 @RestController
@@ -58,9 +60,9 @@ public class EstadioRestController {
 	// -------------------------------------------------------------
 	
 	//DELETE
-	//http://localhost:8090/apiEstadio/borrarEstadio/9
-	@DeleteMapping ("/borrarEstadio/{idEstadio}")
-	public boolean borrarEstadio (@PathVariable("idEstadio") int id) {
+	//http://localhost:8090/apiEstadio/borrarEstadio/1
+	@DeleteMapping ("/borrarEstadio/{idEstadio}/{idEquipo}")
+	public boolean borrarEstadio (@PathVariable("idEstadio") int id ) {
 		
 		log.info("ini: borrarEstadio()");
 		log.debug("id:" +  id );
@@ -93,8 +95,8 @@ public class EstadioRestController {
 	// --------------------------------------------------------------
 	
 	// GET CON PARAMETROS 
-	// http://localhost:8090/apiEstadio/estadio/Nacional
-	@GetMapping ("/estadio/{pnombre}")
+	// http://localhost:8090/apiEstadio/estadior/Nacional
+	@GetMapping ("/estadior/{pnombre}")
 	public  EstadioModel obtenerEstadioPorNombre (@PathVariable("pnombre")String nombre ) {
 					
 		log.info("ini: obtenerEstadioPorNombre()");
@@ -103,5 +105,14 @@ public class EstadioRestController {
 		return  estadioServiceImpl.obtenerEstadioPorNombre(nombre);
 	}
 	
+	// -----------------------------------------------------------------------------------
+	//http://localhost:8090/apiEstadio/estadiop/ES001
+	@GetMapping ("/estadiop/{pcodigo}")
+	public EstadioFullDTO obtenerEstadioPorCodigoFull (@PathVariable("pcodigo")String codigoEstadio ) {
+		
+		log.info("ini: obtenerEstadioPorCodigoFull()");
+		log.debug("Codigo estadio:" +  codigoEstadio  );
+		return estadioServiceImpl.obtenerEstadioPorFcodigo(codigoEstadio);
+	}
 
 }

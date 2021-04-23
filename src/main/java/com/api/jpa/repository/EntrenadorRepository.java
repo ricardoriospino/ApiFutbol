@@ -20,5 +20,6 @@ public interface EntrenadorRepository extends JpaRepository<EntrenadorJPA, Seria
 	public EntrenadorJPA findByNombreEntrenadorAndNacionalidad (String vnombre, String vnacionalidad);
 	
 	public EntrenadorJPA findBycodigoEntrenador (String codigo);
+	
 
 }

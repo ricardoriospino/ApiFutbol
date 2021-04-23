@@ -5,11 +5,11 @@ import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.api.jpa.entity.GolesJPA;
+import com.api.jpa.entity.GolJPA;
 import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.PartidoJPA;
 
-public class GolesModel implements Serializable {
+public class GolModel implements Serializable {
 	
 	private int idGol;
 	
@@ -30,39 +30,37 @@ public class GolesModel implements Serializable {
 	private String codigoPartido;
 	
 	
+	private int idJugador;
+	
+	private int idPartido;
+	
+	
+	
 	
 	
 	public int getIdGol() {
 		return idGol;
 	}
 
-
 	public void setIdGol(int idGol) {
 		this.idGol = idGol;
 	}
-
 
 	public int getMinutoGol() {
 		return minutoGol;
 	}
 
-
-
 	public void setMinutoGol(int minutoGol) {
 		this.minutoGol = minutoGol;
 	}
-
-
 
 	public String getDescripcionGol() {
 		return descripcionGol;
 	}
 
-
 	public void setDescripcionGol(String descripcionGol) {
 		this.descripcionGol = descripcionGol;
 	}
-
 
 	public JugadorJPA getJugador() {
 		return jugador;
@@ -72,7 +70,6 @@ public class GolesModel implements Serializable {
 		this.jugador = jugador;
 	}
 
-
 	public String getCodigoJugador() {
 		return codigoJugador;
 	}
@@ -81,17 +78,13 @@ public class GolesModel implements Serializable {
 		this.codigoJugador = codigoJugador;
 	}
 
-
 	public PartidoJPA getPartido() {
 		return partido;
 	}
 
-
-
 	public void setPartido(PartidoJPA partido) {
 		this.partido = partido;
 	}
-
 
 	public String getCodigoPartido() {
 		return codigoPartido;
@@ -100,16 +93,33 @@ public class GolesModel implements Serializable {
 	public void setCodigoPartido(String codigoPartido) {
 		this.codigoPartido = codigoPartido;
 	}
+	
 
-	public GolesModel() {
+	public int getIdJugador() {
+		return idJugador;
+	}
+
+	public void setIdJugador(int idJugador) {
+		this.idJugador = idJugador;
+	}
+
+	public int getIdPartido() {
+		return idPartido;
+	}
+
+	public void setIdPartido(int idPartido) {
+		this.idPartido = idPartido;
+	}
+
+	public GolModel() {
 		
 	}
 	
-
-	public GolesModel(int idGol, @NotNull(message = "Minuto de gol no puede ser vacio") int minutoGol,
+	public GolModel(int idGol, @NotNull(message = "Minuto de gol no puede ser vacio") int minutoGol,
 			@NotBlank(message = "Descripcion de gol no puede ser vacio") String descripcionGol, JugadorJPA jugador,
 			@NotBlank(message = "Codigo Jugador no puede ser vacio") String codigoJugador, PartidoJPA partido,
-			@NotBlank(message = " Codigo partido no puede ser vacio") String codigoPartido) {
+			@NotBlank(message = " Codigo partido no puede ser vacio") String codigoPartido, int idJugador,
+			int idPartido) {
 		super();
 		this.idGol = idGol;
 		this.minutoGol = minutoGol;
@@ -118,25 +128,26 @@ public class GolesModel implements Serializable {
 		this.codigoJugador = codigoJugador;
 		this.partido = partido;
 		this.codigoPartido = codigoPartido;
+		this.idJugador = idJugador;
+		this.idPartido = idPartido;
 	}
 
-
-	public GolesModel (GolesJPA gol) {
+	public GolModel (GolJPA gol) {
 		this.idGol = gol.getIdGol();
 		this.minutoGol = gol.getMinutoGol();
 		this.descripcionGol = gol.getDescripcionGol();
-		this.jugador = gol.getJugador();
-		this.partido = gol.getPartido();
+		this.codigoJugador = gol.getJugador().getCodigoJugador();
+		this.codigoPartido = gol.getPartido().getCodigoPartido();
+		this.idJugador = gol.getJugador().getIdJugador();
+		this.idPartido = gol.getPartido().getIdPartido();
 	}
-	
+
 	@Override
 	public String toString() {
-		return "GolesModel [idGol=" + idGol + ", minutoGol=" + minutoGol + ", descripcionGol=" + descripcionGol
-				+ ", jugador=" + jugador + ", partido=" + partido + "]";
+		return "GolModel [idGol=" + idGol + ", minutoGol=" + minutoGol + ", descripcionGol=" + descripcionGol
+				+ ", jugador=" + jugador + ", codigoJugador=" + codigoJugador + ", partido=" + partido
+				+ ", codigoPartido=" + codigoPartido + ", idJugador=" + idJugador + ", idPartido=" + idPartido + "]";
 	}
-	
-	
-	
-	
+		
 
 }

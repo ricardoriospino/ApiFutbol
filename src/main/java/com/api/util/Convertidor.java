@@ -6,19 +6,25 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.api.jpa.entity.EntrenadorJPA;
+import com.api.jpa.entity.EquipoEntrenadorJPA;
+import com.api.jpa.entity.EquipoEstadioJPA;
 import com.api.jpa.entity.EquipoJPA;
+import com.api.jpa.entity.EquipoJugadorJPA;
 import com.api.jpa.entity.EstadioJPA;
-import com.api.jpa.entity.FaltasJPA;
-import com.api.jpa.entity.GolesJPA;
+import com.api.jpa.entity.FaltaJPA;
+import com.api.jpa.entity.GolJPA;
 import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.PartidoJPA;
 import com.api.jpa.entity.PosicionesJPA;
 import com.api.jpa.entity.TituloJPA;
 import com.api.model.entity.EntrenadorModel;
+import com.api.model.entity.EquipoEntrenadorModel;
+import com.api.model.entity.EquipoEstadioModel;
+import com.api.model.entity.EquipoJugadorModel;
 import com.api.model.entity.EquipoModel;
 import com.api.model.entity.EstadioModel;
-import com.api.model.entity.FaltasModel;
-import com.api.model.entity.GolesModel;
+import com.api.model.entity.FaltaModel;
+import com.api.model.entity.GolModel;
 import com.api.model.entity.JugadorModel;
 import com.api.model.entity.PartidoModel;
 import com.api.model.entity.PosicionesModel;
@@ -44,6 +50,8 @@ public class Convertidor {
 		return new EntrenadorJPA(entrenador);
 	}
 	
+	
+	
 	// -------------------------------------------------------------------------------
 	
 	public List<EquipoModel> convertirListaEquipo (List<EquipoJPA> lista){
@@ -59,8 +67,15 @@ public class Convertidor {
 		return new EquipoModel(equipo);
 	}
 	
-	public EquipoJPA convertirEquipoJPA (EquipoModel equipo) {
-		return new EquipoJPA(equipo);
+	public List<EquipoJPA> convertirEquipoJPA (List<EquipoModel> equipo) {
+		List<EquipoJPA> lstResultEquipos = new ArrayList<>();
+		
+		for (EquipoModel equipos : equipo) {
+			lstResultEquipos.add(new EquipoJPA(equipos));
+			
+		}
+		
+		return lstResultEquipos;
 	}
 	
 	// -----------------------------------------------------------------------
@@ -84,40 +99,40 @@ public class Convertidor {
 	
 	// --------------------------------------------------------------------
 	
-	public List<FaltasModel> convertirListaFaltas (List<FaltasJPA> lista){
-		List<FaltasModel> lstResultFaltas = new ArrayList<>();
+	public List<FaltaModel> convertirListaFaltas (List<FaltaJPA> lista){
+		List<FaltaModel> lstResultFaltas = new ArrayList<>();
 		
-		for (FaltasJPA faltas : lista) {
-			lstResultFaltas.add(new FaltasModel(faltas));
+		for (FaltaJPA faltas : lista) {
+			lstResultFaltas.add(new FaltaModel(faltas));
 		}
 		return lstResultFaltas;
 	}
 	
-	public FaltasModel convertirFaltasModel (FaltasJPA faltas) {
-		return new FaltasModel(faltas);
+	public FaltaModel convertirFaltasModel (FaltaJPA faltas) {
+		return new FaltaModel(faltas);
 	}
 	
-	public FaltasJPA convertirFaltasJPA (FaltasModel faltas) {
-		return new FaltasJPA(faltas);
+	public FaltaJPA convertirFaltasJPA (FaltaModel faltas) {
+		return new FaltaJPA(faltas);
 	}
 	
 	//--------------------------------------------------------------------
 	
-	public List<GolesModel> convertirListaGoles (List<GolesJPA> lista){
-		List<GolesModel> lstResultGoles = new ArrayList<>();
+	public List<GolModel> convertirListaGoles (List<GolJPA> lista){
+		List<GolModel> lstResultGoles = new ArrayList<>();
 		
-		for (GolesJPA goles : lista) {
-			lstResultGoles.add(new GolesModel(goles));
+		for (GolJPA goles : lista) {
+			lstResultGoles.add(new GolModel(goles));
 		}
 		return lstResultGoles;
 	}
 	
-	public GolesModel convertirGolesModel (GolesJPA goles) {
-		return new GolesModel(goles);
+	public GolModel convertirGolesModel (GolJPA goles) {
+		return new GolModel(goles);
 	}
 	
-	public GolesJPA convertirGolesJPA (GolesModel goles) {
-		return new GolesJPA(goles);
+	public GolJPA convertirGolesJPA (GolModel goles) {
+		return new GolJPA(goles);
 	}
 	
 	//-----------------------------------------------------------------------
@@ -177,23 +192,122 @@ public class Convertidor {
 		return new PosicionesJPA(posciones);
 	}
 	
+	// --------------------------------------------------------------------------
+	
+	public List<EquipoEntrenadorModel> convertirListaEquiposEntrenador (List<EquipoEntrenadorJPA> lista){
+		List<EquipoEntrenadorModel> lstResultEquipoEntrenador = new ArrayList<>();
+		
+		for(EquipoEntrenadorJPA equipoEntrenador : lista) {
+			lstResultEquipoEntrenador.add(new EquipoEntrenadorModel(equipoEntrenador));
+		}
+		
+		return lstResultEquipoEntrenador;
+	}
+	
+	public EquipoEntrenadorModel converEquipoEntrenadorModel (EquipoEntrenadorJPA equipoEntrenador) {
+		return new EquipoEntrenadorModel(equipoEntrenador);
+	}
+	
+	public EquipoEntrenadorJPA convertirEquipoEntrenadorJPA (EquipoEntrenadorModel equipoEntrenador) {
+		return new EquipoEntrenadorJPA(equipoEntrenador);
+	}
+	
+	// ------------------------------------------------------------------------
+	public List<EquipoJugadorModel> convertirListaEquiposJugadore (List<EquipoJugadorJPA> lista){
+		List<EquipoJugadorModel>  lstResultEquipoJugador = new ArrayList<>();
+		
+		for (EquipoJugadorJPA equipoJugador : lista) {
+			lstResultEquipoJugador.add(new EquipoJugadorModel(equipoJugador));
+		}
+		
+		return lstResultEquipoJugador;
+	}
+	
+	public EquipoJugadorModel converEquipoJugadorModel (EquipoJugadorJPA equipoJugador) {
+		return new EquipoJugadorModel(equipoJugador);
+	}
+	
+	public EquipoJugadorJPA convertirEquipoJugadorJPA (EquipoJugadorModel equipoJugador) {
+		return new EquipoJugadorJPA(equipoJugador);
+	}
+	
+	// ---------------------------------------------------------------------
+	public List<EquipoEstadioModel> convertirListaEquipoEstadios (List<EquipoEstadioJPA> lista){
+		List<EquipoEstadioModel> lstResultEquipoEstadio = new ArrayList<>();
+		
+		for (EquipoEstadioJPA equipoEstadio : lista) {
+			lstResultEquipoEstadio.add(new EquipoEstadioModel(equipoEstadio));
+		}
+		
+		return lstResultEquipoEstadio;
+	}
+	
+	public EquipoEstadioModel convertirListaEquipoEstadioModel (EquipoEstadioJPA equipoEstadio) {
+		return new EquipoEstadioModel(equipoEstadio);
+		
+	}
+	
+	public EquipoEstadioJPA convertirListaEquipoEstadioJPA (EquipoEstadioModel equipoEstadio) {
+		return new EquipoEstadioJPA(equipoEstadio);
+	}
+	// ------------------------------------------------------------------------
+	
+	public List<FaltaModel> convertirListaFalta (List<FaltaJPA> lista){
+		List<FaltaModel> lstResultFalta = new ArrayList<>();
+		
+		for (FaltaJPA falta : lista) {
+			lstResultFalta.add(new FaltaModel(falta));
+		}
+		
+		return lstResultFalta;
+	}
+	
+	public FaltaModel convertirListaFaltaModel (FaltaJPA falta) {
+		return new FaltaModel(falta);
+	}
+	
+	public FaltaJPA convertirListaFaltaJPA (FaltaModel falta) {
+		return new FaltaJPA(falta);
+	}
+	
+	// ---------------------------------------------------------------------------
+	public List<GolModel> convertirListaGol (List<GolJPA> lista){
+		List<GolModel> lstResultGol = new ArrayList<>();
+		
+		for (GolJPA gol : lista) {
+			lstResultGol.add(new GolModel(gol));
+		}
+		return lstResultGol;
+	}
+	
+	public GolModel convertirListaGolModel (GolJPA gol) {
+		return new GolModel(gol);
+	}
+	
+	public GolJPA convertirListaGolJPA (GolModel gol) {
+		return new GolJPA();
+	}
+	
 	//----------------------------------------------------------------------
 	
 	public List<TituloModel> convertirListaTitulos (List<TituloJPA> lista){
 		List<TituloModel> lstResultTitulo = new ArrayList<>();
-		
-		for ( TituloJPA titulos: lista) {
-			lstResultTitulo.add(new TituloModel(titulos));
+				
+		for ( TituloJPA titulo: lista) {
+			lstResultTitulo.add(new TituloModel(titulo));
 		}
 		return lstResultTitulo;
 	}
-	
-	public TituloModel convertirTitulosModel (TituloJPA titulos) {
-		return new TituloModel(titulos);
+			
+	public TituloModel convertirTitulosModel (TituloJPA titulo) {
+		return new TituloModel(titulo);
+	}
+			
+	public TituloJPA convertirTitulosJPA (TituloModel titulo) {
+		return new TituloJPA(titulo);
 	}
 	
-	public TituloJPA convertirTitulosJPA (TituloModel titulos) {
-		return new TituloJPA(titulos);
-	}
+	// ------------------------------------------------------------------
+	
 	
 }

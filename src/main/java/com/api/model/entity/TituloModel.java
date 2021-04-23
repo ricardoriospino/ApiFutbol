@@ -117,26 +117,27 @@ public class TituloModel implements Serializable{
 	
 
 
-	public TituloModel(int idTitulo, @NotBlank String anioTitulo, @NotBlank String nombreTitulo,
-			@NotNull boolean isNacional, int idEquipo, @NotBlank String codigoEquipo, EquipoJPA equipo) {
+	
+
+
+
+	public TituloModel(@NotBlank String anioTitulo, @NotBlank String nombreTitulo, @NotNull boolean isNacional) {
 		super();
-		this.idTitulo = idTitulo;
 		this.anioTitulo = anioTitulo;
 		this.nombreTitulo = nombreTitulo;
 		this.isNacional = isNacional;
-		this.idEquipo = idEquipo;
-		this.codigoEquipo = codigoEquipo;
-		this.equipo = equipo;
 	}
 
 
 
 	public TituloModel(TituloJPA titulo) {
+		
 		this.idTitulo = titulo.getIdTitulo();
 		this.anioTitulo = titulo.getAnioTitulo();
 		this.nombreTitulo = titulo.getNombreTitulo();
 		this.isNacional = titulo.isTipoTitulo();
-		this.equipo = titulo.getEquipo();
+		this.idEquipo = titulo.getEquipo().getIdEquipo();
+		this.codigoEquipo = titulo.getEquipo().getCodigoEquipo();
 	}
 
 

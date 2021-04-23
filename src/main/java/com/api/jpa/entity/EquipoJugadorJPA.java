@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.api.model.entity.EquipoJugadorModel;
+
 
 @Entity
 @Table (name="tb_equipo_jugador")
@@ -46,9 +48,21 @@ public class EquipoJugadorJPA implements Serializable {
 		this.anio = anio;
 	}
 
+	public EquipoJugadorJPA(EquipoJPA equipo, JugadorJPA jugador, int anio) {
+		super();
+		this.equipo = equipo;
+		this.jugador = jugador;
+		this.anio = anio;
+	}
+	
+	public EquipoJugadorJPA(EquipoJugadorModel equipoJugador) {
+		this.idEquipoJugador = equipoJugador.getIdEquipoJugador();
+		this.equipo = equipoJugador.getEquipo();
+		this.jugador = equipoJugador.getJugador();
+		this.anio = equipoJugador.getAnio();
+	}
 
 
-	// aqui va EquipoJugadorJpa a EquipoJugadorModel
 
 	public int getIdEquipoJugador() {
 		return idEquipoJugador;

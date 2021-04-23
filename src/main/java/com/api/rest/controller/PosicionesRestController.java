@@ -22,7 +22,7 @@ import com.api.model.entity.PosicionesModel;
 import com.api.service.impl.PosicionesServiceImpl;
 
 @RestController
-@RequestMapping("/apiPosiciones")
+@RequestMapping("/apiFutbol")
 public class PosicionesRestController {
 	private static final Logger log = LogManager.getLogger(PosicionesRestController.class);
 	
@@ -30,7 +30,7 @@ public class PosicionesRestController {
 	@Qualifier("posicionesServiceImpl")
 	private PosicionesServiceImpl posicionesServiceImpl;
 	
-	// http://localhost:8090/apiPosiciones/posiciones
+	// http://localhost:8090/apiFutbol/posiciones
 
 	// PUT
 	@PutMapping("/posiciones")
@@ -44,7 +44,7 @@ public class PosicionesRestController {
 	// ----------------------------------------------------------------------
 	
 	// POST
-	// http://localhost:8090/apiPosiciones/posiciones
+	// http://localhost:8090/apiFutbol/posiciones
 	@PostMapping("/posiciones")
 	public boolean actualizarPosiciones(@RequestBody PosicionesModel posiciones) {
 		log.info("ini: actualizarPosiciones()");
@@ -56,7 +56,7 @@ public class PosicionesRestController {
 	//---------------------------------------------------------------------
 	
 	//DELETE 
-	// http://localhost:8090/apiPosiciones/borrarPosicion/10
+	// http://localhost:8090/apiFutbol/borrarPosicion/10
 	@DeleteMapping ("/borrarPosicion/{idPosicion}")
 	public boolean borrarPosicion (@PathVariable("idPosicion") int id  ) {
 		
@@ -68,7 +68,7 @@ public class PosicionesRestController {
 	
 	// -------------------------------------------------------------------
 	//GET SIN PARAMETROS SIN PAGINACION 
-	// http://localhost:8090/apiPosiciones/posiciones
+	// http://localhost:8090/apiFutbol/posiciones
 	@GetMapping("/posiciones")
 	public List<PosicionesModel> obtenerPosiciones(){
 		log.info("ini: obtenerPosiciones() ");
@@ -79,7 +79,7 @@ public class PosicionesRestController {
 	// ------------------------------------------------------------------------
 	
 	//GET CON PAGINACION Y TAMAÑO
-	// http://localhost:8090/apiPosiciones/posicionesP?page=0&size=3
+	// http://localhost:8090/apiFutbol/posicionesP?page=0&size=3
 	@GetMapping ("/posicionesP")
 	public List<PosicionesModel> obtenerPosicionesPaginacion(Pageable paginacion){
 		log.info("ini: obtenerPosicionesPaginacion()");
