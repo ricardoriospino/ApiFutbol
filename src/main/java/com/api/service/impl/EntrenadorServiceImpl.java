@@ -18,9 +18,7 @@ import com.api.jpa.repository.EquipoEntrenadorRepository;
 import com.api.jpa.repository.EquipoRepository;
 import com.api.model.entity.EntrenadorModel;
 import com.api.model.entity.EquipoEntrenadorModel;
-import com.api.model.entity.EquipoModel;
 import com.api.rest.dto.EntrenadorFullDTO;
-import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.EntrenadorService;
 import com.api.util.Convertidor;
 
@@ -178,17 +176,52 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	@Override
 	public EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad(String nombre, String nacionalidad) {
 		
-		return convertidor.convertirEntrenadorModel(repositorio.findByNombreEntrenadorAndNacionalidad(nombre, nacionalidad));
+		
+		 EntrenadorJPA entrenadorJPA = repositorio.findByNombreEntrenadorAndNacionalidad(nombre, nacionalidad);
+		 
+		 
+		 	if(entrenadorJPA == null) {
+				
+		 	//	String mensaje= "No se encontro datos con los datos obtenidos ";
+				EntrenadorModel entrenadorVacio = null;	
+				
+				log.error("No encontro datos nombre: " + nombre + " y nacionalidad : " + nacionalidad);
+							
+				return  entrenadorVacio;
+				
+			}else {
+				
+				EntrenadorModel entrenador = convertidor.convertirEntrenadorModel(entrenadorJPA);
+				
+				return entrenador ;
+			}		 
+	
 	}
 	
 	@Override
 	public List<EntrenadorModel> obtenerEntrenadorPorNacionalidad(String nacionalidad) {
 		
-		return convertidor.convertirListaEntrenador(repositorio.findByNacionalidad(nacionalidad));
+		List<EntrenadorJPA> listaentrenadorJPA = repositorio.findByNacionalidad(nacionalidad);
+		
+		if (listaentrenadorJPA == null) {
+			
+			List<EntrenadorModel> listaEntrenadorVacio = null;
+			
+			log.error(" No encontro lista entrenadores por parametro Nacionalidad : " + nacionalidad);
+			
+			
+			
+			return listaEntrenadorVacio;
+		}else {
+			
+			List<EntrenadorModel> listaEntrenador = convertidor.convertirListaEntrenador(listaentrenadorJPA);
+			
+			return listaEntrenador;
+		}		
+		
 	}
 
 	
-
 	@Override
 	public List<EntrenadorModel> obtenerEntrenadoresPaginacion(Pageable paginacion) {
 		
@@ -198,7 +231,23 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	@Override
 	public EntrenadorModel obtenerEntrenadorPorCodigo(String codigo) {
 		
-		return convertidor.convertirEntrenadorModel(repositorio.findBycodigoEntrenador(codigo));
+		EntrenadorJPA entrenadorJPA = repositorio.findBycodigoEntrenador(codigo);
+		
+		if(entrenadorJPA == null) {
+			
+			EntrenadorModel entrenadorVacio = null;	
+			
+			log.error("No encontro entrenador por parametro  codigo: " + codigo );	
+			
+			return  entrenadorVacio;
+			
+		}else {
+			
+			EntrenadorModel entrenador = convertidor.convertirEntrenadorModel(entrenadorJPA);
+			
+			return entrenador ;			
+		}
+		
 	}
 	
 	
@@ -208,14 +257,21 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 		
 		EntrenadorModel entrenador = obtenerEntrenadorPorCodigo(codigo);
 		
-		//List<EquipoModel> equipo = convertidor.convertirListaEquipo(repositorioEquipo.findAll());
-		
-		List<EquipoEntrenadorModel> equipo = convertidor.convertirListaEquiposEntrenador
-				(repositorioEquipoEntrenador.findByEntrenador(new EntrenadorJPA(entrenador)));
-		
-		
-		
-		return new EntrenadorFullDTO(entrenador, equipo);
+		if (entrenador == null) {
+			
+			EntrenadorFullDTO entrenadorFullVacio = null;
+			
+			log.error("No encontro entrenador por parametro  codigo: " + codigo );	
+			
+			return entrenadorFullVacio;
+		}else {
+			
+			List<EquipoEntrenadorModel> equipo = convertidor.convertirListaEquiposEntrenador
+					(repositorioEquipoEntrenador.findByEntrenador(new EntrenadorJPA(entrenador)));		
+			
+			return new EntrenadorFullDTO(entrenador, equipo);
+			
+		}		
 	}
 
 }

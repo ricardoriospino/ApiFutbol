@@ -227,11 +227,29 @@ public class JugadorServiceImpl implements JugadorService {
 	@Override
 	public JugadorModel obtenerJugadorPorDorsalyNacionalidad(int dorsal, String nacionalidad) {
 		
-		return convertidor.convertirJugadorModel(repositorio.findByDorsalAndNacionalidad(dorsal, nacionalidad));
+		JugadorJPA jugadorJPA = repositorio.findByDorsalAndNacionalidad(dorsal, nacionalidad);
+		
+		if (jugadorJPA == null) {
+			
+			JugadorModel jugadorVacio = null;
+			
+			log.debug("No encontro datos jugador por parametros por dorsal: "+ dorsal + ", nacionalidad: " + nacionalidad );
+			
+			return jugadorVacio;
+			
+		}else {
+			
+			JugadorModel jugador = convertidor.convertirJugadorModel(jugadorJPA);
+			
+			return jugador;
+			
+		}
+
 	}
 
 	@Override
 	public List<JugadorModel> obtenerJugadoresPaginacion(Pageable paginacion) {
+		
 		
 		return  convertidor.convertirListaJugador(repositorio.findAll(paginacion).getContent()) ;
 	}
@@ -239,7 +257,25 @@ public class JugadorServiceImpl implements JugadorService {
 	@Override
 	public JugadorModel obtenerJugadorPorCodigo(String codigo) {
 		
-		return convertidor.convertirJugadorModel(repositorio.findByCodigoJugador(codigo));
+		JugadorJPA jugadorJPA = repositorio.findByCodigoJugador(codigo);
+		
+		if (jugadorJPA == null) {
+			
+			
+			JugadorModel jugadorVacio = null;
+			
+			log.debug("No encontro datos jugador por parametro  codigo: "+ codigo );
+			
+			return jugadorVacio;
+			
+		}else {
+			
+			JugadorModel jugador = convertidor.convertirJugadorModel(jugadorJPA);
+			
+			return jugador;
+			
+		}
+
 	}
 
 	@Override
@@ -247,26 +283,67 @@ public class JugadorServiceImpl implements JugadorService {
 		
 		JugadorModel jugador = obtenerJugadorPorCodigo(codigo);
 		
-		List<EquipoJugadorModel> equipoJugador = convertidor.convertirListaEquiposJugadore
-				(repositorioEquipoJugador.findByJugador(new JugadorJPA(jugador)));
-		
-		return new JugadorFullDTO(jugador , equipoJugador) ;
+		if (jugador == null) {
+			
+			JugadorFullDTO jugadorFullVacio = null;
+			
+			log.debug("No encontro datos jugador por parametro  codigo: "+ codigo );
+			
+			return jugadorFullVacio;
+		}else {
+			
+			List<EquipoJugadorModel> equipoJugador = convertidor.convertirListaEquiposJugadore
+					(repositorioEquipoJugador.findByJugador(new JugadorJPA(jugador)));
+			
+			return new JugadorFullDTO(jugador , equipoJugador) ;
+			
+		}	
 	}
 
 	@Override
 	public JugadorModel obtenerJugadorPorNombre(String nombre) {
 		
-		return convertidor.convertirJugadorModel(repositorio.findByNombreJugador(nombre));
+		JugadorJPA jugadorJPA = repositorio.findByNombreJugador(nombre);
+		
+		if(jugadorJPA == null) {
+			
+			JugadorModel jugadorVacio = null;
+			
+			log.debug("No encontro datos jugador por parametros por nombre: "+ nombre );
+			
+			return jugadorVacio;
+			
+		}else {
+			
+			JugadorModel jugador = convertidor.convertirJugadorModel(jugadorJPA);
+			
+			return jugador;
+					
+		}
 	}
 
 	@Override
 	public JugadorFullDTO obtenerJugadorFporNombre(String nombre) {
 		
 		JugadorModel jugador = obtenerJugadorPorNombre(nombre);
+		
+		
+		if (jugador == null) {
 			
-		List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByJugador(new JugadorJPA(jugador)));
+			JugadorFullDTO jugadorFaltaFullVacio = null;
+			
+			log.debug("No encontro datos jugador por parametro nombre: "+ nombre );
+			
+			return jugadorFaltaFullVacio;
+		}else {
+			
+			List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByJugador(new JugadorJPA(jugador)));
 
-		return new JugadorFullDTO(falta, jugador);
+			return new JugadorFullDTO(falta, jugador);
+			
+			
+		}
+			
 	}
 
 	@Override
@@ -274,9 +351,23 @@ public class JugadorServiceImpl implements JugadorService {
 		
 		JugadorModel jugador = obtenerJugadorPorNombre(nombre);
 		
-		List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByJugador(new JugadorJPA(jugador)));
 		
-		return new JugadorGolFullDTO(jugador, gol);
+		if (jugador == null) {
+			
+			JugadorGolFullDTO jugadorGolFullVacio = null;
+			
+			log.debug("No encontro datos jugador por parametro nombre: "+ nombre );
+			
+			return jugadorGolFullVacio;
+			
+		}else {
+			
+			List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByJugador(new JugadorJPA(jugador)));
+			
+			return new JugadorGolFullDTO(jugador, gol);
+			
+		}
+	
 	}
 
 	@Override
@@ -284,14 +375,23 @@ public class JugadorServiceImpl implements JugadorService {
 		
 		JugadorModel jugador = obtenerJugadorPorNombre(nombre);
 		
-		List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByJugador(new JugadorJPA(jugador)));
+		if (jugador == null) {
+			
+			JugadorGolFaltaFullDTO jugadorGolFaltaFullVacio = null;
+			
+			return jugadorGolFaltaFullVacio;
+			
+		}else {
+			
+			List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByJugador(new JugadorJPA(jugador)));
+			
+			List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByJugador(new JugadorJPA(jugador)));
+			
+			return new JugadorGolFaltaFullDTO(jugador, gol, falta);
+			
+		}
 		
-		List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByJugador(new JugadorJPA(jugador)));
-		
-		return new JugadorGolFaltaFullDTO(jugador, gol, falta);
 	}
-
-	
 
 
 }

@@ -24,7 +24,7 @@ import com.api.rest.dto.EstadioFullDTO;
 import com.api.service.impl.EstadioServiceImpl;
 
 @RestController
-@RequestMapping("/apiEstadio")
+@RequestMapping("/apiFutbol")
 public class EstadioRestController {
 	private static final Logger log = LogManager.getLogger(EstadioRestController.class);
 	
@@ -32,7 +32,7 @@ public class EstadioRestController {
 	@Qualifier("estadioServiceImpl")
 	private EstadioServiceImpl estadioServiceImpl;
 	
-	// http://localhost:8090/apiEstadio/estadio
+	// http://localhost:8090/apiFutbol/estadio
 	
 	//PUT
 	@PutMapping("/estadio")
@@ -46,7 +46,7 @@ public class EstadioRestController {
 	
 	// ---------------------------------------------------------------------
 	
-	// http://localhost:8090/apiEstadio/estadio
+	// http://localhost:8090/apiFutbol/estadio
 	//POST
 	@PostMapping("/estadio")
 	public boolean actualizarEstadio(@RequestBody EstadioModel estadio) {
@@ -60,7 +60,7 @@ public class EstadioRestController {
 	// -------------------------------------------------------------
 	
 	//DELETE
-	//http://localhost:8090/apiEstadio/borrarEstadio/1
+	//http://localhost:8090/apiFutbol/borrarEstadio/1
 	@DeleteMapping ("/borrarEstadio/{idEstadio}/{idEquipo}")
 	public boolean borrarEstadio (@PathVariable("idEstadio") int id ) {
 		
@@ -72,7 +72,7 @@ public class EstadioRestController {
 	
 	// ------------------------------------------------------------------
 	//GET SIN PARAMETROS SIN PAGINACION 
-	//http://localhost:8090/apiEstadio/estadios
+	//http://localhost:8090/apiFutbol/estadios
 	@GetMapping("/estadios")
 	public List<EstadioModel> obtenerEstadios(){
 		log.info("ini: obtenerEstadios() ");
@@ -83,7 +83,7 @@ public class EstadioRestController {
 	// -------------------------------------------------------------
 	
 	//GET CON PAGINACION Y TAMAÑO
-	// http://localhost:8090/apiEstadio/estadiosP?page=0&size=3
+	// http://localhost:8090/apiFutbol/estadiosP?page=0&size=3
 	
 	@GetMapping ("/estadiosP")
 	public List<EstadioModel> obtenerEstadiosPaginacion(Pageable paginacion){
@@ -95,7 +95,7 @@ public class EstadioRestController {
 	// --------------------------------------------------------------
 	
 	// GET CON PARAMETROS 
-	// http://localhost:8090/apiEstadio/estadior/Nacional
+	// http://localhost:8090/apiFutbol/estadior/Nacional
 	@GetMapping ("/estadior/{pnombre}")
 	public  EstadioModel obtenerEstadioPorNombre (@PathVariable("pnombre")String nombre ) {
 					
@@ -106,7 +106,7 @@ public class EstadioRestController {
 	}
 	
 	// -----------------------------------------------------------------------------------
-	//http://localhost:8090/apiEstadio/estadiop/ES001
+	//http://localhost:8090/apiFutbol/estadiop/ES001
 	@GetMapping ("/estadiop/{pcodigo}")
 	public EstadioFullDTO obtenerEstadioPorCodigoFull (@PathVariable("pcodigo")String codigoEstadio ) {
 		

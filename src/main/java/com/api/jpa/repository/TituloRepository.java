@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.jpa.entity.EquipoJPA;
 import com.api.jpa.entity.TituloJPA;
-import com.api.model.entity.EquipoModel;
+
 
 @Repository("repositorioTitulo")
 public interface TituloRepository extends JpaRepository<TituloJPA, Serializable> {

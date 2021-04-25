@@ -102,7 +102,7 @@ public class EntrenadorRestController {
 	
 	// --------------------------------------------------------------------------
 	
-	// http://localhost:8090/apiFutbol/entrenadores/Cueto/Paraguay
+	// http://localhost:8090/apiFutbol/entrenadores/Teddy Cardama/Peru
 	// GET CON PARAMETROS 
 	@GetMapping ("/entrenadores/{pnombre}/{pnacionalidad}")
 	public  EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad (@PathVariable("pnombre")String nombre, @PathVariable("pnacionalidad") String nacionalidad ) {

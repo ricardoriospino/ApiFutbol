@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EquipoModel;
-import com.api.model.entity.TituloModel;
 import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.impl.EquipoServiceImpl;
 

@@ -122,7 +122,10 @@ public class EntrenadorModel implements Serializable {
 				+ nacionalidad + ", aniosInicioLaboral=" + aniosInicioLaboral + ", titulosGanados=" + titulosGanados
 				+ "]";
 	}
-	
+
+	public String toStringVacio() {
+		return "No devuelve datos de Entrenador ";
+	}
 	
 	
 }

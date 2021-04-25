@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EquipoModel;
-import com.api.model.entity.TituloModel;
 import com.api.rest.dto.EquipoFullDTO;
 
 public interface EquipoService {

@@ -28,6 +28,8 @@ public interface PartidoService {
 	
 	public PartidoFullDTO obtenerPartidoFporCodigo (String codigo);
 	
+	public List<PartidoModel> obtenerPartidoPorAnioyMes ( String mes , String anio);
+	
 	
 
 }

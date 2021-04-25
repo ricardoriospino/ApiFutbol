@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.api.jpa.entity.EquipoEstadioJPA;
 import com.api.jpa.entity.EquipoJPA;
 import com.api.jpa.entity.EstadioJPA;
-import com.api.jpa.entity.TituloJPA;
 import com.api.jpa.repository.EquipoEstadioRepository;
 import com.api.jpa.repository.EquipoRepository;
 import com.api.jpa.repository.EstadioRepository;
@@ -153,7 +152,26 @@ public class EquipoServiceImpl implements EquipoService {
 	@Override
 	public EquipoModel obtenerEquipoPorNombre(String nombre) {
 		
-		return convertidor.convertirEquipoModel(repositorio.findByNombreEquipo(nombre));
+		EquipoJPA equipoJPA = repositorio.findByNombreEquipo(nombre);
+		
+		
+		if (equipoJPA == null) {
+			
+			EquipoModel equipoVacio = null;
+			
+			log.debug("No encontro datos equipo por parametros por nombre: "+ nombre );
+			
+			return equipoVacio;
+			
+		}else {
+			
+			EquipoModel equipo = convertidor.convertirEquipoModel(equipoJPA);
+			
+			return equipo;
+			
+		}
+		
+		
 	}
 
 	@Override
@@ -167,9 +185,24 @@ public class EquipoServiceImpl implements EquipoService {
 		
 		EquipoModel equipo = obtenerEquipoPorNombre(nombre);
 		
-		List<TituloModel> titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(new EquipoJPA(equipo)));
+		if (equipo == null) {
+			
+			EquipoFullDTO equipoFullvacio = null;
+			
+			log.debug("No encontro datos equipo por parametro  nombre: "+ nombre );
+			
+			return equipoFullvacio;
+					
+			
+		}else {
+			
+			List<TituloModel> titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(new EquipoJPA(equipo)));
+			
+			return new EquipoFullDTO(equipo, titulos);
+			
+		}
 		
-		return new EquipoFullDTO(equipo, titulos);
+		
 	}
 
 	@Override

@@ -6,9 +6,12 @@ import java.util.List;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.api.jpa.entity.PartidoJPA;
+
 
 @Repository("repositorioPartido")
 public interface PartidoRepository extends JpaRepository<PartidoJPA, Serializable>{
@@ -22,4 +25,10 @@ public interface PartidoRepository extends JpaRepository<PartidoJPA, Serializabl
 	public PartidoJPA findByEquipo1 (int codigo);
 	
 	public PartidoJPA findByEquipo2 (int codigo);
+	
+	
+	@Query (value ="SELECT * FROM tb_partido WHERE MONTH(fecha_hora) = :mes AND YEAR(fecha_hora) = :anio" ,
+			nativeQuery = true)
+			
+	List<PartidoJPA> findByMesAndAnioParamsNative(@Param("mes")String mes, @Param("anio")String anio);
 }

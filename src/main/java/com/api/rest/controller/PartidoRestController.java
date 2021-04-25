@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.model.entity.PartidoModel;
-import com.api.rest.dto.JugadorGolFaltaFullDTO;
 import com.api.rest.dto.PartidoFullDTO;
 import com.api.service.impl.PartidoServiceImpl;
 
@@ -116,7 +115,20 @@ public class PartidoRestController {
 		return partidoServiceImpl.obtenerPartidoFporCodigo(codigoPartido);
 	}
 	
+	// -------------------------------------------------------------------------
 	
+	//Lista partidos por mes y año 
+	
+	//http://localhost:8090/apiFutbol/listaPartido/04/2021
+	@GetMapping ("/listaPartido/{mes}/{anio}")
+	public List<PartidoModel> obtenerPartidosPorMesyAño (@PathVariable("mes")String mes , @PathVariable ("anio")String anio){
+		
+		log.info("ini: obtenerPartidosPorMesyAño()");
+		
+		log.debug("mes:" + mes + "año : " + anio  );
+		
+		return partidoServiceImpl.obtenerPartidoPorAnioyMes(mes, anio);
+	}
 	
 	
 }

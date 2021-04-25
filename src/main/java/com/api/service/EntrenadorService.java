@@ -20,7 +20,7 @@ public interface EntrenadorService {
 	
 	public List<EntrenadorModel> obtenerEntrenadores();
 	
-	public EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad (String nombre , String nacionalidad);
+	public  EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad (String nombre , String nacionalidad);
 
 	public List<EntrenadorModel> obtenerEntrenadorPorNacionalidad (String nacionalidad);
 	

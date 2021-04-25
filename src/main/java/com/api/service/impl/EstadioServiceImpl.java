@@ -106,7 +106,25 @@ public class EstadioServiceImpl implements EstadioService {
 	@Override
 	public EstadioModel obtenerEstadioPorNombre(String nombre) {
 		
-		return convertidor.convertirEstadioModel(repositorio.findByNombreEstadio(nombre));
+		
+		EstadioJPA estadioJPA = repositorio.findByNombreEstadio(nombre);
+		
+		if(estadioJPA == null) {
+			
+			EstadioModel estadioVacio = null;
+			
+			log.debug("No encontro datos de estadio por parametro nombre: "+ nombre );
+			
+			return estadioVacio;
+			
+			
+		}else {
+			
+			EstadioModel estadio = convertidor.convertirEstadioModel(estadioJPA);
+			return estadio;
+			
+		}
+		
 	}
 
 	@Override
@@ -118,7 +136,21 @@ public class EstadioServiceImpl implements EstadioService {
 	@Override
 	public EstadioModel obtenerEstadioPorCodigo(String codigo) {
 		
-		return convertidor.convertirEstadioModel(repositorio.findByCodigoEstadio(codigo));
+		EstadioJPA estadioJPA = repositorio.findByCodigoEstadio(codigo);
+		
+		if(estadioJPA == null) {
+			
+			EstadioModel estadioVacio = null;
+			
+			log.debug("No encontro datos estadio por parametro  codigo: "+ codigo );
+			
+			return estadioVacio;
+		}else {
+			EstadioModel estadio = convertidor.convertirEstadioModel(estadioJPA);
+			
+			return estadio;
+			
+		}
 	}
 
 	@Override
@@ -126,10 +158,25 @@ public class EstadioServiceImpl implements EstadioService {
 		
 		EstadioModel estadio = obtenerEstadioPorCodigo(codigo);
 		
-		List<EquipoEstadioModel> equipoEstadio = convertidor.convertirListaEquipoEstadios
-				(repositorioEquipoEstadio.findByEstadio(new EstadioJPA(estadio)));
 		
-		return new EstadioFullDTO(estadio, equipoEstadio);
+		if (estadio == null) {
+			
+			EstadioFullDTO estadioFullVacio = null;
+			
+			log.debug("No encontro datos estadio por parametro  codigo: "+ codigo );
+			
+			return estadioFullVacio;
+			
+		}else {
+			
+			List<EquipoEstadioModel> equipoEstadio = convertidor.convertirListaEquipoEstadios
+					(repositorioEquipoEstadio.findByEstadio(new EstadioJPA(estadio)));
+			
+			return new EstadioFullDTO(estadio, equipoEstadio);
+			
+		}
+		
+		
 	}
 
 }

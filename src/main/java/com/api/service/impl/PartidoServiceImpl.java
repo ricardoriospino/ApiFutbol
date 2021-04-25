@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.jpa.entity.EquipoJPA;
-import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.PartidoJPA;
 import com.api.jpa.repository.EquipoRepository;
 import com.api.jpa.repository.FaltaRepository;
@@ -24,6 +23,8 @@ import com.api.model.entity.PartidoModel;
 import com.api.rest.dto.PartidoFullDTO;
 import com.api.service.PartidoService;
 import com.api.util.Convertidor;
+
+
 @Service("partidoServiceImpl")
 public class PartidoServiceImpl implements PartidoService {
 
@@ -150,13 +151,46 @@ public class PartidoServiceImpl implements PartidoService {
 	@Override
 	public List<PartidoModel> obtenerPartidosPorArbitro(String arbitro) {
 		
-		return convertidor.convertirListaPartido(repositorioPartido.findByArbitro(arbitro));
+		List<PartidoJPA> listaPartidoJPA = repositorioPartido.findByArbitro(arbitro);
+		
+		if (listaPartidoJPA == null) {
+			
+			List<PartidoModel> listaPartidoVacio = null;
+			
+			log.error(" No encontro lista partidos por parametro arbitro : " + arbitro);
+			
+			return listaPartidoVacio;
+		}else {
+			
+			List<PartidoModel> listaPartidoModel = convertidor.convertirListaPartido(listaPartidoJPA);
+			
+			return listaPartidoModel;
+		}
+		
+	
 	}
 
 	@Override
 	public List<PartidoModel> obtenerPartidosPorFecha(Date fechaPartido) {
 		
-		return convertidor.convertirListaPartido(repositorioPartido.findByFechaHora(fechaPartido));
+		List<PartidoJPA> listaPartidoJPA = repositorioPartido.findByFechaHora(fechaPartido);
+		
+		if(listaPartidoJPA == null) {
+			
+			List<PartidoModel> listaPartidoVacio = null;
+			
+			
+			log.error(" No encontro lista partidos por parametro fecha Partido : " + fechaPartido);
+			
+			return listaPartidoVacio;
+			
+		}else {
+			
+			List<PartidoModel> listaPartidoModel = convertidor.convertirListaPartido(listaPartidoJPA);
+			
+			return listaPartidoModel;
+			
+		}
 	}
 
 	@Override
@@ -168,7 +202,22 @@ public class PartidoServiceImpl implements PartidoService {
 	@Override
 	public PartidoModel obtenerPartidoPorCodigo(String codigo) {
 		
-		return convertidor.convertirPartidoModel(repositorioPartido.findByCodigoPartido(codigo));
+		PartidoJPA partidoJPA  = repositorioPartido.findByCodigoPartido(codigo);
+		
+		if (partidoJPA == null) {
+			
+			PartidoModel partidoVacio = null;
+			
+			log.error(" No encontro  partido por parametro codigo Partido : " + codigo);
+			
+			return partidoVacio;
+			
+		}else {
+			
+			PartidoModel partido = convertidor.convertirPartidoModel(partidoJPA) ;
+			
+			return partido;		
+		}
 	}
 
 	@Override
@@ -176,13 +225,45 @@ public class PartidoServiceImpl implements PartidoService {
 		
 		PartidoModel partidoModel = obtenerPartidoPorCodigo(codigo);
 		
-		List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByPartido(new PartidoJPA(partidoModel)));
-		
-		List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByPartido(new PartidoJPA(partidoModel)));
-		
-		return new PartidoFullDTO(partidoModel, gol, falta);
+		if (partidoModel == null) {
+			
+			PartidoFullDTO partidoFullVacio = null;
+			
+			log.error(" No se encontro  partido por parametro codigo Partido : " + codigo);
+			
+			return partidoFullVacio;
+			
+		}else {
+			
+			List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByPartido(new PartidoJPA(partidoModel)));
+			
+			List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByPartido(new PartidoJPA(partidoModel)));
+			
+			return new PartidoFullDTO(partidoModel, gol, falta);
+			
+		}
 	}
 
-	
-
+	@Override
+	public List<PartidoModel> obtenerPartidoPorAnioyMes(String mes , String anio) {
+		
+		List<PartidoJPA> partidoJPA = repositorioPartido.findByMesAndAnioParamsNative(mes, anio);
+		
+		
+		if(partidoJPA == null) {
+			
+			List<PartidoModel > partidoVacio = null;
+			
+			
+			log.error("No se encontro partidos por parametro año :" + anio + "y mes: " + mes);
+			
+			return partidoVacio;
+		}else {
+			
+			List<PartidoModel> partido = convertidor.convertirListaPartido(partidoJPA);
+			
+			return partido;		
+			
+		}
+	}
 }

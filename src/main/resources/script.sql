@@ -278,6 +278,10 @@ INSERT INTO tb_partido (codigo_partido,fecha_hora,numero_goles,numero_faltas,gol
 ("PA00002","2021-04-09 16:30:00",1,13,0,1,7,6,"San Martin","Cienciano","Bustos",1,5);
 INSERT INTO tb_partido (codigo_partido,fecha_hora,numero_goles,numero_faltas,goles_equipo1,goles_equipo2,faltas_equipo1,faltas_equipo2,ganador,perdedor,arbitro,id_equipo1,id_equipo2)VALUES
 ("PA00003","2021-04-09 20:00:00",4,15,3,1,10,5,"Cantolao","Sport Boys","Manrique",10,8);
+INSERT INTO tb_partido (codigo_partido,fecha_hora,numero_goles,numero_faltas,goles_equipo1,goles_equipo2,faltas_equipo1,faltas_equipo2,ganador,perdedor,arbitro,id_equipo1,id_equipo2)VALUES
+("PA00004","2021-04-09 20:00:00",6,10,3,3,5,5,"Alianza Atletico","Universidad Cesar Vallejo","Olivares",9,7);
+INSERT INTO tb_partido (codigo_partido,fecha_hora,numero_goles,numero_faltas,goles_equipo1,goles_equipo2,faltas_equipo1,faltas_equipo2,ganador,perdedor,arbitro,id_equipo1,id_equipo2)VALUES
+("PA00005","2020-08-09 20:00:00",6,10,4,2,5,5,"Melgar","Alianza Lima","Manrique",6,4);
 
 -- DATA GOLES
 INSERT INTO tb_goles (minuto_gol,descripcion_gol,id_partido,id_jugador) VALUES (30,"Gol de cabeza de un tiro de esquina",1,1);
@@ -294,3 +298,7 @@ insert into tb_security(activo,clave,rol,usuario) values(true,'123',3,'prios');
 insert into tb_security(activo,clave,rol,usuario) values(false,'123',2,'rrios');
 insert into tb_security(activo,clave,rol,usuario) values(true,'123',1,'zrios');
 insert into tb_security(activo,clave,rol,usuario) values(true,'123',0,'xrios');
+
+
+-- SELECT TB_PARTIDOS POR MES Y AÑO
+SELECT * FROM tb_partido WHERE MONTH(fecha_hora) = 04 AND YEAR(fecha_hora) = 2021;
