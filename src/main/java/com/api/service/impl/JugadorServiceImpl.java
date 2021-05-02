@@ -26,11 +26,13 @@ import com.api.model.entity.EquipoJugadorModel;
 import com.api.model.entity.FaltaModel;
 import com.api.model.entity.GolModel;
 import com.api.model.entity.JugadorModel;
+import com.api.model.entity.ResponseErrorModel;
 import com.api.rest.dto.JugadorFullDTO;
 import com.api.rest.dto.JugadorGolFaltaFullDTO;
 import com.api.rest.dto.JugadorGolFullDTO;
 import com.api.service.JugadorService;
 import com.api.util.Convertidor;
+import com.api.util.MensajeError;
 
 @Service("jugadorServiceImpl")
 public class JugadorServiceImpl implements JugadorService {
@@ -225,17 +227,15 @@ public class JugadorServiceImpl implements JugadorService {
 	}
 
 	@Override
-	public JugadorModel obtenerJugadorPorDorsalyNacionalidad(int dorsal, String nacionalidad) {
+	public Object obtenerJugadorPorDorsalyNacionalidad(int dorsal, String nacionalidad) {
 		
 		JugadorJPA jugadorJPA = repositorio.findByDorsalAndNacionalidad(dorsal, nacionalidad);
 		
 		if (jugadorJPA == null) {
-			
-			JugadorModel jugadorVacio = null;
-			
+					
 			log.debug("No encontro datos jugador por parametros por dorsal: "+ dorsal + ", nacionalidad: " + nacionalidad );
 			
-			return jugadorVacio;
+			return new ResponseErrorModel(MensajeError.COD_OOO8, MensajeError.Mensaje_OOO8);
 			
 		}else {
 			
@@ -255,18 +255,16 @@ public class JugadorServiceImpl implements JugadorService {
 	}
 
 	@Override
-	public JugadorModel obtenerJugadorPorCodigo(String codigo) {
+	public Object obtenerJugadorPorCodigo(String codigo) {
 		
 		JugadorJPA jugadorJPA = repositorio.findByCodigoJugador(codigo);
 		
 		if (jugadorJPA == null) {
 			
 			
-			JugadorModel jugadorVacio = null;
-			
 			log.debug("No encontro datos jugador por parametro  codigo: "+ codigo );
 			
-			return jugadorVacio;
+			return new ResponseErrorModel(MensajeError.COD_OOO8, MensajeError.Mensaje_OOO8);
 			
 		}else {
 			
@@ -281,23 +279,23 @@ public class JugadorServiceImpl implements JugadorService {
 	@Override
 	public JugadorFullDTO obtenerJugadorFporCodigo(String codigo) {
 		
-		JugadorModel jugador = obtenerJugadorPorCodigo(codigo);
+		Object jugador = obtenerJugadorPorCodigo(codigo);
 		
-		if (jugador == null) {
-			
-			JugadorFullDTO jugadorFullVacio = null;
-			
-			log.debug("No encontro datos jugador por parametro  codigo: "+ codigo );
-			
-			return jugadorFullVacio;
-		}else {
+//		if (jugador == null) {
+//			
+//			JugadorFullDTO jugadorFullVacio = null;
+//			
+//			log.debug("No encontro datos jugador por parametro  codigo: "+ codigo );
+//			
+//			return jugadorFullVacio;
+//		}else {
 			
 			List<EquipoJugadorModel> equipoJugador = convertidor.convertirListaEquiposJugadore
-					(repositorioEquipoJugador.findByJugador(new JugadorJPA(jugador)));
+					(repositorioEquipoJugador.findByJugador(new JugadorJPA((JugadorModel) jugador)));
 			
-			return new JugadorFullDTO(jugador , equipoJugador) ;
+			return new JugadorFullDTO((JugadorModel) jugador , equipoJugador) ;
 			
-		}	
+			
 	}
 
 	@Override

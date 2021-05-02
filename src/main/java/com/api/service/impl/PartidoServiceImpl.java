@@ -20,9 +20,12 @@ import com.api.jpa.repository.PartidoRepository;
 import com.api.model.entity.FaltaModel;
 import com.api.model.entity.GolModel;
 import com.api.model.entity.PartidoModel;
+import com.api.model.entity.ResponseErrorModel;
+import com.api.respuesta.model.RespuestaListaPartido;
 import com.api.rest.dto.PartidoFullDTO;
 import com.api.service.PartidoService;
 import com.api.util.Convertidor;
+import com.api.util.MensajeError;
 
 
 @Service("partidoServiceImpl")
@@ -221,17 +224,17 @@ public class PartidoServiceImpl implements PartidoService {
 	}
 
 	@Override
-	public PartidoFullDTO obtenerPartidoFporCodigo(String codigo) {
+	public Object obtenerPartidoFporCodigo(String codigo) {
 		
 		PartidoModel partidoModel = obtenerPartidoPorCodigo(codigo);
 		
 		if (partidoModel == null) {
 			
-			PartidoFullDTO partidoFullVacio = null;
+			//PartidoFullDTO partidoFullVacio = null;
 			
 			log.error(" No se encontro  partido por parametro codigo Partido : " + codigo);
 			
-			return partidoFullVacio;
+			return new ResponseErrorModel(MensajeError.COD_OOO11, MensajeError.Mensaje_OOO11);
 			
 		}else {
 			
@@ -250,7 +253,8 @@ public class PartidoServiceImpl implements PartidoService {
 		List<PartidoJPA> partidoJPA = repositorioPartido.findByMesAndAnioParamsNative(mes, anio);
 		
 		
-		if(partidoJPA == null) {
+		
+		if(partidoJPA.isEmpty()) {
 			
 			List<PartidoModel > partidoVacio = null;
 			

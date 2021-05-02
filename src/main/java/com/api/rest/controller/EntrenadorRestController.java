@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.model.entity.EntrenadorModel;
 import com.api.model.entity.EquipoEntrenadorModel;
+import com.api.model.entity.ResponseErrorModel;
+import com.api.respuesta.model.RespuestaListaEntrenador;
 import com.api.rest.dto.EntrenadorFullDTO;
 import com.api.service.impl.EntrenadorServiceImpl;
+import com.api.util.MensajeError;
 
 @RestController
 @RequestMapping("/apiFutbol")
@@ -105,11 +108,12 @@ public class EntrenadorRestController {
 	// http://localhost:8090/apiFutbol/entrenadores/Teddy Cardama/Peru
 	// GET CON PARAMETROS 
 	@GetMapping ("/entrenadores/{pnombre}/{pnacionalidad}")
-	public  EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad (@PathVariable("pnombre")String nombre, @PathVariable("pnacionalidad") String nacionalidad ) {
+	public  Object obtenerEntrenadorPorNombreyNacionalidad (@PathVariable("pnombre")String nombre, @PathVariable("pnacionalidad") String nacionalidad ) {
 		
 		log.info("ini: obtenerEntrenadorPorNombreyNacionalidad()");
 		
 		log.debug("nombre:" +  nombre + ", nacionalidad : " + nacionalidad  );
+
 		return  entrenadorServiceImpl.obtenerEntrenadorPorNombreyNacionalidad(nombre, nacionalidad);
 	}
 	
@@ -117,21 +121,29 @@ public class EntrenadorRestController {
 	//Entrenador x nacionalidad
 	//http://localhost:8090/apiFutbol/entrenadoresN/Paraguay
 	@GetMapping ("/entrenadoresN/{pnacionalidad}")
-	public  List<EntrenadorModel> obtenerEntrenadorPorNacionalidad ( @PathVariable("pnacionalidad") String nacionalidad ) {
+	public  Object obtenerEntrenadorPorNacionalidad ( @PathVariable("pnacionalidad") String nacionalidad ) {
 		
 		log.info("ini: obtenerEntrenadorPorNacionalidad()");
-		
+
 		log.debug( " nacionalidad : " + nacionalidad  );
-		
-		return entrenadorServiceImpl.obtenerEntrenadorPorNacionalidad(nacionalidad);
-		
+	
+		RespuestaListaEntrenador respuesta  = new RespuestaListaEntrenador(entrenadorServiceImpl.obtenerEntrenadorPorNacionalidad(nacionalidad));
+			
+		if(respuesta != null && respuesta.getListaEntrenadores().size()>0  ) {
+			
+			return respuesta;	
+		}else {
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO2, MensajeError.Mensaje_OOO2);			
+		}
+	
 	}
 		
 	//---------------------------------------------------------------------------
 	
 	//http://localhost:8090/apiFutbol/entrenadores/EN001
 	@GetMapping ("/entrenadores/{pcodigoEntrenador}")
-	public  EntrenadorFullDTO obtenerEntrenadorPorCodigoFull(@PathVariable("pcodigoEntrenador")String codigoEntrenador ) {
+	public  Object obtenerEntrenadorPorCodigoFull(@PathVariable("pcodigoEntrenador")String codigoEntrenador ) {
 		
 		log.info("ini: obtenerEntrenadorPorCodigoFull()");
 		

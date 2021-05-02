@@ -20,13 +20,13 @@ public interface EntrenadorService {
 	
 	public List<EntrenadorModel> obtenerEntrenadores();
 	
-	public  EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad (String nombre , String nacionalidad);
+	public  Object obtenerEntrenadorPorNombreyNacionalidad (String nombre , String nacionalidad);
 
 	public List<EntrenadorModel> obtenerEntrenadorPorNacionalidad (String nacionalidad);
 	
 	public EntrenadorModel obtenerEntrenadorPorCodigo(String codigo);
 	
-	public EntrenadorFullDTO obtenerEntrenadorFporCodigo(String codigo);
+	public Object obtenerEntrenadorFporCodigo(String codigo);
 	
 	// metodo con paginacion
 	public List<EntrenadorModel> obtenerEntrenadoresPaginacion(Pageable paginacion);

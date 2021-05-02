@@ -17,11 +17,11 @@ public interface EstadioService {
 	
 	public List<EstadioModel> obtenerEstadios();
 	
-	public EstadioModel obtenerEstadioPorNombre (String nombre);
+	public Object obtenerEstadioPorNombre (String nombre);
 	
 	public EstadioModel obtenerEstadioPorCodigo(String codigo);
 	
-	public EstadioFullDTO obtenerEstadioPorFcodigo (String codigo);
+	public Object obtenerEstadioPorFcodigo (String codigo);
 	
 	// metodo con paginacion
 	public List<EstadioModel> obtenerEstadiosPaginacion(Pageable paginacion);

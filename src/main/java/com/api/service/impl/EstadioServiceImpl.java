@@ -16,9 +16,11 @@ import com.api.jpa.repository.EquipoEstadioRepository;
 import com.api.jpa.repository.EstadioRepository;
 import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EstadioModel;
+import com.api.model.entity.ResponseErrorModel;
 import com.api.rest.dto.EstadioFullDTO;
 import com.api.service.EstadioService;
 import com.api.util.Convertidor;
+import com.api.util.MensajeError;
 
 @Service("estadioServiceImpl")
 public class EstadioServiceImpl implements EstadioService {
@@ -104,20 +106,16 @@ public class EstadioServiceImpl implements EstadioService {
 	}
 
 	@Override
-	public EstadioModel obtenerEstadioPorNombre(String nombre) {
+	public Object obtenerEstadioPorNombre(String nombre) {
 		
 		
 		EstadioJPA estadioJPA = repositorio.findByNombreEstadio(nombre);
 		
 		if(estadioJPA == null) {
-			
-			EstadioModel estadioVacio = null;
-			
+					
 			log.debug("No encontro datos de estadio por parametro nombre: "+ nombre );
-			
-			return estadioVacio;
-			
-			
+			return new ResponseErrorModel(MensajeError.COD_OOO6, MensajeError.Mensaje_OOO6);
+					
 		}else {
 			
 			EstadioModel estadio = convertidor.convertirEstadioModel(estadioJPA);
@@ -154,18 +152,16 @@ public class EstadioServiceImpl implements EstadioService {
 	}
 
 	@Override
-	public EstadioFullDTO obtenerEstadioPorFcodigo(String codigo) {
+	public Object obtenerEstadioPorFcodigo(String codigo) {
 		
 		EstadioModel estadio = obtenerEstadioPorCodigo(codigo);
 		
 		
 		if (estadio == null) {
-			
-			EstadioFullDTO estadioFullVacio = null;
-			
+	
 			log.debug("No encontro datos estadio por parametro  codigo: "+ codigo );
 			
-			return estadioFullVacio;
+			return new ResponseErrorModel(MensajeError.COD_OOO7, MensajeError.Mensaje_OOO7);
 			
 		}else {
 			
@@ -174,9 +170,7 @@ public class EstadioServiceImpl implements EstadioService {
 			
 			return new EstadioFullDTO(estadio, equipoEstadio);
 			
-		}
-		
-		
+		}		
 	}
 
 }

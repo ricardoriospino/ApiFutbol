@@ -51,7 +51,6 @@ public class Convertidor {
 	}
 	
 	
-	
 	// -------------------------------------------------------------------------------
 	
 	public List<EquipoModel> convertirListaEquipo (List<EquipoJPA> lista){

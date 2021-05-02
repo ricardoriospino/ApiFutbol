@@ -97,7 +97,7 @@ public class EstadioRestController {
 	// GET CON PARAMETROS 
 	// http://localhost:8090/apiFutbol/estadior/Nacional
 	@GetMapping ("/estadior/{pnombre}")
-	public  EstadioModel obtenerEstadioPorNombre (@PathVariable("pnombre")String nombre ) {
+	public  Object obtenerEstadioPorNombre (@PathVariable("pnombre")String nombre ) {
 					
 		log.info("ini: obtenerEstadioPorNombre()");
 					
@@ -108,7 +108,7 @@ public class EstadioRestController {
 	// -----------------------------------------------------------------------------------
 	//http://localhost:8090/apiFutbol/estadiop/ES001
 	@GetMapping ("/estadiop/{pcodigo}")
-	public EstadioFullDTO obtenerEstadioPorCodigoFull (@PathVariable("pcodigo")String codigoEstadio ) {
+	public Object obtenerEstadioPorCodigoFull (@PathVariable("pcodigo")String codigoEstadio ) {
 		
 		log.info("ini: obtenerEstadioPorCodigoFull()");
 		log.debug("Codigo estadio:" +  codigoEstadio  );

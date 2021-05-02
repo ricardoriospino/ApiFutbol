@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.model.entity.PartidoModel;
+import com.api.model.entity.ResponseErrorModel;
+import com.api.respuesta.model.RespuestaListaPartido;
 import com.api.rest.dto.PartidoFullDTO;
 import com.api.service.impl.PartidoServiceImpl;
+import com.api.util.MensajeError;
 
 @RestController
 @RequestMapping("/apiFutbol")
@@ -82,12 +85,19 @@ public class PartidoRestController {
 	//GET CON PARAMETROS
 	//http://localhost:8090/apiFutbol/arbitro/Olivares
 	@GetMapping ("/arbitro/{pnombreArbitro}")
-	public List<PartidoModel> obtenerPartidosPorArbitro(@PathVariable("pnombreArbitro")String nombre){
+	public Object obtenerPartidosPorArbitro(@PathVariable("pnombreArbitro")String nombre){
 		
 		log.info("ini: obtenerPartidosPorArbitro()");
 		
 		log.debug("nombre:" +  nombre );
-		return partidoServiceImpl.obtenerPartidosPorArbitro(nombre);
+		
+		RespuestaListaPartido respuesta = new RespuestaListaPartido(partidoServiceImpl.obtenerPartidosPorArbitro(nombre));
+		
+		if (respuesta != null && respuesta.getListaPartidos().size()>0) {
+			return respuesta;
+		}else {
+			return new ResponseErrorModel(MensajeError.COD_OOO10, MensajeError.Mensaje_OOO10);
+		}
 		
 	}
 	
@@ -106,7 +116,7 @@ public class PartidoRestController {
 	//Partido FUll detallado goles y faltas
 	//http://localhost:8090/apiFutbol/partidoFull/PA00001
 	@GetMapping ("/partidoFull/{pcodigoPartido}")
-	public PartidoFullDTO obtenerPartidoFullPorCodigo(@PathVariable("pcodigoPartido")String codigoPartido) {
+	public Object obtenerPartidoFullPorCodigo(@PathVariable("pcodigoPartido")String codigoPartido) {
 		
 		log.info("ini: obtenerPartidoFullPorCodigo()");
 		
@@ -121,13 +131,21 @@ public class PartidoRestController {
 	
 	//http://localhost:8090/apiFutbol/listaPartido/04/2021
 	@GetMapping ("/listaPartido/{mes}/{anio}")
-	public List<PartidoModel> obtenerPartidosPorMesyAño (@PathVariable("mes")String mes , @PathVariable ("anio")String anio){
+	public Object obtenerPartidosPorMesyAño (@PathVariable("mes")String mes , @PathVariable ("anio")String anio){
 		
 		log.info("ini: obtenerPartidosPorMesyAño()");
 		
 		log.debug("mes:" + mes + "año : " + anio  );
 		
-		return partidoServiceImpl.obtenerPartidoPorAnioyMes(mes, anio);
+		RespuestaListaPartido respuesta = new RespuestaListaPartido( partidoServiceImpl.obtenerPartidoPorAnioyMes(mes, anio));
+		
+		if(respuesta.getListaPartidos() == null) {
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO10 , MensajeError.Mensaje_OOO10);
+			
+		}else{
+			return respuesta;
+		}
 	}
 	
 	

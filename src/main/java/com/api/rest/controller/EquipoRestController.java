@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EquipoModel;
+import com.api.model.entity.ResponseErrorModel;
+import com.api.respuesta.model.RespuestaEquipoFull;
+import com.api.rest.dto.EntrenadorFullDTO;
 import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.impl.EquipoServiceImpl;
+import com.api.util.MensajeError;
 
 @RestController
 @RequestMapping("/apiFutbol")
@@ -107,7 +111,7 @@ public class EquipoRestController {
 	//GET CON PARAMETROS 
 	// http://localhost:8090/apiFutbol/equipo/Sporting Cristal
 	@GetMapping ("/equipo/{pnombre}")
-	public  EquipoModel obtenerEquipoPorNombre (@PathVariable("pnombre")String nombre ) {
+	public  Object obtenerEquipoPorNombre (@PathVariable("pnombre")String nombre ) {
 				
 		log.info("ini: obtenerEquipoPorNombre()");
 				
@@ -121,20 +125,31 @@ public class EquipoRestController {
 	//GET CON PARAMETROS 
 	// http://localhost:8090/apiFutbol/equipof/Sporting Cristal
 	@GetMapping ("/equipof/{pnombre}")
-	public  EquipoFullDTO obtenerEquipoPorNombreFull (@PathVariable("pnombre")String nombre ) {
+	public  Object obtenerEquipoPorNombreFull (@PathVariable("pnombre")String nombre ) {
 					
 		log.info("ini: obtenerEquipoPorNombreFull()");
 					
 		log.debug("nombre:" +  nombre );
-		return  equipoServiceImpl.obtenerEquipoFPorNombre(nombre);
 		
+		RespuestaEquipoFull respuesta = new RespuestaEquipoFull(equipoServiceImpl.obtenerEquipoFPorNombre(nombre));
 		
-	}
 	
+		
+		if ( respuesta.getEquipoFull() == null ) {
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO5 , MensajeError.Mensaje_OOO5);
+			
+		}else {
+			return respuesta;
+			
+		}
+
+	}
+
 	// TODOS LOS titulos de cada equipo
 	// http://localhost:8090/apiFutbol/listaTitulosxEquipos
 	@GetMapping("/listaTitulosxEquipos")
-	public EquipoFullDTO obtenerTitulosxEquipo(){
+	public List<EquipoFullDTO> obtenerTitulosxEquipo(){
 		
 		log.info("obtenerTitulosxEquipo()");
 		

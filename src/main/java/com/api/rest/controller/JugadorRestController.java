@@ -22,10 +22,13 @@ import com.api.model.entity.EquipoJugadorModel;
 import com.api.model.entity.FaltaModel;
 import com.api.model.entity.GolModel;
 import com.api.model.entity.JugadorModel;
+import com.api.model.entity.ResponseErrorModel;
+import com.api.respuesta.model.RespuestaJugadorFull;
 import com.api.rest.dto.JugadorFullDTO;
 import com.api.rest.dto.JugadorGolFaltaFullDTO;
 import com.api.rest.dto.JugadorGolFullDTO;
 import com.api.service.impl.JugadorServiceImpl;
+import com.api.util.MensajeError;
 
 @RestController
 @RequestMapping("/apiFutbol")
@@ -134,7 +137,7 @@ public class JugadorRestController {
 	// GET CON PARAMETROS 
 	// http://localhost:8090/apiFutbol/jugador/7/Argentina
 	@GetMapping ("/jugador/{pdorsal}/{pnacionalidad}")
-	public  JugadorModel obtenerJugadorPorDorsalyNacionalidad (@PathVariable("pdorsal")int dorsal , @PathVariable("pnacionalidad") String nacionalidad  ) {
+	public  Object obtenerJugadorPorDorsalyNacionalidad (@PathVariable("pdorsal")int dorsal , @PathVariable("pnacionalidad") String nacionalidad  ) {
 						
 		log.info("ini: obtenerEstadioPorNombre()");
 						
@@ -149,13 +152,23 @@ public class JugadorRestController {
 	
 	//http://localhost:8090/apiFutbol/jugador/JU0001
 	@GetMapping ("/jugador/{pcodigoJugador}")
-	public JugadorFullDTO obtenerJugadorPorCodigoFull (@PathVariable("pcodigoJugador")String codigoJugador) {
+	public Object obtenerJugadorPorCodigoFull (@PathVariable("pcodigoJugador")String codigoJugador) {
 		
 		log.info("ini: obtenerJugadorPorCodigoFull()");
 		
 		log.debug("Codigo jugador:" +  codigoJugador  );
 		
-		return jugadorServiceImpl.obtenerJugadorFporCodigo(codigoJugador);
+		RespuestaJugadorFull respuesta = new RespuestaJugadorFull(jugadorServiceImpl.obtenerJugadorFporCodigo(codigoJugador));
+		
+		if (respuesta.getJugadorFull() == null) {
+			
+			return  new ResponseErrorModel(MensajeError.COD_OOO9, MensajeError.Mensaje_OOO9);
+			
+		}else {
+			
+			return respuesta;
+		}
+		
 	}
 	
 	// ----------------------------------------------------------------------------------

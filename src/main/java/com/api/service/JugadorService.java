@@ -30,13 +30,13 @@ public interface JugadorService {
 	public List<JugadorModel> obtenerJugadores();
 	
 	
-	public JugadorModel obtenerJugadorPorDorsalyNacionalidad(int dorsal , String nacionalidad);
+	public Object obtenerJugadorPorDorsalyNacionalidad(int dorsal , String nacionalidad);
 	
-	public JugadorModel obtenerJugadorPorCodigo (String codigo);
+	public Object obtenerJugadorPorCodigo (String codigo);
 	
 	public JugadorFullDTO obtenerJugadorFporCodigo (String codigo);
 	
-	public JugadorModel obtenerJugadorPorNombre (String nombre);
+	public Object obtenerJugadorPorNombre (String nombre);
 	
 	public JugadorFullDTO obtenerJugadorFporNombre (String nombre);
 	

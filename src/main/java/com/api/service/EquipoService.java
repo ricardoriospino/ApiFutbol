@@ -20,9 +20,9 @@ public interface EquipoService {
 	
 	public List<EquipoModel> obtenerEquipos();
 	
-	public EquipoFullDTO obtenerListaTitulos ();
+	public List<EquipoFullDTO> obtenerListaTitulos ();
 	
-	public EquipoModel obtenerEquipoPorNombre(String nombre);
+	public Object obtenerEquipoPorNombre(String nombre);
 	
 	public EquipoFullDTO obtenerEquipoFPorNombre (String nombre);
 	

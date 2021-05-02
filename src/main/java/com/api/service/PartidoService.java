@@ -26,7 +26,7 @@ public interface PartidoService {
 	
 	public PartidoModel obtenerPartidoPorCodigo (String codigo);
 	
-	public PartidoFullDTO obtenerPartidoFporCodigo (String codigo);
+	public Object obtenerPartidoFporCodigo (String codigo);
 	
 	public List<PartidoModel> obtenerPartidoPorAnioyMes ( String mes , String anio);
 	

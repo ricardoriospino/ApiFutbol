@@ -3,6 +3,8 @@ package com.api.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.lang.instrument.Instrumentation;
+import java.nio.charset.CodingErrorAction;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,10 +22,12 @@ import com.api.jpa.repository.EstadioRepository;
 import com.api.jpa.repository.TituloRepository;
 import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EquipoModel;
+import com.api.model.entity.ResponseErrorModel;
 import com.api.model.entity.TituloModel;
 import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.EquipoService;
 import com.api.util.Convertidor;
+import com.api.util.MensajeError;
 
 @Service("equipoServiceImpl")
 public class EquipoServiceImpl implements EquipoService {
@@ -150,18 +154,16 @@ public class EquipoServiceImpl implements EquipoService {
 	}
 
 	@Override
-	public EquipoModel obtenerEquipoPorNombre(String nombre) {
+	public Object obtenerEquipoPorNombre(String nombre) {
 		
 		EquipoJPA equipoJPA = repositorio.findByNombreEquipo(nombre);
 		
 		
 		if (equipoJPA == null) {
 			
-			EquipoModel equipoVacio = null;
-			
 			log.debug("No encontro datos equipo por parametros por nombre: "+ nombre );
 			
-			return equipoVacio;
+			return new ResponseErrorModel(MensajeError.COD_OOO4, MensajeError.Mensaje_OOO4);
 			
 		}else {
 			
@@ -170,8 +172,7 @@ public class EquipoServiceImpl implements EquipoService {
 			return equipo;
 			
 		}
-		
-		
+	
 	}
 
 	@Override
@@ -183,45 +184,39 @@ public class EquipoServiceImpl implements EquipoService {
 	@Override
 	public EquipoFullDTO obtenerEquipoFPorNombre(String nombre) {
 		
-		EquipoModel equipo = obtenerEquipoPorNombre(nombre);
+		Object equipo =  obtenerEquipoPorNombre(nombre);
+	
 		
-		if (equipo == null) {
-			
-			EquipoFullDTO equipoFullvacio = null;
-			
-			log.debug("No encontro datos equipo por parametro  nombre: "+ nombre );
-			
-			return equipoFullvacio;
-					
-			
-		}else {
-			
-			List<TituloModel> titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(new EquipoJPA(equipo)));
-			
-			return new EquipoFullDTO(equipo, titulos);
-			
-		}
 		
+		List<TituloModel> titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(new EquipoJPA((EquipoModel) equipo)));
+			
+		return new EquipoFullDTO((EquipoModel) equipo, titulos);
+			
+	
 		
 	}
 
 	@Override
-	public EquipoFullDTO obtenerListaTitulos() {
+	public List<EquipoFullDTO> obtenerListaTitulos() {
 		
-		List<EquipoModel> equipo =  convertidor.convertirListaEquipo(repositorio.findAll());
+		List<EquipoModel> lstEquipos =  convertidor.convertirListaEquipo(repositorio.findAll());
+		
+		ArrayList<EquipoJPA> equipos = new ArrayList<EquipoJPA>();		
+		equipos = (ArrayList<EquipoJPA>) convertidor.convertirEquipoJPA(lstEquipos);
+		
+		List<TituloModel> titulos = null;
+		List<EquipoFullDTO> lstEquipoFull = new ArrayList<>();
+		EquipoFullDTO equipoFull = null;
+		
+		for(EquipoJPA equipoJPA : equipos) {
+			
+			titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(equipoJPA));
+			equipoFull = new EquipoFullDTO(new EquipoModel(equipoJPA), titulos);
+			lstEquipoFull.add(equipoFull);
+		}
 	
-		ArrayList<EquipoJPA> equipoTitulos = new ArrayList<EquipoJPA>();
 		
-		equipoTitulos = (ArrayList<EquipoJPA>) convertidor.convertirEquipoJPA(equipo);
-		
-		List<TituloModel> titulo = null;
-		
-		for (EquipoJPA equipoJPA : equipoTitulos) {
-			
-			 titulo = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(equipoJPA));
-			
-		}	
-		return new EquipoFullDTO(equipo,  equipoTitulos);
+		return lstEquipoFull;
 	}
 
 }

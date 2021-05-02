@@ -1,5 +1,6 @@
 package com.api.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,9 +19,13 @@ import com.api.jpa.repository.EquipoEntrenadorRepository;
 import com.api.jpa.repository.EquipoRepository;
 import com.api.model.entity.EntrenadorModel;
 import com.api.model.entity.EquipoEntrenadorModel;
+import com.api.model.entity.ResponseErrorListModel;
+import com.api.model.entity.ResponseErrorModel;
+import com.api.respuesta.model.RespuestaListaEntrenador;
 import com.api.rest.dto.EntrenadorFullDTO;
 import com.api.service.EntrenadorService;
 import com.api.util.Convertidor;
+import com.api.util.MensajeError;
 
 
 @Service("entrenadorServiceImpl")
@@ -136,10 +141,7 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 				log.error("no se puede borrar por que tiene data en otras tablas ");
 				return false;
 			}
-			
-			
-			
-			
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Error al borrar " + e);
@@ -174,20 +176,15 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	}
 
 	@Override
-	public EntrenadorModel obtenerEntrenadorPorNombreyNacionalidad(String nombre, String nacionalidad) {
-		
-		
+	public Object obtenerEntrenadorPorNombreyNacionalidad(String nombre, String nacionalidad) {
+			
 		 EntrenadorJPA entrenadorJPA = repositorio.findByNombreEntrenadorAndNacionalidad(nombre, nacionalidad);
-		 
-		 
+		 	 
 		 	if(entrenadorJPA == null) {
-				
-		 	//	String mensaje= "No se encontro datos con los datos obtenidos ";
-				EntrenadorModel entrenadorVacio = null;	
-				
+
 				log.error("No encontro datos nombre: " + nombre + " y nacionalidad : " + nacionalidad);
 							
-				return  entrenadorVacio;
+				return  new ResponseErrorModel(MensajeError.COD_OOO1, MensajeError.Mensaje_OOO1);
 				
 			}else {
 				
@@ -208,8 +205,6 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 			List<EntrenadorModel> listaEntrenadorVacio = null;
 			
 			log.error(" No encontro lista entrenadores por parametro Nacionalidad : " + nacionalidad);
-			
-			
 			
 			return listaEntrenadorVacio;
 		}else {
@@ -233,6 +228,7 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 		
 		EntrenadorJPA entrenadorJPA = repositorio.findBycodigoEntrenador(codigo);
 		
+		
 		if(entrenadorJPA == null) {
 			
 			EntrenadorModel entrenadorVacio = null;	
@@ -253,25 +249,28 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	
 
 	@Override
-	public EntrenadorFullDTO obtenerEntrenadorFporCodigo(String codigo) {
+	public Object obtenerEntrenadorFporCodigo(String codigo) {
 		
-		EntrenadorModel entrenador = obtenerEntrenadorPorCodigo(codigo);
+		EntrenadorJPA entrenador =  repositorio.findBycodigoEntrenador(codigo);
+		
+		EntrenadorModel entrenadorModel = new EntrenadorModel(entrenador);
 		
 		if (entrenador == null) {
 			
-			EntrenadorFullDTO entrenadorFullVacio = null;
 			
 			log.error("No encontro entrenador por parametro  codigo: " + codigo );	
 			
-			return entrenadorFullVacio;
+			
+			return  new ResponseErrorModel(MensajeError.COD_OOO3, MensajeError.Mensaje_OOO3);
+			
 		}else {
 			
 			List<EquipoEntrenadorModel> equipo = convertidor.convertirListaEquiposEntrenador
-					(repositorioEquipoEntrenador.findByEntrenador(new EntrenadorJPA(entrenador)));		
+					(repositorioEquipoEntrenador.findByEntrenador(entrenador));		
 			
-			return new EntrenadorFullDTO(entrenador, equipo);
+			return new EntrenadorFullDTO(entrenadorModel, equipo);
 			
-		}		
+		}	
 	}
 
 }

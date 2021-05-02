@@ -14,17 +14,11 @@ public class EquipoFullDTO implements Serializable {
 	private List<TituloModel> titulos;
 	
 
-	
-	public EquipoFullDTO() {
-		
-		
-	}
-
-
 	public EquipoFullDTO(List<TituloModel> titulos) {
 		super();
 		this.titulos = titulos;
 	}
+
 
 
 	public EquipoFullDTO(EquipoModel equipo, List<TituloModel> titulos) {
@@ -33,18 +27,16 @@ public class EquipoFullDTO implements Serializable {
 		this.titulos = titulos;
 	}
 
-	public EquipoFullDTO(List<EquipoModel> equipo2, ArrayList<EquipoJPA> equipoTitulos) {
-		// TODO Auto-generated constructor stub
-	}
-
 
 	public EquipoModel getEquipo() {
 		return equipo;
 	}
 
+
 	public void setEquipo(EquipoModel equipo) {
 		this.equipo = equipo;
 	}
+
 
 	public List<TituloModel> getTitulos() {
 		return titulos;
