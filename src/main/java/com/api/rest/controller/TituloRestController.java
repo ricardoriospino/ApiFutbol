@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,12 +37,18 @@ public class TituloRestController {
 	
 	//PUT 
 	@PutMapping("/titulo")
-	public boolean agregarTitulo (@Valid @RequestBody TituloModel titulo) {
+	public ResponseEntity<?> agregarTitulo (@Valid @RequestBody TituloModel titulo) {
 		log.info("ini: agregarTitulo()");
 		
 		log.debug("datos titulos:" + titulo.toString());
 		
-		return tituloServiceImpl.insertar(titulo);
+		boolean flag = tituloServiceImpl.insertar(titulo);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+		 
 	}
 	//-------------------------------------------------------------------
 	
@@ -48,12 +56,17 @@ public class TituloRestController {
 	
 	//POST
 	@PostMapping("/titulo")
-	public boolean actualizarTitulo (@Valid @RequestBody TituloModel titulo) {
+	public ResponseEntity<?> actualizarTitulo (@Valid @RequestBody TituloModel titulo) {
 		log.info("ini: actualizarTitulo()");
 			
 		log.debug("datos titulos:" + titulo.toString());
 			
-		return tituloServiceImpl.actualizar(titulo);
+		boolean flag =  tituloServiceImpl.actualizar(titulo);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	//--------------------------------------------------------------------------
@@ -61,12 +74,17 @@ public class TituloRestController {
 	//http://localhost:8090/apiFutbol/borrarTitulo/1
 	
 	@DeleteMapping ("/borrarTitulo/{idTitulo}")
-	public boolean borrarTitulo (@PathVariable("idTitulo") int id ) {
+	public ResponseEntity<?> borrarTitulo (@PathVariable("idTitulo") int id ) {
 		
 		log.info("ini: borrarTitulo()");
 		log.debug("id:" +  id );
 		
-		return tituloServiceImpl.borrar(id);
+		boolean flag =  tituloServiceImpl.borrar(id);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// --------------------------------------------------------------------------

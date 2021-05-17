@@ -1,6 +1,6 @@
 package com.api.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +19,8 @@ import com.api.jpa.repository.EquipoEntrenadorRepository;
 import com.api.jpa.repository.EquipoRepository;
 import com.api.model.entity.EntrenadorModel;
 import com.api.model.entity.EquipoEntrenadorModel;
-import com.api.model.entity.ResponseErrorListModel;
+
 import com.api.model.entity.ResponseErrorModel;
-import com.api.respuesta.model.RespuestaListaEntrenador;
 import com.api.rest.dto.EntrenadorFullDTO;
 import com.api.service.EntrenadorService;
 import com.api.util.Convertidor;
@@ -112,6 +111,13 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 	public boolean actualizar(EntrenadorModel entrenador) {
 		
 		try {
+			
+			EntrenadorJPA entrenadorJPA = repositorio.findByIdEntrenador(entrenador.getIdEntrenador());
+			
+			if(entrenadorJPA == null) {
+				log.error("entrenador no existe");
+				return false;
+			}
 
 			repositorio.save(new EntrenadorJPA (entrenador));
 			return true;
@@ -253,17 +259,17 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 		
 		EntrenadorJPA entrenador =  repositorio.findBycodigoEntrenador(codigo);
 		
-		EntrenadorModel entrenadorModel = new EntrenadorModel(entrenador);
 		
 		if (entrenador == null) {
-			
-			
+				
 			log.error("No encontro entrenador por parametro  codigo: " + codigo );	
 			
 			
 			return  new ResponseErrorModel(MensajeError.COD_OOO3, MensajeError.Mensaje_OOO3);
 			
 		}else {
+			
+			EntrenadorModel entrenadorModel = new EntrenadorModel(entrenador);
 			
 			List<EquipoEntrenadorModel> equipo = convertidor.convertirListaEquiposEntrenador
 					(repositorioEquipoEntrenador.findByEntrenador(entrenador));		

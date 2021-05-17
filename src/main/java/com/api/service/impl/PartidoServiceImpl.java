@@ -21,7 +21,6 @@ import com.api.model.entity.FaltaModel;
 import com.api.model.entity.GolModel;
 import com.api.model.entity.PartidoModel;
 import com.api.model.entity.ResponseErrorModel;
-import com.api.respuesta.model.RespuestaListaPartido;
 import com.api.rest.dto.PartidoFullDTO;
 import com.api.service.PartidoService;
 import com.api.util.Convertidor;
@@ -203,34 +202,32 @@ public class PartidoServiceImpl implements PartidoService {
 	}
 	
 	@Override
-	public PartidoModel obtenerPartidoPorCodigo(String codigo) {
+	public Object obtenerPartidoPorCodigo(String codigo) {
 		
 		PartidoJPA partidoJPA  = repositorioPartido.findByCodigoPartido(codigo);
 		
+		
 		if (partidoJPA == null) {
-			
-			PartidoModel partidoVacio = null;
-			
+					
 			log.error(" No encontro  partido por parametro codigo Partido : " + codigo);
 			
-			return partidoVacio;
+			return new ResponseErrorModel(MensajeError.COD_OOO10 , MensajeError.Mensaje_OOO10) ;
 			
 		}else {
 			
-			PartidoModel partido = convertidor.convertirPartidoModel(partidoJPA) ;
+			PartidoModel partidoModel = new PartidoModel(partidoJPA);
 			
-			return partido;		
+			return partidoModel;		
 		}
 	}
 
 	@Override
 	public Object obtenerPartidoFporCodigo(String codigo) {
 		
-		PartidoModel partidoModel = obtenerPartidoPorCodigo(codigo);
+		PartidoJPA partidoJPA  = repositorioPartido.findByCodigoPartido(codigo);
 		
-		if (partidoModel == null) {
-			
-			//PartidoFullDTO partidoFullVacio = null;
+		
+		if (partidoJPA == null) {
 			
 			log.error(" No se encontro  partido por parametro codigo Partido : " + codigo);
 			
@@ -238,9 +235,11 @@ public class PartidoServiceImpl implements PartidoService {
 			
 		}else {
 			
-			List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByPartido(new PartidoJPA(partidoModel)));
+			PartidoModel partidoModel = new PartidoModel(partidoJPA);
 			
-			List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByPartido(new PartidoJPA(partidoModel)));
+			List<GolModel> gol = convertidor.convertirListaGol(repositorioGol.findByPartido(partidoJPA));
+			
+			List<FaltaModel> falta = convertidor.convertirListaFalta(repositorioFalta.findByPartido(partidoJPA));
 			
 			return new PartidoFullDTO(partidoModel, gol, falta);
 			
@@ -250,9 +249,7 @@ public class PartidoServiceImpl implements PartidoService {
 	@Override
 	public List<PartidoModel> obtenerPartidoPorAnioyMes(String mes , String anio) {
 		
-		List<PartidoJPA> partidoJPA = repositorioPartido.findByMesAndAnioParamsNative(mes, anio);
-		
-		
+		List<PartidoJPA> partidoJPA = repositorioPartido.findByMesAndAnioParamsNative(mes, anio);	
 		
 		if(partidoJPA.isEmpty()) {
 			

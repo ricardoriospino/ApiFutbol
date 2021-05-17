@@ -21,6 +21,8 @@ public interface JugadorRepository extends JpaRepository<JugadorJPA, Serializabl
 	
 	public JugadorJPA findByCodigoJugador (String codigo);
 	
+	public JugadorJPA findByIdJugador (int id);
+	
 
 
 }

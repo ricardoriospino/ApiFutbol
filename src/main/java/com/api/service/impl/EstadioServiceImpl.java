@@ -64,6 +64,14 @@ public class EstadioServiceImpl implements EstadioService {
 	public boolean actualizar(EstadioModel estadio) {
 		
 		try {
+			
+			EstadioJPA estadioJPA = repositorio.findByIdEstadio(estadio.getIdEstadio());
+			
+			if(estadioJPA == null) {
+				log.error("estadio no existe");
+				return false;
+			}
+			
 			repositorio.save(new EstadioJPA (estadio));
 			return true;
 			
@@ -79,7 +87,6 @@ public class EstadioServiceImpl implements EstadioService {
 		
 		try {
 			
-
 				log.info("Borrar");
 				Optional<EstadioJPA> estadio = repositorio.findById(id);
 				if(estadio.isPresent()) {
@@ -90,8 +97,6 @@ public class EstadioServiceImpl implements EstadioService {
 				}
 				return true;
 			
-			
-		
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Error al borrar " + e);
@@ -132,18 +137,18 @@ public class EstadioServiceImpl implements EstadioService {
 	}
 
 	@Override
-	public EstadioModel obtenerEstadioPorCodigo(String codigo) {
+	public Object obtenerEstadioPorCodigo(String codigo) {
 		
 		EstadioJPA estadioJPA = repositorio.findByCodigoEstadio(codigo);
-		
+				
 		if(estadioJPA == null) {
-			
-			EstadioModel estadioVacio = null;
-			
+		
 			log.debug("No encontro datos estadio por parametro  codigo: "+ codigo );
 			
-			return estadioVacio;
+			return new ResponseErrorModel(MensajeError.COD_OOO6 , MensajeError.COD_OOO6);
+			
 		}else {
+			
 			EstadioModel estadio = convertidor.convertirEstadioModel(estadioJPA);
 			
 			return estadio;
@@ -154,10 +159,9 @@ public class EstadioServiceImpl implements EstadioService {
 	@Override
 	public Object obtenerEstadioPorFcodigo(String codigo) {
 		
-		EstadioModel estadio = obtenerEstadioPorCodigo(codigo);
-		
-		
-		if (estadio == null) {
+		EstadioJPA estadioJPA = repositorio.findByCodigoEstadio(codigo);
+
+		if (estadioJPA == null) {
 	
 			log.debug("No encontro datos estadio por parametro  codigo: "+ codigo );
 			
@@ -165,10 +169,12 @@ public class EstadioServiceImpl implements EstadioService {
 			
 		}else {
 			
-			List<EquipoEstadioModel> equipoEstadio = convertidor.convertirListaEquipoEstadios
-					(repositorioEquipoEstadio.findByEstadio(new EstadioJPA(estadio)));
+			EstadioModel estadioModel = new EstadioModel(estadioJPA);
 			
-			return new EstadioFullDTO(estadio, equipoEstadio);
+			List<EquipoEstadioModel> equipoEstadio = convertidor.convertirListaEquipoEstadios
+					(repositorioEquipoEstadio.findByEstadio(estadioJPA));
+			
+			return new EstadioFullDTO(estadioModel, equipoEstadio);
 			
 		}		
 	}

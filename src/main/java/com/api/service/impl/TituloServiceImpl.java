@@ -44,7 +44,8 @@ public class TituloServiceImpl implements TituloService {
 		try {
 			EquipoJPA equipoJPA = repositorioEquipo.findByCodigoEquipo(titulo.getCodigoEquipo());
 			
-			if(equipoJPA == null) {
+
+			if(equipoJPA == null  ) {
 				log.error("Codigo Equipo no existe");
 				return false;
 			}

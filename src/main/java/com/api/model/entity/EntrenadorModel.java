@@ -1,6 +1,7 @@
 package com.api.model.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -18,19 +19,19 @@ public class EntrenadorModel implements Serializable {
 	@NotBlank (message="nombre de entrenador no puede ser vacio")
 	private String nombreEntrenador;
 	
-	@NotNull  (message="fecha de nacimiento de entrenador no puede ser vacio")
-	private Date fechaNacimiento;
+	@NotBlank  (message="fecha de nacimiento de entrenador no puede ser vacio")
+	private String fechaNacimiento;
 	
 	@NotBlank (message="nacionalidad de entrenador no puede ser vacio")
 	private String nacionalidad;
 	
-	@NotNull  (message=" Año de inicio laboral de entrenador no puede ser vacio")
-	private Date aniosInicioLaboral;
+	@NotBlank  (message=" Año de inicio laboral de entrenador no puede ser vacio")
+	private String aniosInicioLaboral;
 	
 	@NotNull (message=" Titulos ganados de entrenador no puede ser vacio")
 	private int titulosGanados;
 
-
+	
 	public int getIdEntrenador() {
 		return idEntrenador;
 	}
@@ -55,11 +56,11 @@ public class EntrenadorModel implements Serializable {
 		this.nombreEntrenador = nombreEntrenador;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -71,11 +72,11 @@ public class EntrenadorModel implements Serializable {
 		this.nacionalidad = nacionalidad;
 	}
 
-	public Date getAniosInicioLaboral() {
+	public String getAniosInicioLaboral() {
 		return aniosInicioLaboral;
 	}
 
-	public void setAniosInicioLaboral(Date aniosInicioLaboral) {
+	public void setAniosInicioLaboral(String aniosInicioLaboral) {
 		this.aniosInicioLaboral = aniosInicioLaboral;
 	}
 
@@ -87,12 +88,14 @@ public class EntrenadorModel implements Serializable {
 		this.titulosGanados = titulosGanados;
 	}
 	
+	
+
 	public EntrenadorModel(int idEntrenador,
 			@NotBlank(message = "codigo de entrenador no puede ser vacio") String codigoEntrenador,
 			@NotBlank(message = "nombre de entrenador no puede ser vacio") String nombreEntrenador,
-			@NotNull(message = "fecha de nacimiento de entrenador no puede ser vacio") Date fechaNacimiento,
+			@NotBlank(message = "fecha de nacimiento de entrenador no puede ser vacio") String fechaNacimiento,
 			@NotBlank(message = "nacionalidad de entrenador no puede ser vacio") String nacionalidad,
-			@NotNull(message = " Año de inicio laboral de entrenador no puede ser vacio") Date aniosInicioLaboral,
+			@NotBlank(message = " Año de inicio laboral de entrenador no puede ser vacio") String aniosInicioLaboral,
 			@NotNull(message = " Titulos ganados de entrenador no puede ser vacio") int titulosGanados) {
 		super();
 		this.idEntrenador = idEntrenador;
@@ -103,15 +106,20 @@ public class EntrenadorModel implements Serializable {
 		this.aniosInicioLaboral = aniosInicioLaboral;
 		this.titulosGanados = titulosGanados;
 	}
+	
+	
 
 	// para convertir de un objeto a otro
 	public EntrenadorModel(EntrenadorJPA entrenador) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		this.idEntrenador = entrenador.getIdEntrenador();
 		this.codigoEntrenador = entrenador.getCodigoEntrenador();
 		this.nombreEntrenador = entrenador.getNombreEntrenador();
-		this.fechaNacimiento = entrenador.getFechaNacimiento();
+		this.fechaNacimiento = sdf.format(entrenador.getFechaNacimiento());
 		this.nacionalidad = entrenador.getNacionalidad();
-		this.aniosInicioLaboral = entrenador.getAniosInicioLaboral();
+		this.aniosInicioLaboral = sdf.format(entrenador.getAniosInicioLaboral());
 		this.titulosGanados = entrenador.getTitulosGanados();
 	}
 

@@ -1,14 +1,12 @@
 package com.api.rest.dto;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.api.jpa.entity.EquipoJPA;
+
+import java.util.List;
 import com.api.model.entity.EquipoModel;
 import com.api.model.entity.TituloModel;
 
-public class EquipoFullDTO implements Serializable {
+public class EquipoFullDTO  {
 	
 	private EquipoModel equipo;
 	private List<TituloModel> titulos;

@@ -1,6 +1,7 @@
 package com.api.model.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -19,7 +20,7 @@ public class EquipoModel implements Serializable {
 	private String nombreEquipo;
 	
 	@NotNull  (message="fecha de fundación de equipo no puede ser vacio")
-	private Date anioFundacion;
+	private String anioFundacion;
 	
 	@NotBlank(message="Imagen escudo de equipo no puede ser vacio")
 	private String imagenEscudo;
@@ -56,13 +57,13 @@ public class EquipoModel implements Serializable {
 	public void setNombreEquipo(String nombreEquipo) {
 		this.nombreEquipo = nombreEquipo;
 	}
-	public Date getAnioFundacion() {
+
+	public String getAnioFundacion() {
 		return anioFundacion;
 	}
-	public void setAnioFundacion(Date anioFundacion) {
+	public void setAnioFundacion(String anioFundacion) {
 		this.anioFundacion = anioFundacion;
 	}
-
 	public String getImagenEscudo() {
 		return imagenEscudo;
 	}
@@ -100,7 +101,7 @@ public class EquipoModel implements Serializable {
 
 	public EquipoModel(int idEquipo, @NotBlank(message = "codigo de equipo no puede ser vacio") String codigoEquipo,
 			@NotBlank(message = "Nombre de equipo no puede ser vacio") String nombreEquipo,
-			@NotNull(message = "fecha de fundación de equipo no puede ser vacio") Date anioFundacion,
+			@NotBlank(message = "fecha de fundación de equipo no puede ser vacio") String anioFundacion,
 			@NotBlank(message = "Imagen escudo de equipo no puede ser vacio") String imagenEscudo,
 			@NotBlank(message = "Dueño de equipo no puede ser vacio") String duenioActual,
 			@NotNull(message = "cantidad de titulos nacionales de equipo no puede ser vacio") int cantidadTituloNacional,
@@ -120,10 +121,13 @@ public class EquipoModel implements Serializable {
 	
 	
 	public EquipoModel(EquipoJPA equipo) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		this.idEquipo = equipo.getIdEquipo();
 		this.codigoEquipo = equipo.getCodigoEquipo();
 		this.nombreEquipo = equipo.getNombreEquipo();
-		this.anioFundacion = equipo.getAnioFundacion();	
+		this.anioFundacion = sdf.format(equipo.getAnioFundacion());	
 		this.imagenEscudo = equipo.getImagenEscudo();
 		this.duenioActual = equipo.getDuenioActual();
 		this.cantidadTituloNacional = equipo.getCantidadTituloNacional();

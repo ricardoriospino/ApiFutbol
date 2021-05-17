@@ -21,7 +21,7 @@ public static void addAuthentication(HttpServletResponse res, String username) {
 		
 		
 		Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-	    Instant expiration = issuedAt.plus(60, ChronoUnit.MINUTES); //expiración del token
+	    Instant expiration = issuedAt.plus(120, ChronoUnit.MINUTES); //expiración del token
 		
 	    //creacion del token
 		String token = Jwts.builder()

@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.api.model.entity.EntrenadorModel;
 import com.api.model.entity.EquipoEntrenadorModel;
-import com.api.rest.dto.EntrenadorFullDTO;
+
 
 public interface EntrenadorService {
 	

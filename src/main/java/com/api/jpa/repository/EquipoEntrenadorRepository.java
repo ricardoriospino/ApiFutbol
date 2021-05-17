@@ -20,4 +20,6 @@ public interface EquipoEntrenadorRepository  extends JpaRepository<EquipoEntrena
 	
 	public List<EquipoEntrenadorJPA> findByEntrenador (EntrenadorJPA entrenador);
 	
+	
+	
 }

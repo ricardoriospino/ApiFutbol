@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.api.model.entity.EstadioModel;
-import com.api.rest.dto.EstadioFullDTO;
 import com.api.service.impl.EstadioServiceImpl;
 
 @RestController
@@ -36,11 +37,16 @@ public class EstadioRestController {
 	
 	//PUT
 	@PutMapping("/estadio")
-	public boolean agregarEstadio(@Valid @RequestBody EstadioModel estadio) {
+	public ResponseEntity<?> agregarEstadio(@Valid @RequestBody EstadioModel estadio) {
 		log.info("ini: agregarEstadio()");
 		
 		log.debug("datos estadio:" + estadio.toString());
-		return estadioServiceImpl.insertar(estadio);
+		boolean flag =  estadioServiceImpl.insertar(estadio);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	
 	}
 	
@@ -49,11 +55,16 @@ public class EstadioRestController {
 	// http://localhost:8090/apiFutbol/estadio
 	//POST
 	@PostMapping("/estadio")
-	public boolean actualizarEstadio(@RequestBody EstadioModel estadio) {
+	public ResponseEntity<?> actualizarEstadio(@RequestBody EstadioModel estadio) {
 		log.info("ini: actualizarEstadio()");
 		
 		log.debug("datos estadio:" + estadio.toString());
-		return estadioServiceImpl.actualizar(estadio);
+		boolean flag = estadioServiceImpl.actualizar(estadio);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	
 	}
 	
@@ -62,12 +73,17 @@ public class EstadioRestController {
 	//DELETE
 	//http://localhost:8090/apiFutbol/borrarEstadio/1
 	@DeleteMapping ("/borrarEstadio/{idEstadio}/{idEquipo}")
-	public boolean borrarEstadio (@PathVariable("idEstadio") int id ) {
+	public ResponseEntity<?> borrarEstadio (@PathVariable("idEstadio") int id ) {
 		
 		log.info("ini: borrarEstadio()");
 		log.debug("id:" +  id );
 		
-		return estadioServiceImpl.borrar(id);
+		boolean flag = estadioServiceImpl.borrar(id);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// ------------------------------------------------------------------

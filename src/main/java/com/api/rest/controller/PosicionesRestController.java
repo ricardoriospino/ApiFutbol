@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,11 +36,16 @@ public class PosicionesRestController {
 
 	// PUT
 	@PutMapping("/posiciones")
-	public boolean agregarPosiciones(@Valid @RequestBody PosicionesModel posiciones) {
+	public ResponseEntity<?> agregarPosiciones(@Valid @RequestBody PosicionesModel posiciones) {
 		log.info("ini: agregarPosiciones()");
 			
 		log.debug("datos Posiciones:" + posiciones.toString());
-		return posicionesServiceImpl.insertar(posiciones);
+		boolean flag =  posicionesServiceImpl.insertar(posiciones);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// ----------------------------------------------------------------------
@@ -46,11 +53,16 @@ public class PosicionesRestController {
 	// POST
 	// http://localhost:8090/apiFutbol/posiciones
 	@PostMapping("/posiciones")
-	public boolean actualizarPosiciones(@RequestBody PosicionesModel posiciones) {
+	public ResponseEntity<?> actualizarPosiciones(@RequestBody PosicionesModel posiciones) {
 		log.info("ini: actualizarPosiciones()");
 				
 		log.debug("datos Posiciones:" + posiciones.toString());
-		return posicionesServiceImpl.actualizar(posiciones);
+		boolean flag =  posicionesServiceImpl.actualizar(posiciones);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	//---------------------------------------------------------------------
@@ -58,12 +70,17 @@ public class PosicionesRestController {
 	//DELETE 
 	// http://localhost:8090/apiFutbol/borrarPosicion/10
 	@DeleteMapping ("/borrarPosicion/{idPosicion}")
-	public boolean borrarPosicion (@PathVariable("idPosicion") int id  ) {
+	public ResponseEntity<?> borrarPosicion (@PathVariable("idPosicion") int id  ) {
 		
 		log.info("ini: borrarPosicion()");
 		log.debug("id:" +  id );
 		
-		return posicionesServiceImpl.borrar(id);
+		boolean flag =  posicionesServiceImpl.borrar(id);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// -------------------------------------------------------------------

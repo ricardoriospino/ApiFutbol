@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,12 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.model.entity.EquipoEstadioModel;
 import com.api.model.entity.EquipoModel;
-import com.api.model.entity.ResponseErrorModel;
-import com.api.respuesta.model.RespuestaEquipoFull;
-import com.api.rest.dto.EntrenadorFullDTO;
+
 import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.impl.EquipoServiceImpl;
-import com.api.util.MensajeError;
+
 
 @RestController
 @RequestMapping("/apiFutbol")
@@ -40,36 +40,69 @@ public class EquipoRestController {
 	
 	// http://localhost:8090/apiFutbol/equipo
 	
+//	//PUT 
+//	@PutMapping("/equipo")
+//	public boolean agregarEquipo (@Valid @RequestBody EquipoModel equipo) {
+//		log.info("ini: agregarEquipo()");
+//		
+//		log.debug("datos equipo:" + equipo.toString());
+//		return equipoServiceImpl.insertar(equipo);
+//	}
+//	
+	
+	
 	//PUT 
-	@PutMapping("/equipo")
-	public boolean agregarEquipo (@Valid @RequestBody EquipoModel equipo) {
-		log.info("ini: agregarEquipo()");
+		@PutMapping("/equipo")
+		public ResponseEntity<?> agregarEquipo (@Valid @RequestBody EquipoModel equipo) {
+			log.info("ini: agregarEquipo()");
+			
+			log.debug("datos equipo:" + equipo.toString());
+			
+			boolean flag = equipoServiceImpl.insertar(equipo);
+			
+			if(flag)
+				return new ResponseEntity<>(HttpStatus.OK);
+			else
+				return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
+		}
 		
-		log.debug("datos equipo:" + equipo.toString());
-		return equipoServiceImpl.insertar(equipo);
-	}
 	
 	//---------------------------------------------------------------------
 	// http://localhost:8090/apiFutbol/equipo-estadio
 	
 	//PUT 
 	@PutMapping("/equipo-estadio")
-	public boolean agregarEquipoEstadio(@Valid @RequestBody EquipoEstadioModel equipoEstadio) {
+	public  ResponseEntity<?> agregarEquipoEstadio(@Valid @RequestBody EquipoEstadioModel equipoEstadio) {
 		log.info("ini: agregarEquipoEstadio()");
 			
 		log.debug("datos equipo estadio:" + equipoEstadio.toString());
-		return equipoServiceImpl.insertarEquipoEstadio(equipoEstadio);
+		
+		boolean flag = equipoServiceImpl.insertarEquipoEstadio(equipoEstadio);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+		
 	}
 	
 	//-------------------------------------------------------------------
 	// http://localhost:8090/apiFutbol/equipo
 	//POST
 	@PostMapping("/equipo")
-	public boolean actualizarEquipo (@RequestBody EquipoModel equipo) {
+	public ResponseEntity<?>  actualizarEquipo (@RequestBody EquipoModel equipo) {
 		log.info("ini: actualizar Equipo()");
 		
 		log.debug("datos equipo:" + equipo.toString());
-		return equipoServiceImpl.actualizar(equipo);
+		
+		boolean flag = equipoServiceImpl.actualizar(equipo);		
+
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+		
+		
 	}
 	
 	// ------------------------------------------------------------------
@@ -77,11 +110,18 @@ public class EquipoRestController {
 	//DELETE 
 	//http://localhost:8090/apiFutbol/borrarEquipo/11
 	@DeleteMapping ("/borrarEquipo/{idBorrar}")
-	public boolean borrarEquipo(@PathVariable("idBorrar") int id) {
+	public ResponseEntity<?> borrarEquipo(@PathVariable("idBorrar") int id) {
 		log.info("ini: borrarEquipo()");
 		
 		log.debug("id:" +  id );
-		 return equipoServiceImpl.borrar(id);
+		
+		boolean flag = equipoServiceImpl.borrar(id);	
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+		 
 	}
 	
 	// -----------------------------------------------------------------
@@ -130,19 +170,10 @@ public class EquipoRestController {
 		log.info("ini: obtenerEquipoPorNombreFull()");
 					
 		log.debug("nombre:" +  nombre );
-		
-		RespuestaEquipoFull respuesta = new RespuestaEquipoFull(equipoServiceImpl.obtenerEquipoFPorNombre(nombre));
-		
-	
-		
-		if ( respuesta.getEquipoFull() == null ) {
 			
-			return new ResponseErrorModel(MensajeError.COD_OOO5 , MensajeError.Mensaje_OOO5);
+			return equipoServiceImpl.obtenerEquipoFPorNombre(nombre);
 			
-		}else {
-			return respuesta;
-			
-		}
+		
 
 	}
 

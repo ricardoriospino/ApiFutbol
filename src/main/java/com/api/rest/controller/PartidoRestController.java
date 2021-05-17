@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.model.entity.PartidoModel;
 import com.api.model.entity.ResponseErrorModel;
 import com.api.respuesta.model.RespuestaListaPartido;
-import com.api.rest.dto.PartidoFullDTO;
 import com.api.service.impl.PartidoServiceImpl;
 import com.api.util.MensajeError;
 
@@ -38,35 +39,49 @@ public class PartidoRestController {
 	//PUT
 	//http://localhost:8090/apiFutbol/partido
 	@PutMapping("/partido")
-	public boolean agregarPartido(@Valid @RequestBody PartidoModel partido) {
+	public ResponseEntity<?> agregarPartido(@Valid @RequestBody PartidoModel partido) {
 		log.info("ini: agregarPartido()");
 		
 		log.debug("datos partido:" + partido.toString());
-		return partidoServiceImpl.insertarPartido(partido);
+		boolean flag = partidoServiceImpl.insertarPartido(partido);
 		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	// --------------------------------------------------------------------
 	
 	//POST
 	//http://localhost:8090/apiFutbol/partido
 	@PostMapping("/partido")
-	public boolean actualizarPartido(@RequestBody PartidoModel partido) {
+	public ResponseEntity<?> actualizarPartido(@RequestBody PartidoModel partido) {
 		log.info("ini: actualizarPartido()");
 				
 		log.debug("datos partido:" + partido.toString());
-		return partidoServiceImpl.actualizar(partido);
+		boolean flag = partidoServiceImpl.actualizar(partido);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// --------------------------------------------------------------------
 	//DELETE
 	//http://localhost:8090/apiFutbol/borrarPartido/1
 	@DeleteMapping ("/borrarPartido/{idPartido}")
-	public boolean borrarPartido (@PathVariable("idPartido") int id ) {
+	public ResponseEntity<?> borrarPartido (@PathVariable("idPartido") int id ) {
 		
 		log.info("ini: borrarPartido()");
 		log.debug("id:" +  id );
 		
-		return partidoServiceImpl.borrar(id);
+		boolean flag =  partidoServiceImpl.borrar(id);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// ----------------------------------------------------------------------

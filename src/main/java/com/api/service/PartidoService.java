@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.api.model.entity.PartidoModel;
-import com.api.rest.dto.PartidoFullDTO;
+
 
 public interface PartidoService {
 	
@@ -24,7 +24,7 @@ public interface PartidoService {
 	
 	public List<PartidoModel> obtenerPartidosPaginados (Pageable paginacion);
 	
-	public PartidoModel obtenerPartidoPorCodigo (String codigo);
+	public Object obtenerPartidoPorCodigo (String codigo);
 	
 	public Object obtenerPartidoFporCodigo (String codigo);
 	

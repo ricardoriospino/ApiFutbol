@@ -1,6 +1,8 @@
 package com.api.jpa.entity;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -74,11 +76,14 @@ public class JugadorJPA implements Serializable{
 
 
 
-	public JugadorJPA(JugadorModel jugador) {
+	public JugadorJPA(JugadorModel jugador) throws ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
 		this.idJugador = jugador.getIdJugador();
 		this.codigoJugador = jugador.getCodigoJugador();
 		this.nombreJugador = jugador.getNombreJugador();
-		this.fechaNacimiento = jugador.getFechaNacimiento();
+		this.fechaNacimiento = sdf.parse(jugador.getFechaNacimiento());
 		this.aniosDeDebut = jugador.getAniosDeDebut();
 		this.nacionalidad = jugador.getNacionalidad();
 		this.dorsal = jugador.getDorsal();

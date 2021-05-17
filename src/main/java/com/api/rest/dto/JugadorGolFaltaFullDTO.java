@@ -2,7 +2,7 @@ package com.api.rest.dto;
 
 import java.util.List;
 
-import com.api.jpa.entity.FaltaJPA;
+
 import com.api.model.entity.FaltaModel;
 import com.api.model.entity.GolModel;
 import com.api.model.entity.JugadorModel;

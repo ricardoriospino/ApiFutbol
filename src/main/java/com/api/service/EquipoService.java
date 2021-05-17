@@ -24,7 +24,7 @@ public interface EquipoService {
 	
 	public Object obtenerEquipoPorNombre(String nombre);
 	
-	public EquipoFullDTO obtenerEquipoFPorNombre (String nombre);
+	public Object obtenerEquipoFPorNombre (String nombre);
 	
 	// metodo con paginacion
 	public List<EquipoModel> obtenerEquiposPaginacion (Pageable paginacion);

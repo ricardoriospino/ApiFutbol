@@ -9,9 +9,7 @@ import com.api.model.entity.EquipoJugadorModel;
 import com.api.model.entity.FaltaModel;
 import com.api.model.entity.GolModel;
 import com.api.model.entity.JugadorModel;
-import com.api.rest.dto.JugadorFullDTO;
-import com.api.rest.dto.JugadorGolFaltaFullDTO;
-import com.api.rest.dto.JugadorGolFullDTO;
+
 
 public interface JugadorService {
 
@@ -34,15 +32,15 @@ public interface JugadorService {
 	
 	public Object obtenerJugadorPorCodigo (String codigo);
 	
-	public JugadorFullDTO obtenerJugadorFporCodigo (String codigo);
+	public Object obtenerJugadorFporCodigo (String codigo);
 	
 	public Object obtenerJugadorPorNombre (String nombre);
 	
-	public JugadorFullDTO obtenerJugadorFporNombre (String nombre);
+	public Object obtenerJugadorFporNombre (String nombre);
 	
-	public JugadorGolFullDTO obtenerJugadorFporNombreGol (String nombre);
+	public Object obtenerJugadorFporNombreGol (String nombre);
 	
-	public JugadorGolFaltaFullDTO obtenerJugadorFullGolyFaltaPorNombre (String nombre);
+	public Object obtenerJugadorFullGolyFaltaPorNombre (String nombre);
 	
 	// metodo con paginacion
 	public List<JugadorModel> obtenerJugadoresPaginacion(Pageable paginacion);

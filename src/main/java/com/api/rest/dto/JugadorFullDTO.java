@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.api.model.entity.EquipoJugadorModel;
 import com.api.model.entity.FaltaModel;
-import com.api.model.entity.GolModel;
 import com.api.model.entity.JugadorModel;
 
 public class JugadorFullDTO {

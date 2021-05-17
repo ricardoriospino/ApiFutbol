@@ -1,5 +1,6 @@
 package com.api.util;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Convertidor {
 		return new EntrenadorModel(entrenador);
 	}
 	
-	public EntrenadorJPA convertirEntrenadorJPA (EntrenadorModel entrenador) {
+	public EntrenadorJPA convertirEntrenadorJPA (EntrenadorModel entrenador) throws ParseException {
 		return new EntrenadorJPA(entrenador);
 	}
 	
@@ -66,7 +67,7 @@ public class Convertidor {
 		return new EquipoModel(equipo);
 	}
 	
-	public List<EquipoJPA> convertirEquipoJPA (List<EquipoModel> equipo) {
+	public List<EquipoJPA> convertirEquipoJPA (List<EquipoModel> equipo) throws ParseException {
 		List<EquipoJPA> lstResultEquipos = new ArrayList<>();
 		
 		for (EquipoModel equipos : equipo) {
@@ -149,7 +150,7 @@ public class Convertidor {
 		return new JugadorModel(jugador);
 	}
 	
-	public JugadorJPA convertirJugadorJPA (JugadorModel jugador) {
+	public JugadorJPA convertirJugadorJPA (JugadorModel jugador) throws ParseException {
 		return new JugadorJPA(jugador);
 	}
 	

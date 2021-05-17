@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +24,8 @@ import com.api.model.entity.EquipoJugadorModel;
 import com.api.model.entity.FaltaModel;
 import com.api.model.entity.GolModel;
 import com.api.model.entity.JugadorModel;
-import com.api.model.entity.ResponseErrorModel;
-import com.api.respuesta.model.RespuestaJugadorFull;
-import com.api.rest.dto.JugadorFullDTO;
-import com.api.rest.dto.JugadorGolFaltaFullDTO;
-import com.api.rest.dto.JugadorGolFullDTO;
 import com.api.service.impl.JugadorServiceImpl;
-import com.api.util.MensajeError;
+
 
 @RestController
 @RequestMapping("/apiFutbol")
@@ -43,11 +40,16 @@ public class JugadorRestController {
 	
 	//PUT
 	@PutMapping("/jugador")
-	public boolean agregarJugador(@Valid @RequestBody JugadorModel jugador) {
+	public ResponseEntity<?> agregarJugador(@Valid @RequestBody JugadorModel jugador) {
 		log.info("ini: agregarJugador()");
 		
 		log.debug("datos jugador:" + jugador.toString());
-		return jugadorServiceImpl.insertar(jugador);
+		boolean flag = jugadorServiceImpl.insertar(jugador);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// -------------------------------------------------------------
@@ -56,11 +58,16 @@ public class JugadorRestController {
 	// http://localhost:8090/apiFutbol/jugador-equipo
 	
 	@PutMapping("/jugador-equipo")
-	public boolean agregarJugadorEquipo(@Valid @RequestBody EquipoJugadorModel jugadorEquipo) {
+	public ResponseEntity<?> agregarJugadorEquipo(@Valid @RequestBody EquipoJugadorModel jugadorEquipo) {
 		log.info("ini: agregarJugadorEquipo()");
 			
 		log.debug("datos jugador equipo:" + jugadorEquipo.toString());
-		return jugadorServiceImpl.insertarJugadorEquipo(jugadorEquipo);
+		boolean flag = jugadorServiceImpl.insertarJugadorEquipo(jugadorEquipo);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	//---------------------------------------------------------------------
@@ -68,21 +75,32 @@ public class JugadorRestController {
 	
 	// http://localhost:8090/apiFutbol/jugador-falta
 	@PutMapping("/jugador-falta")
-	public boolean agregarJugadorFalta(@Valid @RequestBody FaltaModel falta) {
+	public ResponseEntity<?> agregarJugadorFalta(@Valid @RequestBody FaltaModel falta) {
 		log.info("ini: agregarJugadorFalta()");
 			
 		log.debug("datos jugador falta:" + falta.toString());
-		return jugadorServiceImpl.insertarFaltaJugadorPartido(falta);
+		boolean flag = jugadorServiceImpl.insertarFaltaJugadorPartido(falta);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+		
 	}
 	
 	// -------------------------------------------------------------------
 	// http://localhost:8090/apiFutbol/jugador-gol
 	@PutMapping("/jugador-gol")
-	public boolean agregarJugadorGol(@Valid @RequestBody GolModel gol) {
+	public ResponseEntity<?> agregarJugadorGol(@Valid @RequestBody GolModel gol) {
 		log.info("ini: agregarJugadorGol()");
 			
 		log.debug("datos jugador gol:" + gol.toString());
-		return jugadorServiceImpl.insertarGolJugadorPartido(gol);
+		boolean flag = jugadorServiceImpl.insertarGolJugadorPartido(gol);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// ---------------------------------------------------------------------
@@ -90,11 +108,18 @@ public class JugadorRestController {
 	//http://localhost:8090/apiJugador/jugador
 	//POST
 	@PostMapping("/jugador")
-	public boolean actualizarJugador(@RequestBody JugadorModel jugador) {
+	public  ResponseEntity<?> actualizarJugador(@RequestBody JugadorModel jugador) {
 		log.info("ini: actualizarJugador()");
 			
 		log.debug("datos jugador:" + jugador.toString());
-		return jugadorServiceImpl.actualizar(jugador);
+		boolean flag = jugadorServiceImpl.actualizar(jugador);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+		
+		
 	}
 	
 	
@@ -103,12 +128,17 @@ public class JugadorRestController {
 	//DELETE
 	//http://localhost:8090/apiFutbol/borrarJugador/12
 	@DeleteMapping ("/borrarJugador/{idJugador}")
-	public boolean borrarJugador (@PathVariable("idJugador") int id ) {
+	public ResponseEntity<?> borrarJugador (@PathVariable("idJugador") int id ) {
 		
 		log.info("ini: borrarJugador()");
 		log.debug("id:" +  id );
 		
-		return jugadorServiceImpl.borrar(id);
+		boolean flag = jugadorServiceImpl.borrar(id);
+		
+		if(flag)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else		
+			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
 	}
 	
 	// --------------------------------------------------------------------
@@ -158,17 +188,7 @@ public class JugadorRestController {
 		
 		log.debug("Codigo jugador:" +  codigoJugador  );
 		
-		RespuestaJugadorFull respuesta = new RespuestaJugadorFull(jugadorServiceImpl.obtenerJugadorFporCodigo(codigoJugador));
-		
-		if (respuesta.getJugadorFull() == null) {
-			
-			return  new ResponseErrorModel(MensajeError.COD_OOO9, MensajeError.Mensaje_OOO9);
-			
-		}else {
-			
-			return respuesta;
-		}
-		
+		return jugadorServiceImpl.obtenerJugadorPorCodigo(codigoJugador);
 	}
 	
 	// ----------------------------------------------------------------------------------
@@ -176,7 +196,7 @@ public class JugadorRestController {
 	//GET JUGADOR FALTA FULL
 	//http://localhost:8090/apiFutbol/jugadorNombre/Cazulo
 	@GetMapping ("/jugadorNombre/{pnombreJugador}")
-	public JugadorFullDTO obtenerJugadorPorNombreFaltaFull (@PathVariable("pnombreJugador")String nombreJugador) {
+	public Object obtenerJugadorPorNombreFaltaFull (@PathVariable("pnombreJugador")String nombreJugador) {
 		
 		log.info("ini: obtenerJugadorPorNombreFaltaFull()");
 		
@@ -191,7 +211,7 @@ public class JugadorRestController {
 	
 	//http://localhost:8090/apiFutbol/jugadorNombreGol/Cazulo
 	@GetMapping("jugadorNombreGol/{pnombreJugador}")
-	public JugadorGolFullDTO obtenerJugadorPorNombreGolFull (@PathVariable("pnombreJugador")String nombreJugador) {
+	public Object obtenerJugadorPorNombreGolFull (@PathVariable("pnombreJugador")String nombreJugador) {
 		
 		log.info("ini: obtenerJugadorPorNombreGolFull()");
 		
@@ -204,7 +224,7 @@ public class JugadorRestController {
 	//GET JUGADOR GOL Y FALTA FULL
 	//http://localhost:8090/apiFutbol/jugadorNombreGolyFalta/Cazulo
 	@GetMapping("jugadorNombreGolyFalta/{pnombreJugador}")
-	public JugadorGolFaltaFullDTO obtenerJugadorPorNombreGolyFaltaFull(@PathVariable("pnombreJugador")String nombreJugador) {
+	public Object obtenerJugadorPorNombreGolyFaltaFull(@PathVariable("pnombreJugador")String nombreJugador) {
 	
 		log.info("ini: obtenerJugadorPorNombreGolyFaltaFull()");
 		

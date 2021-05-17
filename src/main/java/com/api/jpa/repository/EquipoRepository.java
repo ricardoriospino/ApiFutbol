@@ -22,6 +22,8 @@ public interface EquipoRepository extends JpaRepository<EquipoJPA, Serializable>
 	
 	public EquipoJPA findByCodigoEquipo (String codigo);
 	
+	public EquipoJPA findByIdEquipo (int id);
+	
 	
 	
 }

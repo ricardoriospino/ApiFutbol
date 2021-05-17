@@ -1,10 +1,10 @@
 package com.api.service.impl;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.lang.instrument.Instrumentation;
-import java.nio.charset.CodingErrorAction;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import com.api.jpa.entity.EquipoEstadioJPA;
 import com.api.jpa.entity.EquipoJPA;
@@ -36,7 +37,7 @@ public class EquipoServiceImpl implements EquipoService {
 	@Autowired
 	@Qualifier("repositorioTitulo")
 	private TituloRepository repositorioTitulo;
-
+	
 	
 	
 	@Autowired
@@ -114,6 +115,13 @@ public class EquipoServiceImpl implements EquipoService {
 		
 		try {
 			
+			EquipoJPA equipoJPA = repositorio.findByIdEquipo(equipo.getIdEquipo());
+			
+			if(equipoJPA == null) {
+				log.error("equipo no existe");
+				return false;
+			}
+			
 			repositorio.save(new EquipoJPA (equipo));
 			return true;
 			
@@ -128,6 +136,9 @@ public class EquipoServiceImpl implements EquipoService {
 	public boolean borrar(int id  ) {
 		
 		try {
+			
+			
+			
 			log.info("Borrar");
 			Optional<EquipoJPA> equipo = repositorio.findById(id);
 			
@@ -182,27 +193,44 @@ public class EquipoServiceImpl implements EquipoService {
 	}
 
 	@Override
-	public EquipoFullDTO obtenerEquipoFPorNombre(String nombre) {
+	public Object obtenerEquipoFPorNombre(String nombre) {
 		
-		Object equipo =  obtenerEquipoPorNombre(nombre);
-	
+		EquipoJPA equipoJPA =  repositorio.findByNombreEquipo(nombre);
 		
 		
-		List<TituloModel> titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo(new EquipoJPA((EquipoModel) equipo)));
+		if(equipoJPA == null) {
 			
-		return new EquipoFullDTO((EquipoModel) equipo, titulos);
+			log.error("No encontro equipo full por parametro  nombre: " + nombre );	
 			
-	
+			
+			return  new ResponseErrorModel(MensajeError.COD_OOO5, MensajeError.Mensaje_OOO5);
+		}else {
+			
+			EquipoModel equipoModel = new EquipoModel(equipoJPA);
+			
+			List<TituloModel> titulos = convertidor.convertirListaTitulos(repositorioTitulo.findByEquipo
+					(equipoJPA));
+			
+			return new EquipoFullDTO(equipoModel, titulos);
+				
+		}
 		
 	}
+	
+	
 
 	@Override
 	public List<EquipoFullDTO> obtenerListaTitulos() {
 		
 		List<EquipoModel> lstEquipos =  convertidor.convertirListaEquipo(repositorio.findAll());
 		
-		ArrayList<EquipoJPA> equipos = new ArrayList<EquipoJPA>();		
-		equipos = (ArrayList<EquipoJPA>) convertidor.convertirEquipoJPA(lstEquipos);
+		ArrayList<EquipoJPA> equipos = new ArrayList<EquipoJPA>();	
+		
+		try {
+			equipos = (ArrayList<EquipoJPA>) convertidor.convertirEquipoJPA(lstEquipos);
+		} catch (ParseException e) {		
+			e.printStackTrace();
+		}
 		
 		List<TituloModel> titulos = null;
 		List<EquipoFullDTO> lstEquipoFull = new ArrayList<>();

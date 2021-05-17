@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.api.model.entity.EstadioModel;
-import com.api.rest.dto.EstadioFullDTO;
+
 
 public interface EstadioService {
 
@@ -19,7 +19,7 @@ public interface EstadioService {
 	
 	public Object obtenerEstadioPorNombre (String nombre);
 	
-	public EstadioModel obtenerEstadioPorCodigo(String codigo);
+	public Object obtenerEstadioPorCodigo(String codigo);
 	
 	public Object obtenerEstadioPorFcodigo (String codigo);
 	
