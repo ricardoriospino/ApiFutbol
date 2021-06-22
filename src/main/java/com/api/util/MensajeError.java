@@ -35,5 +35,8 @@ public class MensajeError {
 	public static final String COD_OOO11 = "ERROR00011";
 	public static final String Mensaje_OOO11 = "No existe Partidos Full";
 	
+	public static final String COD_OOO12 = "ERROR00012";
+	public static final String Mensaje_OOO12 = "No existe Usuario";
+	
 
 }

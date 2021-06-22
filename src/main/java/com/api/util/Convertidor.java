@@ -18,6 +18,7 @@ import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.PartidoJPA;
 import com.api.jpa.entity.PosicionesJPA;
 import com.api.jpa.entity.TituloJPA;
+import com.api.jpa.entity.UsuarioJPA;
 import com.api.model.entity.EntrenadorModel;
 import com.api.model.entity.EquipoEntrenadorModel;
 import com.api.model.entity.EquipoEstadioModel;
@@ -30,6 +31,7 @@ import com.api.model.entity.JugadorModel;
 import com.api.model.entity.PartidoModel;
 import com.api.model.entity.PosicionesModel;
 import com.api.model.entity.TituloModel;
+import com.api.model.entity.UsuarioModel;
 
 @Component("convertidor")
 public class Convertidor {
@@ -308,6 +310,25 @@ public class Convertidor {
 	}
 	
 	// ------------------------------------------------------------------
+	
+	public List<UsuarioModel> convertirListaUsuarios (List<UsuarioJPA> lista){
+		List<UsuarioModel> lstResltUsuario = new ArrayList<>();
+		
+		for (UsuarioJPA usuario: lista) {
+			lstResltUsuario.add(new UsuarioModel(usuario));
+		}
+		
+		return lstResltUsuario;
+	}
+	
+	public UsuarioModel convertirUsuarioModel (UsuarioJPA usuario) {
+		return new UsuarioModel(usuario);
+
+	}
+	
+	public UsuarioJPA convertirUsuarioJPA (UsuarioModel usuario) {
+		return new UsuarioJPA(usuario);
+	}
 	
 	
 }

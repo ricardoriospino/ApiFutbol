@@ -144,6 +144,17 @@ rol  CHAR NOT NULL,
 activo BOOLEAN NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS tb_usuarios(
+id_usuario INTEGER UNSIGNED PRIMARY KEY auto_increment,
+nombre VARCHAR (50) NOT NULL,
+apellido_paterno VARCHAR (50) NOT NULL,
+apellido_materno VARCHAR (50) NOT NULL,
+codigo_usuario VARCHAR (10) UNIQUE NOT NULL,
+usuario VARCHAR (50) UNIQUE NOT NULL,
+clave VARCHAR(50) NOT NULL,
+is_enable BOOLEAN NOT NULL
+);
+
 /*
 DROP TABLE tb_security;
 DROP TABLE tb_posiciones;
@@ -158,6 +169,7 @@ DROP TABLE tb_equipo_entrenador;
 DROP TABLE tb_entrenador;
 DROP TABLE tb_titulos;
 DROP TABLE tb_equipo;
+DROP TABLE tb_usuarios;
  */
 
 SELECT * FROM tb_entrenador;
@@ -173,6 +185,7 @@ SELECT * FROM tb_goles;
 SELECT * FROM tb_faltas;
 SELECT * FROM tb_posiciones;
 SELECT * FROM tb_security;
+SELECT * FROM tb_usuarios;
 
 -- DATA EQUIPOS
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
@@ -298,6 +311,14 @@ insert into tb_security(activo,clave,rol,usuario) values(true,'123',3,'prios');
 insert into tb_security(activo,clave,rol,usuario) values(false,'123',2,'rrios');
 insert into tb_security(activo,clave,rol,usuario) values(true,'123',1,'zrios');
 insert into tb_security(activo,clave,rol,usuario) values(true,'123',0,'xrios');
+
+-- DATA USUARIOS
+INSERT INTO tb_usuarios(nombre,apellido_paterno,apellido_materno,codigo_usuario,usuario,clave,is_enable) VALUE 
+("Ricardo","Rios","Pino","USER001","ricardo123","123",true);
+INSERT INTO tb_usuarios(nombre,apellido_paterno,apellido_materno,codigo_usuario,usuario,clave,is_enable) VALUE 
+("David","Cabrera","Hinojosa","USER002","david123","123",true);
+INSERT INTO tb_usuarios(nombre,apellido_paterno,apellido_materno,codigo_usuario,usuario,clave,is_enable) VALUE 
+("Kevin","Rios","Azcurra","USER003","kevin123","123",false);
 
 
 -- SELECT TB_PARTIDOS POR MES Y AÑO
