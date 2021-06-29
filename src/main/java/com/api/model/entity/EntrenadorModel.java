@@ -13,7 +13,6 @@ public class EntrenadorModel implements Serializable {
 	
 	private int idEntrenador;
 	
-	@NotBlank (message="codigo de entrenador no puede ser vacio")
 	private String codigoEntrenador;
 	
 	@NotBlank (message="nombre de entrenador no puede ser vacio")
@@ -91,7 +90,7 @@ public class EntrenadorModel implements Serializable {
 	
 
 	public EntrenadorModel(int idEntrenador,
-			@NotBlank(message = "codigo de entrenador no puede ser vacio") String codigoEntrenador,
+			 String codigoEntrenador,
 			@NotBlank(message = "nombre de entrenador no puede ser vacio") String nombreEntrenador,
 			@NotBlank(message = "fecha de nacimiento de entrenador no puede ser vacio") String fechaNacimiento,
 			@NotBlank(message = "nacionalidad de entrenador no puede ser vacio") String nacionalidad,

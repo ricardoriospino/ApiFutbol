@@ -24,6 +24,8 @@ public interface EquipoRepository extends JpaRepository<EquipoJPA, Serializable>
 	
 	public EquipoJPA findByIdEquipo (int id);
 	
+	public EquipoJPA findTopByOrderByIdEquipoDesc ();
+	
 	
 	
 }

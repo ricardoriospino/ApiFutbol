@@ -16,6 +16,7 @@ import com.api.jpa.entity.FaltaJPA;
 import com.api.jpa.entity.GolJPA;
 import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.PartidoJPA;
+import com.api.jpa.entity.UsuarioJPA;
 import com.api.jpa.repository.EquipoJugadorRepository;
 import com.api.jpa.repository.EquipoRepository;
 import com.api.jpa.repository.FaltaRepository;
@@ -31,6 +32,7 @@ import com.api.rest.dto.JugadorFullDTO;
 import com.api.rest.dto.JugadorGolFaltaFullDTO;
 import com.api.rest.dto.JugadorGolFullDTO;
 import com.api.service.JugadorService;
+import com.api.util.ConstanteAPI;
 import com.api.util.Convertidor;
 import com.api.util.MensajeError;
 
@@ -78,6 +80,23 @@ public class JugadorServiceImpl implements JugadorService {
 				log.error("Codigo Ya existe");
 				return false;
 			}
+			
+			JugadorJPA ultimoJugadorCodigo = repositorio.findTopByOrderByIdJugadorDesc();
+			
+			String codigo = ultimoJugadorCodigo.getCodigoJugador();
+			
+			String [] partes = codigo.split("U");
+			
+			String parte1 = partes[0];
+			String parte2 = partes[1];
+			
+			int codigoNumero = Integer.parseInt(parte2);
+			
+			codigoNumero++;
+			
+			String codigoNuevo =ConstanteAPI.JUGADOR +"000"+codigoNumero  ;
+			
+			jugador.setCodigoJugador(codigoNuevo);
 					
 			repositorio.save(new JugadorJPA (jugador));
 			return true;

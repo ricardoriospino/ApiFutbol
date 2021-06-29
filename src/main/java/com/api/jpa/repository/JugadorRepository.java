@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.api.jpa.entity.JugadorJPA;
+import com.api.jpa.entity.UsuarioJPA;
 
 @Repository("repositoriojugador")
 public interface JugadorRepository extends JpaRepository<JugadorJPA, Serializable> {
@@ -23,6 +24,6 @@ public interface JugadorRepository extends JpaRepository<JugadorJPA, Serializabl
 	
 	public JugadorJPA findByIdJugador (int id);
 	
-
+	public JugadorJPA findTopByOrderByIdJugadorDesc();
 
 }

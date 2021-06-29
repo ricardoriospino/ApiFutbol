@@ -23,6 +23,7 @@ import com.api.model.entity.EquipoEntrenadorModel;
 import com.api.model.entity.ResponseErrorModel;
 import com.api.rest.dto.EntrenadorFullDTO;
 import com.api.service.EntrenadorService;
+import com.api.util.ConstanteAPI;
 import com.api.util.Convertidor;
 import com.api.util.MensajeError;
 
@@ -58,7 +59,26 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 				return false;
 			}
 			
+			EntrenadorJPA ultimoEntrenadorCodigo = repositorio.findTopByOrderByIdEntrenadorDesc();
+			
+			String codigo = ultimoEntrenadorCodigo.getCodigoEntrenador();
+			
+			String [] partes = codigo.split("N");
+			
+			String parte1 = partes[0];
+			String parte2 = partes[1];
+			
+			int codigoNumero = Integer.parseInt(parte2);
+			
+			codigoNumero++;
+			
+			String codigoNuevo = ConstanteAPI.ENTRENADOR + "00" + codigoNumero;
+			
+			entrenador.setCodigoEntrenador(codigoNuevo);
+			
 			repositorio.save(new EntrenadorJPA (entrenador));
+			
+			
 			return true;
 			
 		} catch (Exception e) {

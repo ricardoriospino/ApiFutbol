@@ -18,7 +18,7 @@ public class TituloModel implements Serializable{
 	@NotBlank
 	private String nombreTitulo;
 	
-	@NotNull
+	
 	private boolean isNacional;
 	
 	// distintos al JPA
@@ -121,7 +121,7 @@ public class TituloModel implements Serializable{
 
 
 
-	public TituloModel(@NotBlank String anioTitulo, @NotBlank String nombreTitulo, @NotNull boolean isNacional) {
+	public TituloModel(@NotBlank String anioTitulo, @NotBlank String nombreTitulo,  boolean isNacional) {
 		super();
 		this.anioTitulo = anioTitulo;
 		this.nombreTitulo = nombreTitulo;

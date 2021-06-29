@@ -13,7 +13,7 @@ public class JugadorModel implements Serializable {
 	
 	private int idJugador;
 	
-	@NotBlank (message="Codigo de Jugador no puede ser vacio")
+	
 	private String codigoJugador;
 	
 	@NotBlank (message="Nombre de Jugador no puede ser vacio")
@@ -49,7 +49,7 @@ public class JugadorModel implements Serializable {
 	}
 	
 
-	public JugadorModel(int idJugador, @NotBlank(message = "Codigo de Jugador no puede ser vacio") String codigoJugador,
+	public JugadorModel(int idJugador,  String codigoJugador,
 			@NotBlank(message = "Nombre de Jugador no puede ser vacio") String nombreJugador,
 			@NotBlank(message = "fecha de Nacimiento de Jugador no puede ser vacio") String fechaNacimiento,
 			@NotNull(message = "Año de debut de Jugador no puede ser vacio") int aniosDeDebut,

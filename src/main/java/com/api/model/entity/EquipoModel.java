@@ -13,7 +13,7 @@ public class EquipoModel implements Serializable {
 	
 	private int idEquipo;
 	
-	@NotBlank (message="codigo de equipo no puede ser vacio")
+	
 	private String codigoEquipo;
 	
 	@NotBlank(message="Nombre de equipo no puede ser vacio")
@@ -99,7 +99,7 @@ public class EquipoModel implements Serializable {
 		
 	}
 
-	public EquipoModel(int idEquipo, @NotBlank(message = "codigo de equipo no puede ser vacio") String codigoEquipo,
+	public EquipoModel(int idEquipo,  String codigoEquipo,
 			@NotBlank(message = "Nombre de equipo no puede ser vacio") String nombreEquipo,
 			@NotBlank(message = "fecha de fundación de equipo no puede ser vacio") String anioFundacion,
 			@NotBlank(message = "Imagen escudo de equipo no puede ser vacio") String imagenEscudo,

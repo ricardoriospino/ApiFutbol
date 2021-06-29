@@ -14,7 +14,7 @@ import com.api.jpa.repository.UsuarioRepository;
 import com.api.model.entity.ResponseErrorModel;
 import com.api.model.entity.UsuarioModel;
 import com.api.service.UsuarioService;
-import com.api.util.ConstanteUsuario;
+import com.api.util.ConstanteAPI;
 import com.api.util.Convertidor;
 import com.api.util.MensajeError;
 
@@ -59,7 +59,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			
 			codigoNumero++;
 			
-			String codigoNuevo =ConstanteUsuario.USUARIO +"00"+codigoNumero  ;
+			String codigoNuevo =ConstanteAPI.USUARIO +"00"+codigoNumero  ;
 			
 			usuario.setCodigoUsuario(codigoNuevo);
 			

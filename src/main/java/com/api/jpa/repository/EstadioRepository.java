@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.api.jpa.entity.EstadioJPA;
 
+
 @Repository("repositorioestadio")
 public interface EstadioRepository extends JpaRepository<EstadioJPA, Serializable> {
 	
@@ -20,5 +21,7 @@ public interface EstadioRepository extends JpaRepository<EstadioJPA, Serializabl
 	public EstadioJPA findByCodigoEstadio (String codigo);
 	
 	public EstadioJPA findByIdEstadio (int id);
+	
+	public EstadioJPA findTopByOrderByIdEstadioDesc();
 
 }

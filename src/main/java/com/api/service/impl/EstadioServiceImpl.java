@@ -19,6 +19,7 @@ import com.api.model.entity.EstadioModel;
 import com.api.model.entity.ResponseErrorModel;
 import com.api.rest.dto.EstadioFullDTO;
 import com.api.service.EstadioService;
+import com.api.util.ConstanteAPI;
 import com.api.util.Convertidor;
 import com.api.util.MensajeError;
 
@@ -49,6 +50,23 @@ public class EstadioServiceImpl implements EstadioService {
 				log.error("Codigo Ya existe");
 				return false;
 			}
+			
+			EstadioJPA ultimoEstadioCodigo = repositorio.findTopByOrderByIdEstadioDesc();
+			
+			String codigo = ultimoEstadioCodigo.getCodigoEstadio();
+			
+			String [] partes = codigo.split("S");
+			
+			String parte1 = partes[0];
+			String parte2 = partes[1];
+			
+			int codigoNumero = Integer.parseInt(parte2);
+			
+			codigoNumero++;
+			
+			String codigoNuevo =ConstanteAPI.ESTADIO +"00"+codigoNumero  ;
+			
+			estadio.setCodigoEstadio(codigoNuevo);
 			
 			repositorio.save(new EstadioJPA (estadio));
 			return true;

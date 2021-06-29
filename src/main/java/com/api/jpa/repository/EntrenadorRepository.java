@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.api.jpa.entity.EntrenadorJPA;
+import com.api.jpa.entity.UsuarioJPA;
 
 @Repository("repositorioentrenador")
 public interface EntrenadorRepository extends JpaRepository<EntrenadorJPA, Serializable> {
@@ -22,6 +23,8 @@ public interface EntrenadorRepository extends JpaRepository<EntrenadorJPA, Seria
 	public EntrenadorJPA findBycodigoEntrenador (String codigo);
 	
 	public EntrenadorJPA findByIdEntrenador (int id);
+	
+	public EntrenadorJPA findTopByOrderByIdEntrenadorDesc();
 	
 
 }

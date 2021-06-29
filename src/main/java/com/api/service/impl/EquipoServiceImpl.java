@@ -27,6 +27,7 @@ import com.api.model.entity.ResponseErrorModel;
 import com.api.model.entity.TituloModel;
 import com.api.rest.dto.EquipoFullDTO;
 import com.api.service.EquipoService;
+import com.api.util.ConstanteAPI;
 import com.api.util.Convertidor;
 import com.api.util.MensajeError;
 
@@ -37,9 +38,7 @@ public class EquipoServiceImpl implements EquipoService {
 	@Autowired
 	@Qualifier("repositorioTitulo")
 	private TituloRepository repositorioTitulo;
-	
-	
-	
+
 	@Autowired
 	@Qualifier("repositorioequipo")
 	private EquipoRepository repositorio;
@@ -66,10 +65,26 @@ public class EquipoServiceImpl implements EquipoService {
 			EquipoJPA equipoNombre = repositorio.findByNombreEquipo(equipo.getNombreEquipo());
 			
 			if (equipoJPA != null || equipoNombre != null  ) {
-				
 				log.error(" Ya existe");
 				return false;
 			}
+			
+			EquipoJPA ultimoEquipoCodigo = repositorio.findTopByOrderByIdEquipoDesc();
+			
+			String codigo = ultimoEquipoCodigo.getCodigoEquipo();
+			
+			String [] partes = codigo.split("Q");
+			
+			String parte1 = partes[0];
+			String parte2 = partes[1];
+			
+			int codigoNumero = Integer.parseInt(parte2);
+			
+			codigoNumero++;
+			
+			String codigoNuevo = ConstanteAPI.EQUIPO + "00" + codigoNumero;
+			
+			equipo.setCodigoEquipo(codigoNuevo);
 			
 			repositorio.save(new EquipoJPA (equipo));
 			return true;

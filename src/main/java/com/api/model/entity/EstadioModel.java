@@ -12,7 +12,7 @@ public class EstadioModel implements Serializable {
 	
 	private int idEstadio;
 	
-	@NotBlank (message="codigo de estadio no puede ser vacio")
+	
 	private String codigoEstadio;
 	
 	@NotBlank (message="Nombre de estadio no puede ser vacio")
@@ -63,7 +63,7 @@ public class EstadioModel implements Serializable {
 	
 	
 	
-	public EstadioModel(int idEstadio, @NotBlank(message = "codigo de estadio no puede ser vacio") String codigoEstadio,
+	public EstadioModel(int idEstadio,  String codigoEstadio,
 			@NotBlank(message = "Nombre de estadio no puede ser vacio") String nombreEstadio,
 			@NotNull(message = "capacidad de estadio no puede ser vacio") int capacidad,
 			@NotBlank(message = "ubicacion de estadio no puede ser vacio") String ubicacion) {
