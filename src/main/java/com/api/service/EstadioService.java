@@ -17,6 +17,8 @@ public interface EstadioService {
 	
 	public List<EstadioModel> obtenerEstadios();
 	
+	public Object obtenerEstadioPorIdEstadio (int idEstadio);
+	
 	public Object obtenerEstadioPorNombre (String nombre);
 	
 	public Object obtenerEstadioPorCodigo(String codigo);

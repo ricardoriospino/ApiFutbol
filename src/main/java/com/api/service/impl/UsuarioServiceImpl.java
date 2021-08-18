@@ -33,7 +33,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 
 	@Override
-	public boolean insertar(UsuarioModel usuario) {
+	public int insertar(UsuarioModel usuario) {
+		
+		int estado = 0;
 		
 		try {
 			
@@ -43,7 +45,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 			
 			if(codigoUsuario != null || nombreUsuario != null) {
 				log.error("Codigo Ya existe");
-				return false;
+				
+				estado = 1;
+				return estado;
 			}
 			
 			UsuarioJPA ultimoUsuarioCodigo = repositorioUsuario.findTopByOrderByIdUsuarioDesc();
@@ -59,19 +63,45 @@ public class UsuarioServiceImpl implements UsuarioService {
 			
 			codigoNumero++;
 			
-			String codigoNuevo =ConstanteAPI.USUARIO +"00"+codigoNumero  ;
+			String codigoNuevo = generarCodigoUsuario(codigoNumero);
 			
 			usuario.setCodigoUsuario(codigoNuevo);
 			
 			repositorioUsuario.save(new UsuarioJPA(usuario));
 			
-			return true;
+			estado = 2;
+			return estado;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Error al insertar " + e);
-			return false;
+			estado =3;
+			return estado;
 		}
+	}
+	
+	private String generarCodigoUsuario (int codigoNumero) {
+		
+		String longitudNumero = String.valueOf(codigoNumero);
+		
+		String codigoNuevo ="";
+		
+		if ( 1 > longitudNumero.length()) {			
+			 codigoNuevo = ConstanteAPI.USUARIO + "00000" + codigoNumero;	
+		}else if(2 > longitudNumero.length()) {
+			 codigoNuevo = ConstanteAPI.USUARIO + "0000" + codigoNumero;
+		}else if(3 > longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.USUARIO + "000" + codigoNumero;
+		}else if(4 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.USUARIO + "00" + codigoNumero;
+		}else if(5 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.USUARIO + "0" +  codigoNumero;
+		}else {
+			codigoNuevo = ConstanteAPI.USUARIO + codigoNumero;
+		}
+		
+		return codigoNuevo;
+		
 	}
 
 	@Override

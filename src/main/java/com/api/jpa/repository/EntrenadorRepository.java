@@ -24,6 +24,7 @@ public interface EntrenadorRepository extends JpaRepository<EntrenadorJPA, Seria
 	
 	public EntrenadorJPA findByIdEntrenador (int id);
 	
+	
 	public EntrenadorJPA findTopByOrderByIdEntrenadorDesc();
 	
 

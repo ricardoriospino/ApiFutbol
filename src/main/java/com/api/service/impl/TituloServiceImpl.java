@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.api.jpa.entity.EquipoJPA;
+import com.api.jpa.entity.JugadorJPA;
 import com.api.jpa.entity.TituloJPA;
 import com.api.jpa.repository.EquipoRepository;
 import com.api.jpa.repository.TituloRepository;
+import com.api.model.entity.ResponseErrorModel;
 import com.api.model.entity.TituloModel;
 
 import com.api.service.TituloService;
 import com.api.util.Convertidor;
+import com.api.util.MensajeError;
 
 
 @Service("tituloServiceImpl")
@@ -112,6 +115,28 @@ public class TituloServiceImpl implements TituloService {
 	public List<TituloModel> obtenerTitulos() {
 		
 		return convertidor.convertirListaTitulos(repositorio.findAll());
+	}
+
+	@Override
+	public Object obtenerTituloPorId(int id) {
+		
+		TituloJPA tituloJPA = repositorio.findByIdTitulo(id);
+		
+		if (tituloJPA == null) {
+			
+			log.debug("No encontro datos jugador por parametro  id: "+ id );
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO12, MensajeError.Mensaje_OOO12);
+			
+		}else {
+			
+			TituloModel titulo = convertidor.convertirTitulosModel(tituloJPA);
+			
+			return titulo;
+			
+		}
+		
+		
 	}
 
 	

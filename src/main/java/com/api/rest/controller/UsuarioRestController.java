@@ -41,10 +41,12 @@ public class UsuarioRestController {
 		
 		log.debug("datos usuario" + usuario.toString());
 		
-		boolean flag = usuarioServiceImpl.insertar(usuario);
+		int estado = usuarioServiceImpl.insertar(usuario);
 		
-		if(flag)
-			return new ResponseEntity<>(HttpStatus.OK);
+		if(estado == 2)		
+			return new ResponseEntity<>(HttpStatus.OK);	
+		else if (estado == 1)		
+			return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
 		else
 			return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
 	}

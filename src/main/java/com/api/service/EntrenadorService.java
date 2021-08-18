@@ -26,6 +26,8 @@ public interface EntrenadorService {
 	
 	public EntrenadorModel obtenerEntrenadorPorCodigo(String codigo);
 	
+	public Object obtenerEntrenadorPorIdEntrenador (int idEntrenador);
+	
 	public Object obtenerEntrenadorFporCodigo(String codigo);
 	
 	// metodo con paginacion

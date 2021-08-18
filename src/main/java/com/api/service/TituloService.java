@@ -15,5 +15,7 @@ public interface TituloService {
 	
 	public List<TituloModel> obtenerTitulos();
 	
+	public Object obtenerTituloPorId (int id);
+	
 	
 }

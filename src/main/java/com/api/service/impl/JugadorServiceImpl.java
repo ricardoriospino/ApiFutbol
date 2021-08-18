@@ -94,7 +94,7 @@ public class JugadorServiceImpl implements JugadorService {
 			
 			codigoNumero++;
 			
-			String codigoNuevo =ConstanteAPI.JUGADOR +"000"+codigoNumero  ;
+			String codigoNuevo = generarCodigoJugador(codigoNumero);
 			
 			jugador.setCodigoJugador(codigoNuevo);
 					
@@ -107,6 +107,30 @@ public class JugadorServiceImpl implements JugadorService {
 			return false;
 		}
 	}
+	
+	private String generarCodigoJugador(int codigoNumero) {
+		
+		String longitudNumero = String.valueOf(codigoNumero);
+		
+		String codigoNuevo ="";
+		
+		if ( 1 > longitudNumero.length()) {			
+			 codigoNuevo = ConstanteAPI.JUGADOR + "00000" + codigoNumero;	
+		}else if(2 > longitudNumero.length()) {
+			 codigoNuevo = ConstanteAPI.JUGADOR + "0000" + codigoNumero;
+		}else if(3 > longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.JUGADOR + "000" + codigoNumero;
+		}else if(4 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.JUGADOR + "00" + codigoNumero;
+		}else if(5 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.JUGADOR + "0" +  codigoNumero;
+		}else {
+			codigoNuevo = ConstanteAPI.JUGADOR + codigoNumero;
+		}
+		
+		return codigoNuevo;
+	}
+	
 	
 	@Override
 	public boolean insertarJugadorEquipo(EquipoJugadorModel jugadorEquipo) {
@@ -349,6 +373,26 @@ public class JugadorServiceImpl implements JugadorService {
 					
 		}
 	}
+	
+	@Override
+	public Object obtenerJugadorPorIdJugador(int idJugador) {
+		
+		JugadorJPA jugadorJPA = repositorio.findByIdJugador(idJugador);
+		
+		if(jugadorJPA == null) {
+			
+			log.debug("No encontro datos jugador por parametro idJugador: "+ idJugador );
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO9, MensajeError.Mensaje_OOO9);
+			
+		}else {
+			JugadorModel jugador = convertidor.convertirJugadorModel(jugadorJPA);
+			
+			return jugador;
+		}
+	
+	}
+
 
 	@Override
 	public Object obtenerJugadorFporNombre(String nombre) {
@@ -429,5 +473,6 @@ public class JugadorServiceImpl implements JugadorService {
 		
 	}
 
+	
 
 }

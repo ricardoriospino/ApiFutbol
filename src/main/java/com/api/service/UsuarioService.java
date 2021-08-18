@@ -6,7 +6,7 @@ import com.api.model.entity.UsuarioModel;
 
 public interface UsuarioService {
 	
-	public boolean insertar (UsuarioModel usuario);
+	public int insertar (UsuarioModel usuario);
 	
 	public boolean actualizar (UsuarioModel usuario);
 

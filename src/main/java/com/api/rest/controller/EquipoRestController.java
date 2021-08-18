@@ -39,18 +39,6 @@ public class EquipoRestController {
 	private EquipoServiceImpl equipoServiceImpl;
 	
 	// http://localhost:8090/apiFutbol/equipo
-	
-//	//PUT 
-//	@PutMapping("/equipo")
-//	public boolean agregarEquipo (@Valid @RequestBody EquipoModel equipo) {
-//		log.info("ini: agregarEquipo()");
-//		
-//		log.debug("datos equipo:" + equipo.toString());
-//		return equipoServiceImpl.insertar(equipo);
-//	}
-//	
-	
-	
 	//PUT 
 		@PutMapping("/equipo")
 		public ResponseEntity<?> agregarEquipo (@Valid @RequestBody EquipoModel equipo) {
@@ -95,12 +83,14 @@ public class EquipoRestController {
 		
 		log.debug("datos equipo:" + equipo.toString());
 		
-		boolean flag = equipoServiceImpl.actualizar(equipo);		
+		int estado = equipoServiceImpl.actualizar(equipo);		
 
-		if(flag)
+		if(estado == 2)
 			return new ResponseEntity<>(HttpStatus.OK);
+		else if (estado == 1)
+		return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
 		else		
-			return new ResponseEntity<>(false,HttpStatus.CONFLICT);
+			return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
 		
 		
 	}
@@ -157,6 +147,28 @@ public class EquipoRestController {
 				
 		log.debug("nombre:" +  nombre );
 		return  equipoServiceImpl.obtenerEquipoPorNombre(nombre);
+	}
+	
+	// -----------------------------------------------------------------------
+	// http://localhost:8090/apiFutbol/equipoCodigo/
+	@GetMapping ("/equipoCodigo/{pcodigo}")
+	public  Object obtenerEquipoPorCodigo (@PathVariable("pcodigo")String codigo ) {
+				
+		log.info("ini: obtenerEquipoPorCodigo()");
+				
+		log.debug("codigo:" +  codigo );
+		return  equipoServiceImpl.obtenerEquipoPorCodigo(codigo);
+	}
+	
+	// ---------------------------------------------------------------------
+	// http://localhost:8090/apiFutbol/equipoIdEquipo/
+	@GetMapping ("/equipoIdEquipo/{pIdEquipo}")
+	public  Object obtenerEquipoPorId (@PathVariable("pIdEquipo")int idEquipo ) {
+					
+		log.info("ini: obtenerEquipoPorId()");
+					
+		log.debug("IdEquipo:" +  idEquipo );
+		return  equipoServiceImpl.obtenerEquipoPorId(idEquipo);
 	}
 	
 	

@@ -112,6 +112,27 @@ public class EntrenadorRestController {
 		
 	}
 	
+	//-------------------------------------------------------------------
+	
+	//DELETE 
+	// http://localhost:8090/apiFutbol/borrarEntrenador/3
+	@DeleteMapping ("/borrarEntrenador/{idEntrenador}")
+	public ResponseEntity<?> borrarEntrenador (@PathVariable("idEntrenador") int id ){
+		
+		log.info("ini: borrarEntrenador()");
+		log.debug("id:" +  id );
+		
+		int estado = entrenadorServiceImpl.borrar(id);
+		
+		if(estado== 1)
+			return new ResponseEntity<>(HttpStatus.OK);
+		else if(estado==2)		
+			return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
+		else
+			return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
+		
+	}
+	
 	// -------------------------------------------------------------------------
 	//GET SIN PARAMETROS SIN PAGINACION 
 	// http://localhost:8090/apiFutbol/entrenadores
@@ -167,7 +188,33 @@ public class EntrenadorRestController {
 		}
 	
 	}
+	
+	//----------------------------------------------------------------
 		
+	//http://localhost:8090/apiFutbol/entrenadoresCodigo/EN013
+	@GetMapping ("/entrenadoresCodigo/{pcodigo}")
+	public Object obtenerEntrenadorPorCodigo (@PathVariable("pcodigo") String codigo) {
+		log.info("ini: obtenerEntrenadorPorCodigo()");
+
+		log.debug( " codigo : " + codigo  );
+		
+		return  entrenadorServiceImpl.obtenerEntrenadorPorCodigo(codigo);
+		
+	}
+	
+	// --------------------------------------------------------------
+	// http://localhost:8090/apiFutbol/entrenadorIdEntrenador/
+	@GetMapping ("/entrenadorIdEntrenador/{pIdEntrenador}")
+	public  Object obtenerEntrenadorPorId (@PathVariable("pIdEntrenador")int idEntrenador ) {
+						
+			log.info("ini: obtenerEntrenadorPorId()");
+						
+			log.debug("IdEntrenador:" +  idEntrenador );
+			return  entrenadorServiceImpl.obtenerEntrenadorPorIdEntrenador(idEntrenador);
+		}
+		
+	
+	
 	//---------------------------------------------------------------------------
 	
 	//http://localhost:8090/apiFutbol/entrenadores/EN001

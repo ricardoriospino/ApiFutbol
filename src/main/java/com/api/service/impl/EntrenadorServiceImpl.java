@@ -71,9 +71,9 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 			int codigoNumero = Integer.parseInt(parte2);
 			
 			codigoNumero++;
-			
-			String codigoNuevo = ConstanteAPI.ENTRENADOR + "00" + codigoNumero;
-			
+
+			String codigoNuevo = generarCodigoEntrenador(codigoNumero);
+
 			entrenador.setCodigoEntrenador(codigoNuevo);
 			
 			repositorio.save(new EntrenadorJPA (entrenador));
@@ -86,6 +86,30 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 			log.error("Error al insertar " + e);
 			return false;
 		}
+	}
+	
+	private String generarCodigoEntrenador(int codigoNumero) {
+		
+		String codigoNuevo ="";
+		
+		String longitudNumero = String.valueOf(codigoNumero);
+		
+		if ( 1 > longitudNumero.length()) {			
+			 codigoNuevo = ConstanteAPI.ENTRENADOR + "00000" + codigoNumero;	
+		}else if(2 > longitudNumero.length()) {
+			 codigoNuevo = ConstanteAPI.ENTRENADOR + "0000" + codigoNumero;
+		}else if(3 > longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.ENTRENADOR + "000" + codigoNumero;
+		}else if(4 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.ENTRENADOR + "00" + codigoNumero;
+		}else if(5 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.ENTRENADOR + "0" +  codigoNumero;
+		}else {
+			codigoNuevo = ConstanteAPI.ENTRENADOR + codigoNumero;
+		}
+		
+		return codigoNuevo;
+		
 	}
 	
 	@Override
@@ -175,26 +199,39 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 		}
 	}
 	
-	public boolean borrar(int id) {
+	public int borrar(int id) {
+		
+		int estado = 0;
+		
 		try {
-			log.info("Borrar");
-			Optional<EntrenadorJPA> entrenador = repositorio.findById(id);
 			
-			if(entrenador.isPresent()) {
+			EntrenadorJPA entrenadorObject = repositorio.findByIdEntrenador(id);
+			
+			List<EquipoEntrenadorJPA> equipoEntrenador = repositorioEquipoEntrenador.findByEntrenador(entrenadorObject);
+		
+
+			if (equipoEntrenador == null || equipoEntrenador.size() == 0) {
+				
+				Optional<EntrenadorJPA> entrenador = repositorio.findById(id);
 				repositorio.delete(entrenador.get());
+				estado = 1;
+				return estado;
 			}else {
-				log.error("No existe data para ese Id");
-				return false;
+				log.error("No se puede borrar usuario tiene data en otras tablas");
+				estado = 2;
+				return estado;
+				
 			}
-			return true;
-			
+	
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Error al borrar " + e);
-			return false;
+			estado = 3;
+			return estado;
 		}
 	}
 
+	
 	@Override
 	public List<EntrenadorModel> obtenerEntrenadores() {
 		
@@ -272,6 +309,24 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 		
 	}
 	
+	@Override
+	public Object obtenerEntrenadorPorIdEntrenador(int idEntrenador) {
+		
+		EntrenadorJPA entrenadorJPA = repositorio.findByIdEntrenador(idEntrenador);
+		
+		if(entrenadorJPA == null) {
+			
+			log.debug("No encontro datos equipo por parametros por id entrenador: "+ idEntrenador );
+			
+			return  new ResponseErrorModel(MensajeError.COD_OOO1, MensajeError.Mensaje_OOO1);
+			
+		}else {
+			
+			EntrenadorModel entrenador = convertidor.convertirEntrenadorModel(entrenadorJPA);
+			
+			return entrenador;
+		}
+	}
 	
 
 	@Override
@@ -298,5 +353,7 @@ public class EntrenadorServiceImpl implements EntrenadorService {
 			
 		}	
 	}
+
+	
 
 }

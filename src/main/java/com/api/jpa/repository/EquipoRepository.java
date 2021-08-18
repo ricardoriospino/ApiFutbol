@@ -28,4 +28,5 @@ public interface EquipoRepository extends JpaRepository<EquipoJPA, Serializable>
 	
 	
 	
+	
 }

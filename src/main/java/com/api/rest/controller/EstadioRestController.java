@@ -72,7 +72,7 @@ public class EstadioRestController {
 	
 	//DELETE
 	//http://localhost:8090/apiFutbol/borrarEstadio/1
-	@DeleteMapping ("/borrarEstadio/{idEstadio}/{idEquipo}")
+	@DeleteMapping ("/borrarEstadio/{idEstadio}")
 	public ResponseEntity<?> borrarEstadio (@PathVariable("idEstadio") int id ) {
 		
 		log.info("ini: borrarEstadio()");
@@ -120,6 +120,32 @@ public class EstadioRestController {
 		log.debug("nombre:" +  nombre );
 		return  estadioServiceImpl.obtenerEstadioPorNombre(nombre);
 	}
+	
+	//--------------------------------------------------------------------
+	
+	// GET CON PARAMETROS 
+	// http://localhost:8090/apiFutbol/estadioCodigo/
+	@GetMapping ("/estadioCodigo/{pcodigo}")
+	public  Object obtenerEstadioPorCodigo (@PathVariable("pcodigo")String codigo ) {
+						
+		log.info("ini: obtenerEstadioPorCodigo()");
+						
+		log.debug("codigo:" +  codigo );
+		return  estadioServiceImpl.obtenerEstadioPorCodigo(codigo);
+	}
+	
+	//-------------------------------------------------------------------------
+	
+	// http://localhost:8090/apiFutbol/estadioIdEstadio/
+	@GetMapping ("/estadioIdEstadio/{pIdEstadio}")
+	public  Object obtenerEstadioPorId (@PathVariable("pIdEstadio")int idEstadio) {
+						
+		log.info("ini: obtenerEstadioPorId()");
+						
+		log.debug("Id Estadio:" +  idEstadio );
+		return  estadioServiceImpl.obtenerEstadioPorIdEstadio(idEstadio);
+	}
+		
 	
 	// -----------------------------------------------------------------------------------
 	//http://localhost:8090/apiFutbol/estadiop/ES001

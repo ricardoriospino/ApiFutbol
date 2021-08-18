@@ -176,6 +176,29 @@ public class JugadorRestController {
 		return  jugadorServiceImpl.obtenerJugadorPorDorsalyNacionalidad(dorsal, nacionalidad);
 	}
 	
+	// ---------------------------------------------------------------------
+	// http://localhost:8090/apiFutbol/jugadorIdJugador/
+	@GetMapping ("/jugadorIdJugador/{pIdJugador}")
+	public  Object obtenerJugadorPorId (@PathVariable("pIdJugador")int idJugador ) {
+						
+		log.info("ini: obtenerJugadorPorId()");
+						
+		log.debug("IdJugador:" +  idJugador );
+		return  jugadorServiceImpl.obtenerJugadorPorIdJugador(idJugador);
+	}
+		
+	
+	//-------------------------------------------------------------------------------
+	// GET CON PARAMETROS 
+	// http://localhost:8090/apiFutbol/jugadorCodigo/
+	@GetMapping ("/jugadorCodigo/{pcodigo}")
+	public  Object obtenerJugadorPorCodigo (@PathVariable("pcodigo")String codigo  ) {
+							
+		log.info("ini: obtenerJugadorPorCodigo()");						
+		log.debug("codigo:" +  codigo );		
+		return  jugadorServiceImpl.obtenerJugadorPorCodigo(codigo);
+	}
+		
 	//-------------------------------------------------------------------------------
 	
 	//GET CON PARAMETROS FULL

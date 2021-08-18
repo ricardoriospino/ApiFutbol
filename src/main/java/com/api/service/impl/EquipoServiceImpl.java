@@ -69,6 +69,7 @@ public class EquipoServiceImpl implements EquipoService {
 				return false;
 			}
 			
+			
 			EquipoJPA ultimoEquipoCodigo = repositorio.findTopByOrderByIdEquipoDesc();
 			
 			String codigo = ultimoEquipoCodigo.getCodigoEquipo();
@@ -82,8 +83,9 @@ public class EquipoServiceImpl implements EquipoService {
 			
 			codigoNumero++;
 			
-			String codigoNuevo = ConstanteAPI.EQUIPO + "00" + codigoNumero;
-			
+
+			String codigoNuevo = generarCodigoEquipo(codigoNumero);
+				
 			equipo.setCodigoEquipo(codigoNuevo);
 			
 			repositorio.save(new EquipoJPA (equipo));
@@ -94,7 +96,34 @@ public class EquipoServiceImpl implements EquipoService {
 			log.error("Error al insertar " + e);
 			return false;
 		}
+		
 	}
+	
+	private String generarCodigoEquipo (int codigoNumero) {
+		
+		String longitudNumero = String.valueOf(codigoNumero);
+		
+		String codigoNuevo ="";
+		
+		if ( 1 > longitudNumero.length()) {			
+			 codigoNuevo = ConstanteAPI.EQUIPO + "00000" + codigoNumero;	
+		}else if(2 > longitudNumero.length()) {
+			 codigoNuevo = ConstanteAPI.EQUIPO + "0000" + codigoNumero;
+		}else if(3 > longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.EQUIPO + "000" + codigoNumero;
+		}else if(4 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.EQUIPO + "00" + codigoNumero;
+		}else if(5 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.EQUIPO + "0" +  codigoNumero;
+		}else {
+			codigoNuevo = ConstanteAPI.EQUIPO + codigoNumero;
+		}
+		
+		return codigoNuevo;
+	}
+	
+	
+	
 	
 	@Override
 	public boolean insertarEquipoEstadio(EquipoEstadioModel equipoEstadio) {
@@ -126,24 +155,39 @@ public class EquipoServiceImpl implements EquipoService {
 
 
 	@Override
-	public boolean actualizar(EquipoModel equipo) {
+	public int actualizar(EquipoModel equipo) {
+		
+		int estado = 0;
 		
 		try {
 			
-			EquipoJPA equipoJPA = repositorio.findByIdEquipo(equipo.getIdEquipo());
+			//EquipoJPA equipoExiste = repositorio.findByCodigoEquipo(equipo.getCodigoEquipo());
 			
-			if(equipoJPA == null) {
-				log.error("equipo no existe");
-				return false;
-			}
+			EquipoJPA nombreExiste = repositorio.findByNombreEquipo(equipo.getNombreEquipo());
+
 			
-			repositorio.save(new EquipoJPA (equipo));
-			return true;
+		if (  nombreExiste != null &&  equipo.getCodigoEquipo() != nombreExiste.getCodigoEquipo()) {
 			
+				equipo.getCodigoEquipo();
+				repositorio.save(new EquipoJPA (equipo));
+				estado =2;
+	
+				
+		} else  {
+	
+			log.error("Nombre ya existe no es posible actualizar");
+			estado = 1;
+	
+		}
+			return estado;	
+			
+			
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("Error al actualizar " + e);
-			return false;
+			estado = 3;
+			return estado;
 		}
 	}
 
@@ -199,6 +243,40 @@ public class EquipoServiceImpl implements EquipoService {
 			
 		}
 	
+	}
+	
+	@Override
+	public Object obtenerEquipoPorCodigo(String codigo) {
+		
+		EquipoJPA equipoJPA = repositorio.findByCodigoEquipo(codigo);
+		
+		if (equipoJPA == null) {
+			log.debug("No encontro datos equipo por parametros por codigo: "+ codigo );
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO4 , MensajeError.Mensaje_OOO4);
+		}else {
+			EquipoModel equipo = convertidor.convertirEquipoModel(equipoJPA);
+			
+			return equipo;
+		}
+		
+	}
+	
+	@Override
+	public Object obtenerEquipoPorId(int idEquipo) {
+		
+		EquipoJPA equipoJPA = repositorio.findByIdEquipo(idEquipo);
+		
+		if (equipoJPA == null) {
+			log.debug("No encontro datos equipo por parametros por Id equipo: "+ idEquipo );
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO4 , MensajeError.Mensaje_OOO4);
+		}else {
+			EquipoModel equipo = convertidor.convertirEquipoModel(equipoJPA);
+			
+			return equipo;
+		}
+
 	}
 
 	@Override
@@ -261,5 +339,8 @@ public class EquipoServiceImpl implements EquipoService {
 		
 		return lstEquipoFull;
 	}
+
+	
+
 
 }

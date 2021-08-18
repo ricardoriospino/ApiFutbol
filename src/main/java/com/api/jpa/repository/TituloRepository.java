@@ -14,6 +14,8 @@ import com.api.jpa.entity.TituloJPA;
 public interface TituloRepository extends JpaRepository<TituloJPA, Serializable> {
 	
 	public List<TituloJPA> findByEquipo (EquipoJPA equipo);
+	
+	public TituloJPA findByIdTitulo (int idTitulo);
 
 	
 	

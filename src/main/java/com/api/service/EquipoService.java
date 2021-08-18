@@ -14,7 +14,7 @@ public interface EquipoService {
 	
 	public boolean insertarEquipoEstadio (EquipoEstadioModel equipoEstadio);
 	
-	public boolean actualizar (EquipoModel equipo);
+	public int actualizar (EquipoModel equipo);
 	
 	public boolean borrar (int id);
 	
@@ -23,6 +23,10 @@ public interface EquipoService {
 	public List<EquipoFullDTO> obtenerListaTitulos ();
 	
 	public Object obtenerEquipoPorNombre(String nombre);
+	
+	public Object obtenerEquipoPorCodigo (String codigo);
+	
+	public Object obtenerEquipoPorId (int idEquipo);
 	
 	public Object obtenerEquipoFPorNombre (String nombre);
 	

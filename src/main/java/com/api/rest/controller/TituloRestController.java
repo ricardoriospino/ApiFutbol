@@ -98,5 +98,19 @@ public class TituloRestController {
 		return tituloServiceImpl.obtenerTitulos();
 	}
 	
+	// -------------------------------------------------------------------
+	
+	// GET CON PARAMETROS 
+	
+	// http://localhost:8090/apiFutbol/idTitulo/	
+	@GetMapping ("/idTitulo/{pid}")
+	public Object obtenerTituloPorId (@PathVariable("pid")int id  ) {
+		
+		log.info("ini: obtenerTituloPorId()");						
+		log.debug("id:" +  id );		
+		return  tituloServiceImpl.obtenerTituloPorId(id);
+	}
+		
+	
 }
 

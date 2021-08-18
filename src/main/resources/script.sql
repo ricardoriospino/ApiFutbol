@@ -189,23 +189,23 @@ SELECT * FROM tb_usuarios;
 
 -- DATA EQUIPOS
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ01","San Martin","2010-02-14","imagen1","Enrique",3,0,"Marathon");
+("EQ00001","San Martin","2010-02-14","imagen1","Enrique",3,0,"Marathon");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ02","Sporting Cristal","1955-12-12","imagen1","Gustavo",20,0,"Adidas");
+("EQ00002","Sporting Cristal","1955-12-12","imagen1","Gustavo",20,0,"Adidas");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ03","Universitario","1920-04-12","imagen1","Raffo",26,0,"Marathon");
+("EQ00003","Universitario","1920-04-12","imagen1","Raffo",26,0,"Marathon");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ04","Alianza Lima ","1905-04-23","imagen1","Manrique",23,0,"Banco Pichincha");
+("EQ00004","Alianza Lima ","1905-04-23","imagen1","Manrique",23,0,"Banco Pichincha");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ05","Cienciano","1999-12-23","imagen1","Orlando",1,1,"Gaytorade");
+("EQ00005","Cienciano","1999-12-23","imagen1","Orlando",1,1,"Gaytorade");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ06","Melgar","1900-12-23","imagen1","Fausto",2,0,"Aje");
+("EQ00006","Melgar","1900-12-23","imagen1","Fausto",2,0,"Aje");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ07","Universidad Cesar Vallejo","2006-12-23","imagen1","Acuña",0,0,"Universidad Cesar Vallejo");
+("EQ00007","Universidad Cesar Vallejo","2006-12-23","imagen1","Acuña",0,0,"Universidad Cesar Vallejo");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ08","Sport Boys","1920-12-23","imagen1","Kevin",6,0,"Loma");
+("EQ00008","Sport Boys","1920-12-23","imagen1","Kevin",6,0,"Loma");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
-("EQ09","Alianza Atletico","1940-12-23","imagen1","Carlos",1,0,"Inka Kola");
+("EQ00009","Alianza Atletico","1940-12-23","imagen1","Carlos",1,0,"Inka Kola");
 INSERT INTO tb_equipo (codigo_equipo,nombre_equipo,anio_fundacion,imagen_escudo,duenio_actual,cantidad_titulo_nacional,cantidad_titulo_internacional,patrocinador_principal) VALUE
 ("EQ10","Cantolao","2000-12-23","imagen1","Carlos",0,0,"Cable vision");
 
@@ -216,19 +216,19 @@ INSERT INTO tb_titulos (anio_titulo,nombre_titulo,tipo_titulo,id_equipo) VALUE (
 
 -- DATA ENTRENADORES
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
-("EN001","Roberto Mosquera","1950-02-","Peru","2003-05-09",6);
+("EN00001","Roberto Mosquera","1950-02-09","Peru","2003-05-09",6);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
-("EN002","Teddy Cardama","1970-03-09","Peru","2005-05-09",2);
+("EN00002","Teddy Cardama","1970-03-09","Peru","2005-05-09",2);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
-("EN003","Soso","1980-06-09","Argentina","2010-08-09",1);
+("EN00003","Soso","1980-06-09","Argentina","2010-08-09",1);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
-("EN004","Ricardo Gareca","1972-06-09","Argentina","2007-08-09",4);
+("EN00004","Ricardo Gareca","1972-06-09","Argentina","2007-08-09",4);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
-("EN005","Mario Salas","1970-06-09","Chile","2003-08-09",3);
+("EN00005","Mario Salas","1970-06-09","Chile","2003-08-09",3);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
-("EN006","Grioni","1950-06-11","Uruguay","2000-08-09",4);
+("EN00006","Grioni","1950-06-11","Uruguay","2000-08-09",4);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
-("EN007","Jorge Soto","1982-10-11","Peru","2020-08-09",0);
+("EN00007","Jorge Soto","1982-10-11","Peru","2020-08-09",0);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
 ("EN008","Paulo Autori","1957-05-10","Brasil","1990-02-24",6);
 INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,nacionalidad,anios_inicio_laboral,titulos_ganados) VALUE 
@@ -241,28 +241,29 @@ INSERT INTO tb_entrenador (codigo_entrenador,nombre_entrenador,fecha_nacimiento,
 INSERT INTO tb_equipo_entrenador (id_equipo,id_entrenador,anio,partidos_jugados)VALUE (2,1,2020,38);
 INSERT INTO tb_equipo_entrenador (id_equipo,id_entrenador,anio,partidos_jugados)VALUE (1,2,2020,38);
 INSERT INTO tb_equipo_entrenador (id_equipo,id_entrenador,anio,partidos_jugados)VALUE (3,3,2020,38);
+INSERT INTO tb_equipo_entrenador (id_equipo,id_entrenador,anio,partidos_jugados)VALUE (3,1,2021,38);
 
 -- DATA JUGADORES
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0001","Cazulo","1985-04-10",1999,"Uruguay",10,"Central",30,50);
+("JU00001","Cazulo","1985-04-10",1999,"Uruguay",10,"Central",30,50);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0002","Gonzales","1992-12-04",2009,"Peru",20,"Lateral",20,30);
+("JU00002","Gonzales","1992-12-04",2009,"Peru",20,"Lateral",20,30);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0003","Carrillo","1989-07-10",2003,"Peru",18,"Lateral",44,34);
+("JU00003","Carrillo","1989-07-10",2003,"Peru",18,"Lateral",44,34);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0004","Hober","1990-03-14",2009,"Argentina",7,"Delantero",47,21);
+("JU00004","Hober","1990-03-14",2009,"Argentina",7,"Delantero",47,21);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0005","Calcaterra","1985-04-10",1999,"Argentina",22,"Central",11,80);
+("JU00005","Calcaterra","1985-04-10",1999,"Argentina",22,"Central",11,80);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0006","Soto","1985-04-10",1999,"Peru",13,"Delantero",36,20);
+("JU00006","Soto","1985-04-10",1999,"Peru",13,"Delantero",36,20);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0007","Paolo","1985-04-10",1999,"Uruguay",10,"Delantero",100,40);
+("JU00007","Paolo","1985-04-10",1999,"Uruguay",10,"Delantero",100,40);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0008","Farfan","1985-04-10",1999,"Uruguay",10,"Delantero",70,23);
+("JU00008","Farfan","1985-04-10",1999,"Uruguay",10,"Delantero",70,23);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0009","Ascues","1985-04-10",1999,"Uruguay",10,"Defensa",5,38);
+("JU00009","Ascues","1985-04-10",1999,"Uruguay",10,"Defensa",5,38);
 INSERT INTO tb_jugador (codigo_jugador,nombre_jugador,fecha_nacimiento,anio_de_debut,nacionalidad,dorsal,posicion,numero_goles,numero_faltas)VALUE 
-("JU0010","Yotun","1985-04-10",1999,"Uruguay",10,"Lateral",22,40);
+("JU00010","Yotun","1985-04-10",1999,"Uruguay",10,"Lateral",22,40);
 
 -- DATA EQUIPOS JUGADORES 
 INSERT INTO tb_equipo_jugador (id_equipo,id_jugador,anio)VALUE (1,1,2020);
@@ -270,13 +271,13 @@ INSERT INTO tb_equipo_jugador (id_equipo,id_jugador,anio)VALUE (2,2,2020);
 INSERT INTO tb_equipo_jugador (id_equipo,id_jugador,anio)VALUE (3,3,2020);
 
 -- DATA ESTADIO 
-INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES001","Bombonera",25000,"Trujillo");
-INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES002","Estadio Nacional",44000,"Lima");
-INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES003","Alberto Gallardo",11000,"Lima");
-INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES004","Monumental",65000,"Lima");
-INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES005","Manciche",25000,"Trujillo");
-INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES006","Miguel Grau",25000,"Callao");
-INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES007","San Marcos",35000,"Lima");
+INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES00001","Bombonera",25000,"Trujillo");
+INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES00002","Estadio Nacional",44000,"Lima");
+INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES00003","Alberto Gallardo",11000,"Lima");
+INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES00004","Monumental",65000,"Lima");
+INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES00005","Manciche",25000,"Trujillo");
+INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES00006","Miguel Grau",25000,"Callao");
+INSERT INTO tb_estadio (codigo_estadio,nombre_estadio,capacidad,ubicacion)VALUES ("ES00007","San Marcos",35000,"Lima");
 
 
 -- DATA ESTADIOS EQUIPOS
@@ -295,7 +296,6 @@ INSERT INTO tb_partido (codigo_partido,fecha_hora,numero_goles,numero_faltas,gol
 ("PA00004","2021-04-09 20:00:00",6,10,3,3,5,5,"Alianza Atletico","Universidad Cesar Vallejo","Olivares",9,7);
 INSERT INTO tb_partido (codigo_partido,fecha_hora,numero_goles,numero_faltas,goles_equipo1,goles_equipo2,faltas_equipo1,faltas_equipo2,ganador,perdedor,arbitro,id_equipo1,id_equipo2)VALUES
 ("PA00005","2020-08-09 20:00:00",6,10,4,2,5,5,"Melgar","Alianza Lima","Manrique",6,4);
-
 -- DATA GOLES
 INSERT INTO tb_goles (minuto_gol,descripcion_gol,id_partido,id_jugador) VALUES (30,"Gol de cabeza de un tiro de esquina",1,1);
 INSERT INTO tb_goles (minuto_gol,descripcion_gol,id_partido,id_jugador) VALUES (45,"Tiro Penal ",1,1);
@@ -306,6 +306,7 @@ INSERT INTO tb_faltas(tipo_falta,minuto_falta,id_partido,id_jugador)VALUES("Amar
 INSERT INTO tb_faltas(tipo_falta,minuto_falta,id_partido,id_jugador)VALUES("Amarilla", 49,1,3);
 INSERT INTO tb_faltas(tipo_falta,minuto_falta,id_partido,id_jugador)VALUES("Amarilla", 69,1,4);
 
+
 -- DATA JWTS SECURITY
 insert into tb_security(activo,clave,rol,usuario) values(true,'123',3,'prios');
 insert into tb_security(activo,clave,rol,usuario) values(false,'123',2,'rrios');
@@ -314,11 +315,11 @@ insert into tb_security(activo,clave,rol,usuario) values(true,'123',0,'xrios');
 
 -- DATA USUARIOS
 INSERT INTO tb_usuarios(nombre,apellido_paterno,apellido_materno,codigo_usuario,usuario,clave,is_enable) VALUE 
-("Ricardo","Rios","Pino","USER001","ricardo123","123",true);
+("Ricardo","Rios","Pino","USER00001","ricardo123","123",true);
 INSERT INTO tb_usuarios(nombre,apellido_paterno,apellido_materno,codigo_usuario,usuario,clave,is_enable) VALUE 
-("David","Cabrera","Hinojosa","USER002","david123","123",true);
+("David","Cabrera","Hinojosa","USER00002","david123","123",true);
 INSERT INTO tb_usuarios(nombre,apellido_paterno,apellido_materno,codigo_usuario,usuario,clave,is_enable) VALUE 
-("Kevin","Rios","Azcurra","USER003","kevin123","123",false);
+("Kevin","Rios","Azcurra","USER00003","kevin123","123",false);
 
 
 -- SELECT TB_PARTIDOS POR MES Y AÑO

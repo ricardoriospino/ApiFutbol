@@ -38,5 +38,8 @@ public class MensajeError {
 	public static final String COD_OOO12 = "ERROR00012";
 	public static final String Mensaje_OOO12 = "No existe Usuario";
 	
+	public static final String COD_OOO13 = "ERROR00013";
+	public static final String Mensaje_OOO13 = "No existe Titulo";
+	
 
 }

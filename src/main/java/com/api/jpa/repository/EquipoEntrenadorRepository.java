@@ -16,6 +16,7 @@ public interface EquipoEntrenadorRepository  extends JpaRepository<EquipoEntrena
 
 	public EquipoEntrenadorJPA findByAnioAndEquipoAndEntrenador (int anio , EquipoJPA equipo , EntrenadorJPA entrenador);
 	
+	
 	public List<EquipoEntrenadorJPA> findByPartidosJugados (int partidoJugados);
 	
 	public List<EquipoEntrenadorJPA> findByEntrenador (EntrenadorJPA entrenador);

@@ -64,8 +64,8 @@ public class EstadioServiceImpl implements EstadioService {
 			
 			codigoNumero++;
 			
-			String codigoNuevo =ConstanteAPI.ESTADIO +"00"+codigoNumero  ;
-			
+			String codigoNuevo = generarCodigoEstadio(codigoNumero);
+
 			estadio.setCodigoEstadio(codigoNuevo);
 			
 			repositorio.save(new EstadioJPA (estadio));
@@ -76,6 +76,31 @@ public class EstadioServiceImpl implements EstadioService {
 			log.error("Error al insertar " + e);
 			return false;
 		}
+	}
+	
+	private String generarCodigoEstadio(int codigoNumero) {
+		
+
+		String longitudNumero = String.valueOf(codigoNumero);
+		
+		String codigoNuevo ="";
+		
+		if ( 1 > longitudNumero.length()) {			
+			 codigoNuevo = ConstanteAPI.ESTADIO + "00000" + codigoNumero;	
+		}else if(2 > longitudNumero.length()) {
+			 codigoNuevo = ConstanteAPI.ESTADIO + "0000" + codigoNumero;
+		}else if(3 > longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.ESTADIO + "000" + codigoNumero;
+		}else if(4 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.ESTADIO + "00" + codigoNumero;
+		}else if(5 >  longitudNumero.length()) {
+			codigoNuevo = ConstanteAPI.ESTADIO + "0" +  codigoNumero;
+		}else {
+			codigoNuevo = ConstanteAPI.ESTADIO + codigoNumero;
+		}
+	
+		return codigoNuevo;
+		
 	}
 
 	@Override
@@ -172,6 +197,24 @@ public class EstadioServiceImpl implements EstadioService {
 			return estadio;
 			
 		}
+	}
+	
+	@Override
+	public Object obtenerEstadioPorIdEstadio(int idEstadio) {
+		
+		EstadioJPA estadioJPA = repositorio.findByIdEstadio(idEstadio);
+		
+		if (estadioJPA == null) {
+			
+			log.debug("No encontro datos estadio por parametro  idEstadio: "+ idEstadio );
+			
+			return new ResponseErrorModel(MensajeError.COD_OOO6 , MensajeError.COD_OOO6);
+			
+		}else {
+			EstadioModel estadio = convertidor.convertirEstadioModel(estadioJPA);
+			return estadio;
+		}
+	
 	}
 
 	@Override

@@ -30,6 +30,8 @@ public interface JugadorService {
 	
 	public Object obtenerJugadorPorDorsalyNacionalidad(int dorsal , String nacionalidad);
 	
+	public Object obtenerJugadorPorIdJugador (int idJugador);
+	
 	public Object obtenerJugadorPorCodigo (String codigo);
 	
 	public Object obtenerJugadorFporCodigo (String codigo);
